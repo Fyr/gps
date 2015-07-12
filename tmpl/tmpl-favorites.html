@@ -1,0 +1,10 @@
+<script type="text/x-tmpl" id="tmpl-favorites">
+{%
+	for(var i = 0; i < o.length; i++) {
+		var row = o[i];
+%}
+<a href="{%=row.url%}">{%=row.name%}</a><br />
+{%
+	}
+%}
+</script>

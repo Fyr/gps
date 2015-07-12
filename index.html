@@ -1,0 +1,186 @@
+<!--
+	ID элементов не должны совпадать с ID templates!!!
+-->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1.0, initial-scale=1.0, minimum-scale=1.0">
+		<title>Velcom</title>
+		<link href="./css/style.css" rel="stylesheet">
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script type="text/javascript" src="./js/jquery.nicescroll.min.js"></script>
+		<script type="text/javascript" src="./js/tmpl.min.js"></script>
+		<script type="text/javascript">document.addEventListener("touchstart", function() {},false);</script>
+		
+		<script type="text/javascript" src="./js/gps/loadtmpls.js"></script>
+		<script type="text/javascript" src="./js/gps/api.js"></script>
+		<script type="text/javascript" src="./js/gps/json_handler.js"></script>
+		<script type="text/javascript" src="./js/gps/withoutscroll.js"></script>
+		
+		<script type="text/javascript">
+$(function(){
+	aModules = ['header', 'footer', 'get-docs', 'tmpl-favorites'];
+	loadTmpls(aModules, function(){
+		sendApiRequest('getContacts', null, function(response) {
+			$('.contacts .info').html(response.data);
+		});
+		sendApiRequest('getNews', null, function(response) {
+			$('.newsBlock .description').html(response.data);
+		});
+		sendApiRequest('getFiles', {type: 'instructions'}, function(response) {
+			$('.instructionsBlock .description').html(tmpl('get-docs', response.data));
+		});
+		sendApiRequest('getBilling', null, function(response) {
+			$('.billingBlock .description').html(response.data);
+		});
+		sendApiRequest('getFiles', {type: 'docs'}, function(response) {
+			if (response.data) {
+				$('.docsBlock .description').html(tmpl('get-docs', response.data));
+			}
+		});
+		/*
+		setTimeout(function(){
+			reviewScroll();
+			$(".scroller").niceScroll({autohidemode:false, cursorcolor: "#ecdc00", background: "#dddddd", cursorborderradius: "0", cursorwidth: "7px"});
+		}, 50);
+		$(window).resize(function() {
+			reviewScroll();
+		});
+		*/
+		// 
+		sendApiRequest('favorites', null, function(response) {
+			if (response.data) {
+				$('#favorites .description').html(tmpl('tmpl-favorites', response.data));
+			}
+		});
+		
+		$('.yellowBlocks .item').click ( function() {
+			var id = $(this).attr('rel');
+			$('#shadow').fadeIn(400);
+			$('#'+id).fadeIn(400);
+		});
+		
+		$('.popup .close').click(function() {
+			$('#shadow').fadeOut(400);
+			$(this).closest('.popup').fadeOut(400);
+		});
+	});
+});
+		</script>
+	</head>
+	<body>
+		<div id="tpl"></div>
+		<div class="mainContainer">
+			<div class="header clearfix tmpl-header"></div>
+			<div class="clearfix">
+				<div class="leftSide">
+					<div class="block newsBlock">
+						<div class="title">
+							<span class="icon icon-news"></span>
+							<span class="name">Новости</span>
+						</div>
+						<div class="description scroller">
+							Загрузка...
+						</div>
+					</div>
+					<div class="block instructionsBlock">
+						<div class="title">
+							<span class="icon icon-instructions"></span>
+							<span class="name">Инструкции</span>
+						</div>
+						<div class="description scroller">
+							Загрузка...
+						</div>
+					</div>
+				</div>
+				<div class="rightSide">
+					<div class="clearfix yellowBlocks">
+						<a href="javascript: void(0)" class="item" rel="favorites">
+							<span class="picture"><span class="icon icon-stars"></span></span>
+							<span class="description">Избранные функции</span>
+						</a>
+						<a href="javascript: void(0)" class="item" rel="techsupport">
+							<span class="picture"><span class="icon icon-techsupport"></span></span>
+							<span class="description">Обращение<br />в техподдержку</span>
+						</a>
+						<a href="javascript: void(0)" class="item" rel="feedback">
+							<span class="picture"><span class="icon icon-feedback"></span></span>
+							<span class="description">Отправить отзыв</span>
+						</a>
+					</div>
+					<div class="block billingBlock">
+						<div class="title">
+							<span class="icon icon-billing"></span>
+							<span class="name">Биллинг</span>
+						</div>
+						<div class="description">
+							Загрузка...
+						</div>
+					</div>
+					<div class="block docsBlock">
+						<div class="title">
+							<span class="icon icon-documents"></span>
+							<span class="name">Документы</span>
+						</div>
+						<div class="description scroller">
+							Загрузка...
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="contacts tmpl-footer"></div>
+		</div>
+		<div class="popup" id="favorites">
+			<span class="close">&times;</span>
+			<div class="title">Избранное</div>
+			<div class="description">
+				Загрузка...
+			</div>
+		</div>
+		<div class="popup" id="techsupport">
+			<span class="close">&times;</span>
+			<div class="title">Обращение в техническую поддержку</div>
+			<form>
+				<div class="line">
+					<label>Ваш email:</label>
+					<input type="text" />
+				</div>
+				<div class="line">
+					<label>Тема:</label>
+					<input type="text" />
+				</div>
+				<div class="line">
+					<label>Текст сообщения:</label>
+					<textarea></textarea>
+				</div>
+				<label>&nbsp;</label>
+				<button class="btn">Отправить</button>
+			</form>
+		</div>
+		<div class="popup" id="feedback">
+			<span class="close">&times;</span>
+			<div class="title">Отправить отзыв</div>
+			<form>
+				<div class="line">
+					<label>Ваш email:</label>
+					<input type="text" />
+				</div>
+				<div class="line">
+					<label>Тема:</label>
+					<input type="text" />
+				</div>
+				<div class="line">
+					<label>Текст сообщения:</label>
+					<textarea></textarea>
+				</div>
+				<label>&nbsp;</label>
+				<button class="btn">Отправить</button>
+			</form>
+		</div>
+		
+		<div id="shadow"></div>
+	</body>
+</html>

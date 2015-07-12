@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1.0, initial-scale=1.0, minimum-scale=1.0">
+		<title>Velcom</title>
+		<link href="../css/style.css" rel="stylesheet">
+		<link href="../css/rome.css" rel="stylesheet">
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="../js/jquery.nicescroll.min.js" type="text/javascript"></script>
+		<script src="../js/jquery.formstyler.min.js"></script>
+		<script src="../js/rome.js"></script>
+		
+		<script type="text/javascript">document.addEventListener("touchstart", function() {},false);</script>
+	</head>
+	<body>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('select,input[type=checkbox]').styler();
+		$(".scroller").niceScroll({autohidemode:false, cursorcolor: "#ecdc00", background: "#dddddd", cursorborderradius: "0", cursorwidth: "7px"});
+	})
+</script>
+		
+		<div class="mainContainer">
+			<div class="header clearfix">
+				<a href="#" class="logo"><img src="../img/logo.gif" alt="Velcome" /></a>
+				<ul class="menu clearfix">
+					<li><a href="#">Обзор</a></li>
+					<li class="active">
+						<a href="#">Карта</a>
+						<ul class="subMenu map">
+							<li class="active"><a href="#">Текущее положение</a></li>
+							<li><a href="#">Маршруты</a></li>
+							<li><a href="#">Объекты и геозоны</a></li>
+							<li><a href="#">Поиск</a></li>
+						</ul>
+					</li>
+					<li><a href="#">Планирование</a></li>
+					<li><a href="#">Отчеты</a></li>
+					<li><a href="#">Рассылки&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />и уведомления</a></li>
+					<li><a href="#">Администрирование</a></li>
+				</ul>
+			</div>
+			<div class="maket clearfix">
+				<div class="leftSide">
+					<div class="block">
+						<div class="search">
+							<form class="outerSearch">
+								<input type="text" placeholder="Поиск" value="" />
+								<input type="submit" class="icon icon-search" value="" />
+							</form>
+						</div>
+						<div class="panel">
+							<a href="javascript: void(0)" class="icon icon-align-left"></a>
+							<span class="separator"></span>
+							<a href="javascript: void(0)" class="icon icon-align-center"></a>
+							<span class="separator"></span>
+							<a href="javascript: void(0)" class="icon icon-align-alphabet"></a>
+							<span class="separator"></span>
+							<input type="checkbox" checked />
+							<input type="checkbox" />
+							<a href="javascript: void(0)" class="btn withIcon">
+								<span class="icon icon-plus"></span>
+								<span>Добавить</span>
+							</a>
+						</div>
+						<div class="info scroller" style="height: 174px;">
+							<div class="item clearfix">
+								<label><input type="checkbox" /> Объект 1</label>
+								<span class="icon icon-statusArrow" style="background-color: #ffc40f">3</span>
+							</div>
+							<div class="item clearfix">
+								<label><input type="checkbox" /> Объект 1</label>
+								<span class="icon icon-statusArrow" style="background-color: #77c945">1</span>
+							</div>
+							<div class="item clearfix">
+								<label><input type="checkbox" /> Объект 1</label>
+								<span class="icon icon-statusArrow" style="background-color: #ffc40f">3</span>
+							</div>
+							<div class="item clearfix">
+								<label><input type="checkbox" /> Объект 1</label>
+								<span class="icon icon-statusArrow" style="background-color: #77c945">1</span>
+							</div>
+							<div class="item clearfix">
+								<label><input type="checkbox" /> Объект 1</label>
+								<span class="icon icon-statusArrow" style="background-color: #f00f0f">24</span>
+								<span class="icon icon-attention"></span>
+							</div>
+							<div class="item clearfix">
+								<label><input type="checkbox" /> Объект 1</label>
+								<span class="icon icon-statusArrow" style="background-color: #77c945">1</span>
+							</div>
+							
+							<div class="item clearfix">
+								<label><input type="checkbox" /> Объект 1</label>
+								<span class="icon icon-statusArrow" style="background-color: #77c945">1</span>
+							</div>
+							<div class="item clearfix">
+								<label><input type="checkbox" /> Объект 1</label>
+								<span class="icon icon-statusArrow" style="background-color: #77c945">1</span>
+							</div>
+						</div>
+					</div>
+					<div class="block">
+						<div class="info1">
+<script type="text/javascript">
+	$(document).ready(function () {
+		rome(period1);
+		rome(period2);
+	})
+</script>
+							<div class="line">
+								<span class="name">Период:</span>
+								<input id="period1" type="text" class="period1" readonly />
+								<span class="tire">-</span>
+								<input id="period2" type="text" readonly />
+							</div>
+							<div class="line">
+								<span class="name">Cуточный интервал:</span>
+								<select class="timeInterval">
+									<option>09:00 - 18:00</option>
+									<option>18:00 - 21:00</option>
+									<option>21:00 - 23:00</option>
+									<option>23:00 - 00:00</option>
+									<option>00:00 - 09:00</option>
+								</select>
+							</div>
+							<button class="btn">Показать маршрут</button>
+							<span class="name">График изменений датчика:</span>
+							<select class="sensor">
+								<option>Список датчиков</option>
+								<option>Список датчиков</option>
+								<option>Список датчиков</option>
+								<option>Список датчиковСписок датчиков</option>
+								<option>Список датчиков</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="rightSide">
+					<img src="../img/temp/map1.jpg" class="mapContainer" alt="" style="width: 100%; display: block;" />
+				</div>
+			</div>
+		</div>
+<script type="text/javascript">
+	$(document).ready(function () {
+		mapHeight = ($(window).height() - 80 - 10);
+		$('.mapContainer').height( mapHeight );
+		
+		
+		$(window).resize(function() {
+			mapHeight = ($(window).height() - 80 - 10);
+			$('.mapContainer').height( mapHeight );
+		});
+	})
+</script>
+	</body>
+</html>
