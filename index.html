@@ -20,12 +20,12 @@
 		<script type="text/javascript" src="./js/gps/api.js"></script>
 		<script type="text/javascript" src="./js/gps/json_handler.js"></script>
 		<script type="text/javascript" src="./js/gps/withoutscroll.js"></script>
-		<script type="text/javascript" src="./js/gps/send_message.js"></script>
+		<script type="text/javascript" src="./js/gps/send-message-popup.js"></script>
 		<script type="text/javascript" src="./js/gps/popup.js"></script>
 		
 		<script type="text/javascript">
 $(function(){
-	aModules = ['header', 'footer', 'get-docs', 'tmpl-favorites'];
+	aModules = ['header', 'footer', 'get-docs', 'tmpl-favorites', 'popup', 'popup-send-message'];
 	loadTmpls(aModules, function(){
 		sendApiRequest('getContacts', null, function(response) {
 			$('.contacts .info').html(response.data);
@@ -60,17 +60,23 @@ $(function(){
 			}
 		});
 		
-		var dialog = new Popup();
-		$('.yellowBlocks .item').click ( function() {
-			var id = $(this).attr('rel');
-			dialog.open(id);
-		});
+		// var dialog = new Popup();
+		// dialog.init('Обращение в техническую поддержку', 'tmpl-popup-techsupport');
 		
+		$('#techsupport').click(function() {
+			var dialog = new SendMessagePopup({
+				title: 'Обращение в техническую поддержку', 
+				tpl: 'tmpl-popup-send-message'
+			});
+			dialog.open();
+		});
+		/*
 		$('.popup .close-popup').click(function() {
 			var id = $(this).closest('.popup').prop('id');
-			dialog.close(id);
+			dialogs[id].close(id);
 		});
-		
+		*/
+		/*
 		$('#techsupport .btn').click(function(e) {
 			e.stopPropagation();
 			var data = $('#techsupport form').serialize();
@@ -82,6 +88,7 @@ $(function(){
 				}
 			});
 		});
+		*/
 	});
 });
 </script>
@@ -113,11 +120,11 @@ $(function(){
 				</div>
 				<div class="rightSide">
 					<div class="clearfix yellowBlocks">
-						<a href="javascript: void(0)" class="item" rel="favorites">
+						<a href="javascript: void(0)" class="item" id="favorites">
 							<span class="picture"><span class="icon icon-stars"></span></span>
 							<span class="description">Избранные функции</span>
 						</a>
-						<a href="javascript: void(0)" class="item" rel="techsupport">
+						<a href="javascript: void(0)" class="item" id="techsupport">
 							<span class="picture"><span class="icon icon-techsupport"></span></span>
 							<span class="description">Обращение<br />в техподдержку</span>
 						</a>
@@ -148,7 +155,7 @@ $(function(){
 			</div>
 			<div class="contacts tmpl-footer"></div>
 		</div>
-		<div class="popup" id="favorites">
+		<!--div class="popup" id="favorites">
 			<span class="close">&times;</span>
 			<div class="title">Избранное</div>
 			<div class="description">
@@ -210,7 +217,7 @@ $(function(){
 			<div class="popup-actions">
 				<button type="button" class="btn close-popup">ОК</button>
 			</div>
-		</div>
+		</div-->
 
 		
 		<div id="shadow"></div>

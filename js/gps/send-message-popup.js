@@ -1,9 +1,14 @@
-var SendMessage = function() {
+var SendMessagePopup = function(params) {
 	var self = this;
 	
-	this.init = function(container, msgType) {
-		self.container = container;
-		self.msgType = msgType
+	self.params = params;
+	
+	this.init = function() {
+		self.popup = new Popup(self.params);
+	}
+	
+	this.open = function() {
+		self.popup.open();
 	}
 	
 	this.validate = function() {
@@ -13,4 +18,6 @@ var SendMessage = function() {
 			$email.addClass('error');
 		}
 	}
+	
+	self.init();
 }

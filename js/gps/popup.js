@@ -1,13 +1,28 @@
-var Popup = function() {
+var Popup = function(params) {
 	var self = this;
 	
-	this.open = function(id) {
-		$('#shadow').fadeIn(400);
-		$('#' + id).fadeIn(400);
+	self.params = $.extend({}, params);
+	
+	this.init = function() {
+		console.log(self.params.tpl);
+		$('body').append(tmpl('tmpl-popup', {
+			title: self.params.title, 
+			content: tmpl(self.params.tpl, {})
+		}));
+		$('.popup .close-popup').click(function() {
+			self.close();
+		});
 	}
 	
-	this.close = function(id) {
-		$('#shadow').fadeOut(400);
-		$('#' + id).fadeOut(400);
+	this.open = function() {
+		$('#shadow').fadeIn(400);
+		$('.popup').fadeIn(400);
 	}
+	
+	this.close = function() {
+		$('#shadow').fadeOut(400);
+		$('.popup').fadeOut(400);
+	}
+	
+	self.init();
 }
