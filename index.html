@@ -9,6 +9,7 @@
 		<meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1.0, initial-scale=1.0, minimum-scale=1.0">
 		<title>Velcom</title>
 		<link href="./css/style.css" rel="stylesheet">
+		<link href="./css/extra.css" rel="stylesheet">
 		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script type="text/javascript" src="./js/jquery.nicescroll.min.js"></script>
@@ -19,6 +20,8 @@
 		<script type="text/javascript" src="./js/gps/api.js"></script>
 		<script type="text/javascript" src="./js/gps/json_handler.js"></script>
 		<script type="text/javascript" src="./js/gps/withoutscroll.js"></script>
+		<script type="text/javascript" src="./js/gps/send_message.js"></script>
+		<script type="text/javascript" src="./js/gps/popup.js"></script>
 		
 		<script type="text/javascript">
 $(function(){
@@ -57,19 +60,31 @@ $(function(){
 			}
 		});
 		
+		var dialog = new Popup();
 		$('.yellowBlocks .item').click ( function() {
 			var id = $(this).attr('rel');
-			$('#shadow').fadeIn(400);
-			$('#'+id).fadeIn(400);
+			dialog.open(id);
 		});
 		
-		$('.popup .close').click(function() {
-			$('#shadow').fadeOut(400);
-			$(this).closest('.popup').fadeOut(400);
+		$('.popup .close-popup').click(function() {
+			var id = $(this).closest('.popup').prop('id');
+			dialog.close(id);
+		});
+		
+		$('#techsupport .btn').click(function(e) {
+			e.stopPropagation();
+			var data = $('#techsupport form').serialize();
+			sendApiRequest('post.setRecourse', data, function(response) {
+				dialog.close('techsupport');
+				if (checkJson(response)) {
+					$('#message-sent .title').html($('#techsupport .title').html());
+					dialog.open('message-sent');
+				}
+			});
 		});
 	});
 });
-		</script>
+</script>
 	</head>
 	<body>
 		<div id="tpl"></div>
@@ -141,45 +156,62 @@ $(function(){
 			</div>
 		</div>
 		<div class="popup" id="techsupport">
-			<span class="close">&times;</span>
+			<span class="close close-popup">&times;</span>
 			<div class="title">Обращение в техническую поддержку</div>
 			<form>
 				<div class="line">
 					<label>Ваш email:</label>
-					<input type="text" />
+					<input type="text" name="email" />
 				</div>
 				<div class="line">
 					<label>Тема:</label>
-					<input type="text" />
+					<input type="text" name="subject" />
 				</div>
 				<div class="line">
 					<label>Текст сообщения:</label>
-					<textarea></textarea>
+					<textarea name="message"></textarea>
 				</div>
 				<label>&nbsp;</label>
-				<button class="btn">Отправить</button>
+				<input type="hidden" name="status" value="Обращение в техническую поддержку" />
+				<div class="popup-actions">
+					<button type="button" class="btn">Отправить</button>
+				</div>
+				
 			</form>
 		</div>
 		<div class="popup" id="feedback">
-			<span class="close">&times;</span>
+			<span class="close close-popup">&times;</span>
 			<div class="title">Отправить отзыв</div>
 			<form>
 				<div class="line">
 					<label>Ваш email:</label>
-					<input type="text" />
+					<input type="text" name="email" />
 				</div>
 				<div class="line">
 					<label>Тема:</label>
-					<input type="text" />
+					<input type="text" name="subject" />
 				</div>
 				<div class="line">
 					<label>Текст сообщения:</label>
-					<textarea></textarea>
+					<textarea name="message"></textarea>
 				</div>
 				<label>&nbsp;</label>
+				<input type="hidden" name="status" value="Отзыв" />
 				<button class="btn">Отправить</button>
 			</form>
 		</div>
+		<div class="popup" id="message-sent">
+			<span class="close close-popup">&times;</span>
+			<div class="title"></div>
+			<div class="description">
+				Спасибо!<br/>
+				Ваше сообщение отправлено
+			</div>
+			<div class="popup-actions">
+				<button type="button" class="btn close-popup">ОК</button>
+			</div>
+		</div>
+
 		
 		<div id="shadow"></div>
 	</body>

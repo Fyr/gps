@@ -1,26 +1,36 @@
-function sendApiRequest(method, aParams, successFn) {
+function sendApiRequest(method, data, successFn) {
 	// var baseUrl = 'http://1c.softmax.by/sstm/hs/monitoringObjects/';
-	var baseUrl = './server/', dataType;
-	/*
-	if (method.indexOf('.json') > -1) {
-		dataType = 'json';
-		method = method.split('.')[0];
-	} else {
-		dataType = 'html';
+	var baseUrl = './server/', methodType = 'GET';
+	if (method.indexOf('post.') > -1) {
+		methodType = 'POST';
+		method = method.split('.')[1];
 	}
-	*/
-	var dataType = 'json';
-	$.get(baseUrl + method, aParams, function(response){ 
-		if (dataType == 'json') {
+	$.ajax({
+		url: baseUrl + method,
+		data: data,
+		dataType: 'json',
+		method: methodType,
+		success: function(response) {
 			if (typeof(response) == 'string') {
 				response = JSON.parse(response);
 			}
 			if (!checkJson(response)) {
 				return false;
 			}
-		} 
+			successFn(response); 
+		}
+	});
+	/*
+	$.get(baseUrl + method, aParams, function(response){ 
+		if (typeof(response) == 'string') {
+			response = JSON.parse(response);
+		}
+		if (!checkJson(response)) {
+			return false;
+		}
 		successFn(response); 
 	});
+	*/
 }
 
 function getStatusColor(i) {
