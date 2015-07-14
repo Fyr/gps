@@ -11,21 +11,21 @@
 		<link href="./css/style.css" rel="stylesheet">
 		<link href="./css/extra.css" rel="stylesheet">
 		
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script type="text/javascript" src="./js/jquery-1.10.2.min.js"></script>
 		<script type="text/javascript" src="./js/jquery.nicescroll.min.js"></script>
 		<script type="text/javascript" src="./js/tmpl.min.js"></script>
 		<script type="text/javascript">document.addEventListener("touchstart", function() {},false);</script>
 		
 		<script type="text/javascript" src="./js/gps/loadtmpls.js"></script>
-		<script type="text/javascript" src="./js/gps/api.js"></script>
 		<script type="text/javascript" src="./js/gps/json_handler.js"></script>
+		<script type="text/javascript" src="./js/gps/api.js"></script>
 		<script type="text/javascript" src="./js/gps/withoutscroll.js"></script>
 		<script type="text/javascript" src="./js/gps/send-message-popup.js"></script>
 		<script type="text/javascript" src="./js/gps/popup.js"></script>
 		
 		<script type="text/javascript">
 $(function(){
-	aModules = ['header', 'footer', 'get-docs', 'tmpl-favorites', 'popup', 'popup-send-message'];
+	aModules = ['header', 'footer', 'get-docs', 'tmpl-favorites', 'popup', 'popup-send-message', 'popup-message-thanks'];
 	loadTmpls(aModules, function(){
 		sendApiRequest('getContacts', null, function(response) {
 			$('.contacts .info').html(response.data);
@@ -66,7 +66,17 @@ $(function(){
 		$('#techsupport').click(function() {
 			var dialog = new SendMessagePopup({
 				title: 'Обращение в техническую поддержку', 
-				tpl: 'tmpl-popup-send-message'
+				tpl: 'tmpl-popup-send-message',
+				msgType: 'Обращение в техническую поддержку'
+			});
+			dialog.open();
+		});
+		
+		$('#feedback').click(function() {
+			var dialog = new SendMessagePopup({
+				title: 'Отправить отзыв', 
+				tpl: 'tmpl-popup-send-message',
+				msgType: 'Отзыв'
 			});
 			dialog.open();
 		});
@@ -128,7 +138,7 @@ $(function(){
 							<span class="picture"><span class="icon icon-techsupport"></span></span>
 							<span class="description">Обращение<br />в техподдержку</span>
 						</a>
-						<a href="javascript: void(0)" class="item" rel="feedback">
+						<a href="javascript: void(0)" class="item" id="feedback">
 							<span class="picture"><span class="icon icon-feedback"></span></span>
 							<span class="description">Отправить отзыв</span>
 						</a>
@@ -155,71 +165,6 @@ $(function(){
 			</div>
 			<div class="contacts tmpl-footer"></div>
 		</div>
-		<!--div class="popup" id="favorites">
-			<span class="close">&times;</span>
-			<div class="title">Избранное</div>
-			<div class="description">
-				Загрузка...
-			</div>
-		</div>
-		<div class="popup" id="techsupport">
-			<span class="close close-popup">&times;</span>
-			<div class="title">Обращение в техническую поддержку</div>
-			<form>
-				<div class="line">
-					<label>Ваш email:</label>
-					<input type="text" name="email" />
-				</div>
-				<div class="line">
-					<label>Тема:</label>
-					<input type="text" name="subject" />
-				</div>
-				<div class="line">
-					<label>Текст сообщения:</label>
-					<textarea name="message"></textarea>
-				</div>
-				<label>&nbsp;</label>
-				<input type="hidden" name="status" value="Обращение в техническую поддержку" />
-				<div class="popup-actions">
-					<button type="button" class="btn">Отправить</button>
-				</div>
-				
-			</form>
-		</div>
-		<div class="popup" id="feedback">
-			<span class="close close-popup">&times;</span>
-			<div class="title">Отправить отзыв</div>
-			<form>
-				<div class="line">
-					<label>Ваш email:</label>
-					<input type="text" name="email" />
-				</div>
-				<div class="line">
-					<label>Тема:</label>
-					<input type="text" name="subject" />
-				</div>
-				<div class="line">
-					<label>Текст сообщения:</label>
-					<textarea name="message"></textarea>
-				</div>
-				<label>&nbsp;</label>
-				<input type="hidden" name="status" value="Отзыв" />
-				<button class="btn">Отправить</button>
-			</form>
-		</div>
-		<div class="popup" id="message-sent">
-			<span class="close close-popup">&times;</span>
-			<div class="title"></div>
-			<div class="description">
-				Спасибо!<br/>
-				Ваше сообщение отправлено
-			</div>
-			<div class="popup-actions">
-				<button type="button" class="btn close-popup">ОК</button>
-			</div>
-		</div-->
-
-		
 		<div id="shadow"></div>
 	</body>
 </html>

@@ -16,6 +16,7 @@
 		<script type="text/javascript">document.addEventListener("touchstart", function() {},false);</script>
 		
 		<script type="text/javascript" src="./js/gps/loadtmpls.js"></script>
+		<script type="text/javascript" src="./js/gps/json_handler.js"></script>
 		<script type="text/javascript" src="./js/gps/api.js"></script>
 		<script type="text/javascript" src="./js/gps/withoutscroll.js"></script>
 		
@@ -38,7 +39,7 @@ $(function(){
 		
 		$('select,input[type=checkbox]').styler();
 		
-		sendApiRequest('getTopicalityData.json', null, function(response) {
+		sendApiRequest('getTopicalityData', null, function(response) {
 			$('.tmpl-monitoring-panel .info').html('');
 			var html = '';
 			for(var i = 0; i < response.length; i++) {

@@ -1,3 +1,9 @@
 .popup-actions {
 	text-align: center;
 }
+.popup .content .line:last-of-type {
+	padding-bottom: 0;
+}
+
+input.error, textarea.error { border-color: red;}
+span.note.error { font-size: 0.8em; color: red; margin-left: 122px;}
