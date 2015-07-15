@@ -333,3 +333,17 @@ input[type=text], textarea { border: 1px solid #fff200; color: #8a8c8d; display:
 	.popup label { display: inline-block; vertical-align: top; width: 120px}
 	.popup input[type=text], .popup textarea { width: 200px;}
 	.popup textarea { height: 100px;}
+
+.report { width: 100%;  border-collapse: collapse; margin-bottom: 10px; }
+	.report td { border: 1px solid #e5e5e5; padding: 5px; }
+	.report strong { color: #171609; }
+
+.treegrid-indent {width:15px; height: 15px; display: inline-block; position: relative;}
+
+.treegrid-expander {width:13px; height: 13px; display: inline-block; position: relative; cursor: pointer; border: 1px solid transparent;  }
+
+.treegrid-expander-expanded { border: 1px solid black;  margin-right: 7px;  }
+.treegrid-expander-expanded:before { content: "-"; color: #000; font-size: 12px; position: absolute; left: 5px; top: 0px;}
+
+.treegrid-expander-collapsed { border: 1px solid black; margin-right: 7px; }
+.treegrid-expander-collapsed:before { content: "+"; color: #000; font-size: 12px;  position: absolute; left: 3px; top: 0px; }

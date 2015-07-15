@@ -38,7 +38,6 @@ var Tmpl = function(tpl) {
 	}
 	
 	this.render = function(tpl, params) {
-		console.log(tpl);
 		return tmpl('tmpl-' + tpl, (params) ? params : {});
 	}
 	

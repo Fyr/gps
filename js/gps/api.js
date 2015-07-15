@@ -1,6 +1,8 @@
 function sendApiRequest(method, data, successFn) {
-	// var baseUrl = 'http://1c.softmax.by/sstm/hs/monitoringObjects/';
-	var baseUrl = './server/', methodType = 'GET';
+	var prodUrl = 'http://1c.softmax.by/sstm/hs/monitoringObjects/';
+	var baseUrl = (window.location.href.indexOf('1c.softmax.by') > -1) ? prodUrl : './server/';
+	
+	var methodType = 'GET';
 	if (method.indexOf('post.') > -1) {
 		methodType = 'POST';
 		method = method.split('.')[1];
@@ -20,17 +22,6 @@ function sendApiRequest(method, data, successFn) {
 			successFn(response); 
 		}
 	});
-	/*
-	$.get(baseUrl + method, aParams, function(response){ 
-		if (typeof(response) == 'string') {
-			response = JSON.parse(response);
-		}
-		if (!checkJson(response)) {
-			return false;
-		}
-		successFn(response); 
-	});
-	*/
 }
 
 function getStatusColor(i) {

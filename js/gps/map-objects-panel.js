@@ -22,15 +22,15 @@ var MapObjectsPanel = function() {
 			self.update();
 		});
 		$('.panel #addObject', $self).click(function(){
-			console.log('#tmpl-popup-add-object:' + $('#tmpl-popup-add-object').length);
-			console.log('1!');
 			var html = Tmpl('popup-add-object').render();
-			console.log('2!');
 			var dialog = new Popup({
 				title: 'Добавление обьекта',
 				content: Tmpl('popup-add-object').render()
 			});
 			dialog.open();
+		});
+		$('.outerSearch input[type=text]', $self).keyup(function(){
+			self.filterObjects($(this).val());
 		});
 	}
 	
@@ -56,9 +56,10 @@ var MapObjectsPanel = function() {
 			var id = data[i].guid;
 			self.objects[id] = data[i];
 			self.objects[id].id = id;
-			self.objects[id].checked = false;
+			self.objects[id].checked = (data[i].checked) ? data[i].checked : false;
 			self.objects[id].title = data[i].name;
 			self.objects[id].updated_ago = self._updatedAgo(data[i].topicality.replace(/T/, ' '));
+			// self.objects[id].visible = true;
 			googleMap.addMarker(self.objects[id]);
 		}
 	}
@@ -90,6 +91,20 @@ var MapObjectsPanel = function() {
 		self.show();
 	}
 	
+	this.filterObjects = function(q) {
+		var visible = [];
+		for(id in self.objects) {
+			if (!q || self.objects[id].title.indexOf(q) > -1) {
+				visible.push(self.objects[id]);
+			}
+		}
+		_old_objects = self.objects;
+		googleMap.clearMarkers();
+		self.setObjects(visible);
+		self.show();
+		self.objects = _old_objects;
+	}
+	
 	this.checkAll = function() {
 		var $e = $('#checkAll', $self);
 		var checked = $e.prop('checked');
@@ -115,6 +130,9 @@ var MapObjectsPanel = function() {
 		for(var i in self.objects) {
 			html+= Tmpl('panel-map-object-item').render(self.objects[i]);
 		}
+		if (!html) {
+			html = '<div style="text-align: center; margin: 10px 0"> - нет обьектов -</div>';
+		}
 		$('.info', $self).html(html);
 		$('input[type=checkbox]', $self).styler();
 	}
@@ -125,7 +143,14 @@ var MapObjectsPanel = function() {
 	}
 	
 	this.showMap = function() {
-		if (self.objects) {
+		if (!$.isEmptyObject(self.objects)) {
+			console.log(self.objects);
+			for(var _id in self.objects) {
+				if (self.objects[_id].checked) {
+					googleMap.showMarker(_id);
+				}
+			}
+			
 			// show map for 1st marker
 			var id = Object.keys(self.objects)[0];
 			for(var _id in self.objects) {
