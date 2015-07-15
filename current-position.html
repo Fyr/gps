@@ -6,75 +6,46 @@
 		<meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1.0, initial-scale=1.0, minimum-scale=1.0">
 		<title>Velcom</title>
 		<link href="./css/style.css" rel="stylesheet">
+		<link href="./css/extra.css" rel="stylesheet">
 		<link href="./css/rome.css" rel="stylesheet">
 		
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+		
+		<script type="text/javascript" src="./js/jquery-1.10.2.min.js"></script>
 		<script type="text/javascript" src="./js/jquery.nicescroll.min.js" ></script>
 		<script type="text/javascript" src="./js/jquery.formstyler.min.js"></script>
 		<script type="text/javascript" src="./js/rome.js"></script>
 		<script type="text/javascript" src="./js/tmpl.min.js"></script>
 		<script type="text/javascript">document.addEventListener("touchstart", function() {},false);</script>
 		
-		<script type="text/javascript" src="./js/gps/loadtmpls.js"></script>
+		<script type="text/javascript" src="./js/xtmpl.js"></script>
+		<script type="text/javascript" src="./js/xdate.js"></script>
 		<script type="text/javascript" src="./js/gps/json_handler.js"></script>
 		<script type="text/javascript" src="./js/gps/api.js"></script>
-		<script type="text/javascript" src="./js/gps/withoutscroll.js"></script>
+		<script type="text/javascript" src="./js/gps/google-maps.js"></script>
+		<script type="text/javascript" src="./js/gps/map-objects-panel.js"></script>
+		<script type="text/javascript" src="./js/gps/popup.js"></script>
 		
-		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+		
 		
 		<script type="text/javascript">
-var map;
-var objects = [], markers = [];
+var objects = [], markers = [], objectsPanel;
+
 $(function(){
-	aModules = ['header', 'footer', 'monitoring-panel'];
-	loadTmpls(aModules, function(){
+	aModules = ['header', 'panel-map-object-list', 'panel-map-object-item', 'popup', 'popup-add-object'];
+	Tmpl().loadModules(aModules, function(){ 
+		setCurrMenu(2, 1);
 		
-		withoutscroll ( $('.leftSide').height() + 80 + 70 - 10, $('.leftSide').height() - 10, 0 );
-		$(window).resize(function() {
-			withoutscroll ( $('.leftSide').height() + 80 + 70 - 10, $('.leftSide').height() - 10, 0  );
-		});
-		
-		
-		// $(".scroller").niceScroll({autohidemode:false, cursorcolor: "#ecdc00", background: "#dddddd", cursorborderradius: "0", cursorwidth: "7px"});
-		
-		$('select,input[type=checkbox]').styler();
-		
-		sendApiRequest('getTopicalityData', null, function(response) {
-			$('.tmpl-monitoring-panel .info').html('');
-			var html = '';
-			for(var i = 0; i < response.length; i++) {
-				html+= tmpl('monitoring-item', response[i]);
-			}
-			/*
-			for(var i = 0; i <= 24; i++) {
-				response[0].updated_ago = i;
-				html+= tmpl('monitoring-item', response[0]);
-			}
-			*/
-			$('.tmpl-monitoring-panel .info').html(html);
-			$('input[type=checkbox]').styler();
-			
-			initialize(response);
-		});
-		
-		$('.panel input[type=checkbox]').change(function(){
-			var checked = $(this).prop('checked');
-			// $('.info .item input[type=checkbox]').prop('checked', $(this).prop('checked')).trigger('refresh');
-			$('.info .item input[type=checkbox]').each(function(){
-				$(this).prop('checked', checked).trigger('refresh');
-				$(this).change();
-			});
-			// $('input[type=checkbox]').styler();
-		});
+		objectsPanel = new MapObjectsPanel();
+		objectsPanel.init();
 	});
-	
 });
 
 
 
 function initialize(objects) {
   var mapOptions = {
-    zoom: 12
+    zoom: 10
   };
   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
   google.maps.event.addListener(map, 'click', function(event) {
@@ -100,7 +71,7 @@ function initialize(objects) {
       });
 
       map.setCenter(pos);
-      
+      /*
       for(var i = 0; i < objects.length; i++) {
       	var pos = new google.maps.LatLng(objects[i].lat, objects[i].lng);
       	 var marker = new google.maps.Marker({
@@ -108,8 +79,10 @@ function initialize(objects) {
             map: map,
             title: objects[i].name
         });
+        console.log('4!');
         markers.push(marker);
       }
+      */
     }, function() {
       handleNoGeolocation(true);
     });
@@ -174,15 +147,14 @@ if (navigator.geolocation) {
 </script-->
 	</head>
 	<body>
-		<div id="tpl"></div>
 		<div class="mainContainer">
 			<div class="header clearfix tmpl-header"></div>
 			<div class="maket clearfix">
 				<div class="leftSide">
-					<div class="block tmpl-monitoring-panel"></div>
+					<div class="block tmpl-panel-map-object-list"></div>
 				</div>
 				<div class="rightSide">
-					<div id="map-canvas" class="mapContainer" style="border: 1px solid red"></div>
+					<div id="map-canvas" class="mapContainer" style="border: 1px solid red; height: 300px;"></div>
 				</div>
 			</div>
 			<div class="contacts tmpl-footer"></div>

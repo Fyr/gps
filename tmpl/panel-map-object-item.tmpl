@@ -1,0 +1,16 @@
+<div class="item clearfix">
+	<label><input type="checkbox" onchange="objectsPanel.onCheckObject(this.checked, '{%=o.id%}')" {% if (o.checked) { %}checked="checked" {% } %}/>{%=o.title%}</label>
+{%
+	if (o.updated_ago > 0) {
+		var color = getStatusColor((o.updated_ago >= 24) ? 24 : o.updated_ago);
+%}
+	<span class="icon icon-statusArrow" style="background-color: #{%=color%}">{%=(o.updated_ago > 24 ? '24+' : o.updated_ago)%}</span>
+{%
+		if (o.updated_ago >= 24) {
+%}
+	<span class="icon icon-attention"></span>
+{%
+		}
+	}
+%}
+</div>

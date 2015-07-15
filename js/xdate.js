@@ -1,3 +1,7 @@
+Date.MINUTE = 60 * 1000;
+Date.HOUR = Date.MINUTE * 60;
+Date.DAY = Date.HOUR * 24;
+
 Date.timeDays = function(days) {
 	return 86400 * 1000 * days;
 }

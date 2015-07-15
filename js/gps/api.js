@@ -50,3 +50,10 @@ function int2hex(n, length) {
 function toggleMarker(lShow, id) {
 	markers[id].setMap((lShow) ? map : null);
 }
+
+function setCurrMenu(n, m) {
+	$('ul.menu > li:eq(' + (n-1) + ')').addClass('active');
+	if (m) {
+		$('ul.subMenu > li:eq(' + (m-1) + ')', $('ul.menu > li:eq(' + (n-1) + ')')).addClass('active');
+	}
+}

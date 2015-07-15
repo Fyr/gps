@@ -16,17 +16,20 @@
 		<script type="text/javascript" src="./js/tmpl.min.js"></script>
 		<script type="text/javascript">document.addEventListener("touchstart", function() {},false);</script>
 		
-		<script type="text/javascript" src="./js/gps/loadtmpls.js"></script>
+		<script type="text/javascript" src="./js/xtmpl.js"></script>
 		<script type="text/javascript" src="./js/gps/json_handler.js"></script>
 		<script type="text/javascript" src="./js/gps/api.js"></script>
 		<script type="text/javascript" src="./js/gps/withoutscroll.js"></script>
-		<script type="text/javascript" src="./js/gps/send-message-popup.js"></script>
 		<script type="text/javascript" src="./js/gps/popup.js"></script>
+		<script type="text/javascript" src="./js/gps/send-message-popup.js"></script>
 		
 		<script type="text/javascript">
 $(function(){
-	aModules = ['header', 'footer', 'get-docs', 'tmpl-favorites', 'popup', 'popup-send-message', 'popup-message-thanks'];
-	loadTmpls(aModules, function(){
+	aModules = ['header', 'footer', 'docs', 'popup', 'popup-favorites', 'popup-send-message', 'popup-message-thanks'];
+	Tmpl().loadModules(aModules, function(){ 
+		
+		setCurrMenu(1);
+		
 		sendApiRequest('getContacts', null, function(response) {
 			$('.contacts .info').html(response.data);
 		});
@@ -34,34 +37,28 @@ $(function(){
 			$('.newsBlock .description').html(response.data);
 		});
 		sendApiRequest('getFiles', {type: 'instructions'}, function(response) {
-			$('.instructionsBlock .description').html(tmpl('get-docs', response.data));
+			$('.instructionsBlock .description').html(Tmpl('docs').render(response.data));
 		});
 		sendApiRequest('getBilling', null, function(response) {
 			$('.billingBlock .description').html(response.data);
 		});
 		sendApiRequest('getFiles', {type: 'docs'}, function(response) {
 			if (response.data) {
-				$('.docsBlock .description').html(tmpl('get-docs', response.data));
-			}
-		});
-		/*
-		setTimeout(function(){
-			reviewScroll();
-			$(".scroller").niceScroll({autohidemode:false, cursorcolor: "#ecdc00", background: "#dddddd", cursorborderradius: "0", cursorwidth: "7px"});
-		}, 50);
-		$(window).resize(function() {
-			reviewScroll();
-		});
-		*/
-		// 
-		sendApiRequest('favorites', null, function(response) {
-			if (response.data) {
-				$('#favorites .description').html(tmpl('tmpl-favorites', response.data));
+				$('.docsBlock .description').html(Tmpl('docs').render(response.data));
 			}
 		});
 		
-		// var dialog = new Popup();
-		// dialog.init('Обращение в техническую поддержку', 'tmpl-popup-techsupport');
+		sendApiRequest('favorites', null, function(response) {
+			if (response.data) {
+				$('#favorites').click(function(){
+					var dialog = new Popup({
+						title: 'Избранные функции',
+						content: Tmpl('popup-favorites').render(response.data)
+					});
+					dialog.open();
+				});
+			}
+		});
 		
 		$('#techsupport').click(function() {
 			var dialog = new SendMessagePopup({
@@ -80,31 +77,11 @@ $(function(){
 			});
 			dialog.open();
 		});
-		/*
-		$('.popup .close-popup').click(function() {
-			var id = $(this).closest('.popup').prop('id');
-			dialogs[id].close(id);
-		});
-		*/
-		/*
-		$('#techsupport .btn').click(function(e) {
-			e.stopPropagation();
-			var data = $('#techsupport form').serialize();
-			sendApiRequest('post.setRecourse', data, function(response) {
-				dialog.close('techsupport');
-				if (checkJson(response)) {
-					$('#message-sent .title').html($('#techsupport .title').html());
-					dialog.open('message-sent');
-				}
-			});
-		});
-		*/
 	});
 });
 </script>
 	</head>
 	<body>
-		<div id="tpl"></div>
 		<div class="mainContainer">
 			<div class="header clearfix tmpl-header"></div>
 			<div class="clearfix">

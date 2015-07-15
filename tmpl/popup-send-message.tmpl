@@ -1,20 +1,18 @@
-<script type="text/x-tmpl" id="tmpl-send-message">
 <form>
 	<div class="line">
-		<label>Ваш email:</label>
+		<label>* Ваш email:</label>
 		<input type="text" name="email" />
 	</div>
 	<div class="line">
-		<label>Тема:</label>
+		<label>* Тема:</label>
 		<input type="text" name="subject" />
 	</div>
 	<div class="line">
-		<label>Текст сообщения:</label>
+		<label>* Текст сообщения:</label>
 		<textarea name="message"></textarea>
 	</div>
 	<input type="hidden" name="status" value="{%=o.msgType%}" />
 	<div class="popup-actions">
-		<button type="button" class="btn" onclick="">Отправить</button>
+		<button type="button" class="btn">Отправить</button>
 	</div>
 </form>
-</script>
