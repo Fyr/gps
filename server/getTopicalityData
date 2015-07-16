@@ -7,7 +7,7 @@
       "name": "Витя",
       "topicality": "2015-07-14T12:04:52",
       "lat": 53.8890762,
-      "lng": 27.4293156,
+      "lon": 27.4293156,
       "address": null,
       "alert": null,
       "params": [
@@ -23,7 +23,7 @@
       "name": "Павел",
       "topicality": "2015-07-02T07:34:36",
       "lat": 53.8889198,
-      "lng": 27.4292164,
+      "lon": 27.4292164,
       "address": null,
       "alert": null,
       "params": [
@@ -51,7 +51,7 @@
       "name": "Витя2",
       "topicality": "2015-07-02T12:04:52",
       "lat": 53.8880752,
-      "lng": 27.4293248,
+      "lon": 27.4293248,
       "address": null,
       "alert": null,
       "params": [

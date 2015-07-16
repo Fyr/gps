@@ -1,0 +1,14 @@
+<span style="font-weight: bold">{%=o.title%}</span><br />
+Адрес: {%=o.address%}<br />
+Обновлен: {%=(o.updated_ago > 24 ? 'свыше 24' : o.updated_ago)%} час(ов) назад<br />
+<br />
+<u>Значения датчиков</u><br />
+{%
+	console.log(o.params);
+	for(var i = 0; i < o.params.length; i++) {
+		var s = o.params[i].parameter + ': ' + o.params[i].data;
+%}
+{%=s%}<br />
+{%
+	}
+%}

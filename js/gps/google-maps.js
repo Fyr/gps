@@ -26,7 +26,7 @@ var GoogleMapAPI = function(canvas) {
 		return self.markers[id];
 	}
 	
-	this.addMarker = function(obj) {
+	this.addMarker = function(obj, onclick) {
 		var marker = new google.maps.Marker({
             position: new google.maps.LatLng(obj.lat, obj.lng),
             map: null,
@@ -56,5 +56,13 @@ var GoogleMapAPI = function(canvas) {
 			self.hideMarker(id);
 		}
 		self.markers = {};
+	}
+	
+	this.bindMarkerPopup = function(id, html) {
+		google.maps.event.addListener(self.getMarker(id), "click", function(e) {
+			var infoWindow = new google.maps.InfoWindow();
+			infoWindow.setContent(html);
+			infoWindow.open(googleMap.map, googleMap.getMarker(id));
+		});
 	}
 }

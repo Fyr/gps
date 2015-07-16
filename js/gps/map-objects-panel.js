@@ -38,7 +38,7 @@ var MapObjectsPanel = function() {
 		sendApiRequest('getTopicalityData', null, function(response) {
 			if (checkJson(response)) {
 				$('#checkAll', $self).prop('checked', false).trigger('refresh');
-				googleMap.clearMarkers();
+				map.clearMarkers();
 				self.setObjects(response.data);
 				self.show();
 			}
@@ -60,7 +60,8 @@ var MapObjectsPanel = function() {
 			self.objects[id].title = data[i].name;
 			self.objects[id].updated_ago = self._updatedAgo(data[i].topicality.replace(/T/, ' '));
 			// self.objects[id].visible = true;
-			googleMap.addMarker(self.objects[id]);
+			map.addMarker(self.objects[id]);
+			map.bindMarkerPopup(id, Tmpl('panel-map-object-infowin').render(self.objects[id]));
 		}
 	}
 	
@@ -94,12 +95,12 @@ var MapObjectsPanel = function() {
 	this.filterObjects = function(q) {
 		var visible = [];
 		for(id in self.objects) {
-			if (!q || self.objects[id].title.indexOf(q) > -1) {
+			if (!q || self.objects[id].title.toLowerCase().indexOf(q.toLowerCase()) > -1) {
 				visible.push(self.objects[id]);
 			}
 		}
 		_old_objects = self.objects;
-		googleMap.clearMarkers();
+		map.clearMarkers();
 		self.setObjects(visible);
 		self.show();
 		self.objects = _old_objects;
@@ -113,14 +114,17 @@ var MapObjectsPanel = function() {
 			$(this).prop('checked', checked).trigger('refresh');
 			$(this).change(); // call indirectly onchange for this checkbox
 		});
-		this.showMap();
+		if (checked) {
+			this.showMap();
+		}
 	}
 	
 	this.onCheckObject = function(checked, id) {
 		self.objects[id].checked = checked; // save checked state for sorting
-		googleMap.hideMarker(id);
+		map.hideMarker(id);
 		if (checked) {
-			googleMap.showMarker(id);
+			map.showMarker(id);
+			map.showAt(map.getMarkerLatLng(id));
 		}
 	}
 	
@@ -144,13 +148,6 @@ var MapObjectsPanel = function() {
 	
 	this.showMap = function() {
 		if (!$.isEmptyObject(self.objects)) {
-			console.log(self.objects);
-			for(var _id in self.objects) {
-				if (self.objects[_id].checked) {
-					googleMap.showMarker(_id);
-				}
-			}
-			
 			// show map for 1st marker
 			var id = Object.keys(self.objects)[0];
 			for(var _id in self.objects) {
@@ -159,8 +156,15 @@ var MapObjectsPanel = function() {
 					break;
 				}
 			}
-			var marker = googleMap.getMarker(id); 
-			googleMap.map.setCenter(marker.getPosition());
+			map.showAt(map.getMarkerLatLng(id));
+			
+			for(var _id in self.objects) {
+				if (self.objects[_id].checked) {
+					map.showMarker(_id);
+				}
+			}
+			
+			
 		}
 	}
 }
