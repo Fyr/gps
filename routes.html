@@ -15,6 +15,7 @@
 		<script type="text/javascript" src="./js/jquery.formstyler.min.js"></script>
 		<script type="text/javascript" src="./js/rome.js"></script>
 		<script type="text/javascript" src="./js/tmpl.min.js"></script>
+		<script type="text/javascript" src="./js/highcharts.js"></script>
 		<script type="text/javascript">document.addEventListener("touchstart", function() {},false);</script>
 		
 		<script type="text/javascript" src="./js/gps/xtmpl.js"></script>
@@ -44,10 +45,6 @@ $(function(){
 	Tmpl().loadModules(aModules, function(){ 
 		setCurrMenu(2, 2);
 		
-		/*
-		objectsPanel = new MapObjectsPanel();
-		objectsPanel.init();
-		*/
 		rome(period1, {time: false});
 		rome(period2, {time: false});
 		

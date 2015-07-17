@@ -165,14 +165,25 @@ var MapObjectsPanel = function() {
 			}
 			
 			// show map for 1st marker (hidden or checked)
-			var id = Object.keys(self.objects)[0];
-			for(var _id in self.objects) {
-				if (self.objects[_id].checked) {
-					id = _id;
+			// var id = Object.keys(self.objects)[0];
+			var _id = null;
+			for(var id in self.objects) {
+				if (self.objects[id].checked) {
+					_id = id;
 					break;
 				}
 			}
-			map.showAt(self.getObjectLatLng(id));
+			if (!_id) {
+				for(var id in self.objects) {
+					if (self.objects[id].checkable) {
+						_id = id;
+						break;
+					}
+				}
+			}
+			if (_id) {
+				map.showAt(self.getObjectLatLng(_id));
+			}
 		}
 	}
 	

@@ -7,13 +7,25 @@ var ObjectRoutesPanel = function() {
 		sendApiRequest('getTopicalityData', null, function(response) {
 			if (checkJson(response)) {
 				var objectsData = response.data;
-				var params = 'params={"monitoringObjects": ["9991015d-20b2-11e5-909d-00155dbb7703"],"startRoute": "2015-07-01T00:00:00", "endRoute": "2015-07-02T00:00:00"}';
-				sendApiRequest('getRoute', params, function(response) {
+				var ids = [];
+				for(var i = 0; i < objectsData.length; i++) {
+					var id = objectsData[i].guid;
+					ids.push(id);
+				}
+				var params = {
+					monitoringObjects: ids,
+					startRoute: $('#period1').val() + 'T00:00:00',
+					endRoute: $('#period2').val() + 'T00:00:00'
+				}
+				
+				sendApiRequest('getRoute', 'params=' + JSON.stringify(params), function(response) {
 					if (checkJson(response)) {
 						$('#checkAll', $self).prop('checked', false).trigger('refresh');
 						$('.rightSide, .tmpl-panel-map-object-list').show();
+						
+						objectsData = self.mergeData(objectsData, response.data);
 						self.clearObjects();
-						self.setObjects(objectsData, response.data);
+						self.setObjects(objectsData);
 						self.show();
 					}
 				});
@@ -21,7 +33,7 @@ var ObjectRoutesPanel = function() {
 		});
 	}
 	
-	this.setObjects = function(objectsData, routesData) {
+	this.mergeData = function(objectsData, routesData) {
 		var routes = {};
 		for(var i = 0; i < routesData.length; i++) {
 			var id = routesData[i].monitoringObject;
@@ -31,14 +43,20 @@ var ObjectRoutesPanel = function() {
 		self.objects = {};
 		for(var i = 0; i < objectsData.length; i++) {
 			var id = objectsData[i].guid;
+			objectsData[i].latlons = routes[id] || [];
+		}
+		return objectsData;
+	}
+	
+	this.setObjects = function(objectsData) {
+		self.objects = {};
+		for(var i = 0; i < objectsData.length; i++) {
+			var id = objectsData[i].guid;
 			var data = objectsData[i];
-			data.checkable = data.topicality && routes[id];
-			data.latlons = routes[id] || [];
+			data.checkable = data.topicality && data.latlons.length;
 			self.setObjectData(id, data);
 			self.setMapObject(id);
 		}
-		
-		console.log(self.objects);
 	}
 	
 	this.setMapObject = function(id) {
