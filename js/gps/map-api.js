@@ -11,6 +11,8 @@ var MapAPI = function(canvas) {
 	self.mapL = {};
 	self.canvas = canvas;
 	self.markers = {};
+	self.lines = {};
+	self.colors = ['#FF0000', '#00FF00', '0000FF'];
 	
 	this.init = function() {
 		self.canvas = canvas;
@@ -25,14 +27,17 @@ var MapAPI = function(canvas) {
 		return self.markers[id];
 	}
 	
+	/**
+		Object must contain properties: id, title, lat, lon\lng
+	**/
 	this.addMarker = function(obj) {
-		var marker = L.marker([obj.lat, obj.lon], {title: obj.title});
-		
-		self.markers[obj.id] = marker;
+		self.markers[obj.id] = L.marker([obj.lat, obj.lon], {title: obj.title});
 	}
 	
 	this.showMarker = function(id) {
-		self.getMarker(id).addTo(self.mapL);
+		var marker = self.getMarker(id)
+		marker.addTo(self.mapL);
+		self.showAt(marker.getLatLng());
 	}
 	
 	this.hideMarker = function(id) {
@@ -56,5 +61,32 @@ var MapAPI = function(canvas) {
 	
 	this.bindMarkerPopup = function(id, html) {
 		self.getMarker(id).bindPopup(html);
+	}
+	
+	this.addLine = function(obj) {
+		var i = Object.keys(self.lines).length;
+		self.lines[obj.id] = L.polyline(obj.latlons, {color: self.colors[i]});
+	}
+	
+	this.getLine = function(id) {
+		return self.lines[id];
+	}
+	
+	this.showLine = function(id) {
+		var line = self.getLine(id);
+		line.addTo(self.mapL);
+		var latlons = line.getLatLngs();
+		self.showAt(latlons[0]);
+	}
+	
+	this.hideLine = function(id) {
+		self.mapL.removeLayer(self.getLine(id));
+	}
+	
+	this.clearLines = function() {
+		for(var id in self.lines) {
+			self.hideLine(id);
+		}
+		self.lines = {};
 	}
 }

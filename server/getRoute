@@ -1,0 +1,42 @@
+{
+  "status": "OK",
+  "data": [
+    {
+      "monitoringObject": "9991015d-20b2-11e5-909d-00155dbb7703",
+      "imei": "352848024484863",
+      "points": [
+        {
+          "status": "movement",
+          "period": "2015-07-08T06:29:06",
+          "lat": 53.8890762,
+          "lon": 27.4293156,
+          "pointId": 840825710
+        },
+        {
+          "status": "parking",
+          "period": "2015-07-08T07:00:48",
+          "lat": 53.8889389,
+          "lon": 27.4292698,
+          "parkingDuration": 4449,
+          "parkingEnd": "2015-07-08T09:29:06",
+          "pointId": 840825710
+        },
+        {
+          "status": "movement",
+          "period": "2015-07-08T09:29:06",
+          "lat": 53.8889399,
+          "lon": 27.4292678,
+          "pointId": 840825710
+        },
+        {
+          "status": "movement",
+          "period": "2015-07-08T09:29:49",
+          "lat": 53.8888779,
+          "lon": 27.4290337,
+          "pointId": 840825709
+        }
+      ]
+    }
+  ]
+}
+

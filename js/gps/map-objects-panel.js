@@ -38,11 +38,21 @@ var MapObjectsPanel = function() {
 		sendApiRequest('getTopicalityData', null, function(response) {
 			if (checkJson(response)) {
 				$('#checkAll', $self).prop('checked', false).trigger('refresh');
-				map.clearMarkers();
+				self.clearObjects();
 				self.setObjects(response.data);
 				self.show();
 			}
 		});
+	}
+	
+	this.setObjects = function(data) {
+		self.objects = {};
+		for(var i = 0; i < data.length; i++) {
+			var id = data[i].guid;
+			data[i].checkable = (data[i].topicality) && true;
+			self.setObjectData(id, data[i]);
+			self.setMapObject(id);
+		}
 	}
 	
 	this._updatedAgo = function(date) {
@@ -50,16 +60,16 @@ var MapObjectsPanel = function() {
 		return Math.floor((now.getTime() - Date.fromSqlDate(date).getTime()) / Date.HOUR);
 	}
 	
-	this.setObjects = function(data) {
-		self.objects = {};
-		for(var i = 0; i < data.length; i++) {
-			var id = data[i].guid;
-			self.objects[id] = data[i];
-			self.objects[id].id = id;
-			self.objects[id].checked = (data[i].checked) ? data[i].checked : false;
-			self.objects[id].title = data[i].name;
-			self.objects[id].updated_ago = self._updatedAgo(data[i].topicality.replace(/T/, ' '));
-			// self.objects[id].visible = true;
+	this.setObjectData = function(id, data) {
+		self.objects[id] = data;
+		self.objects[id].id = id;
+		self.objects[id].checked = (data.checked) ? data.checked : false;
+		self.objects[id].title = data.name;
+		self.objects[id].updated_ago = (data.topicality) ? self._updatedAgo(data.topicality.replace(/T/, ' ')) : 0;
+	}
+	
+	this.setMapObject = function(id) {
+		if (self.objects[id].checkable) {
 			map.addMarker(self.objects[id]);
 			map.bindMarkerPopup(id, Tmpl('panel-map-object-infowin').render(self.objects[id]));
 		}
@@ -100,7 +110,7 @@ var MapObjectsPanel = function() {
 			}
 		}
 		_old_objects = self.objects;
-		map.clearMarkers();
+		self.clearObjects();
 		self.setObjects(visible);
 		self.show();
 		self.objects = _old_objects;
@@ -121,10 +131,9 @@ var MapObjectsPanel = function() {
 	
 	this.onCheckObject = function(checked, id) {
 		self.objects[id].checked = checked; // save checked state for sorting
-		map.hideMarker(id);
+		self.hideObject(id);
 		if (checked) {
-			map.showMarker(id);
-			map.showAt(map.getMarkerLatLng(id));
+			self.showObject(id);
 		}
 	}
 	
@@ -148,7 +157,14 @@ var MapObjectsPanel = function() {
 	
 	this.showMap = function() {
 		if (!$.isEmptyObject(self.objects)) {
-			// show map for 1st marker
+			// show all checked markers
+			for(var id in self.objects) {
+				if (self.objects[id].checked) {
+					self.showObject(id);
+				}
+			}
+			
+			// show map for 1st marker (hidden or checked)
 			var id = Object.keys(self.objects)[0];
 			for(var _id in self.objects) {
 				if (self.objects[_id].checked) {
@@ -156,15 +172,34 @@ var MapObjectsPanel = function() {
 					break;
 				}
 			}
-			map.showAt(map.getMarkerLatLng(id));
-			
-			for(var _id in self.objects) {
-				if (self.objects[_id].checked) {
-					map.showMarker(_id);
-				}
-			}
-			
-			
+			map.showAt(self.getObjectLatLng(id));
 		}
+	}
+	
+	this.getObjectLatLng = function(id) {
+		return {lat: self.objects[id].lat, lon: self.objects[id].lon};
+	}
+	
+	this.getCheckedIds = function() {
+		var ids = [];
+		for(var id in self.objects) {
+			if (self.objects[id].checked) {
+				ids.push(id);
+			}
+		}
+		return ids;
+	}
+	
+	this.showObject = function(id) {
+		map.showMarker(id);
+	}
+	
+	this.hideObject = function(id) {
+		map.hideMarker(id);
+	}
+	
+	this.clearObjects = function() {
+		map.clearMarkers();
+		self.objects = {};
 	}
 }

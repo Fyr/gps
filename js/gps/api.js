@@ -48,3 +48,14 @@ function setCurrMenu(n, m) {
 		$('ul.subMenu > li:eq(' + (m-1) + ')', $('ul.menu > li:eq(' + (n-1) + ')')).addClass('active');
 	}
 }
+
+function extend(self, fnObj) {
+	fnObj.call(self);
+	
+	self.parent = {};
+	for(var prop in self) {
+		if (typeof(self[prop]) == 'function') {
+			self.parent[prop] = self[prop];
+		}
+	}
+}
