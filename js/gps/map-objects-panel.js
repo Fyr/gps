@@ -130,6 +130,7 @@ var MapObjectsPanel = function() {
 	}
 	
 	this.onCheckObject = function(checked, id) {
+		console.log([checked, id]);
 		self.objects[id].checked = checked; // save checked state for sorting
 		self.hideObject(id);
 		if (checked) {

@@ -12,15 +12,21 @@ var MapAPI = function(canvas) {
 	self.canvas = canvas;
 	self.markers = {};
 	self.lines = {};
-	self.colors = ['#FF0000', '#00FF00', '0000FF'];
+	self.circles = {};
+	self.polygons = {};
+	self.colors = ['#FF0000', '#00FF00', '#0000FF', '#990000', '#009900', '#000099'];
 	
 	this.init = function() {
 		self.canvas = canvas;
 		self.mapL = L.map(canvas).setView([0, 0], 16);
+		// http://{s}.tile.osm.org/{z}/{x}/{y}.png
+		/*
 		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ', {
 			maxZoom: 18,
 			id: 'mapbox.streets'
 		}).addTo(self.mapL);
+		*/
+		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(self.mapL);
 	}
 	
 	this.getMarker = function(id) {
@@ -88,5 +94,58 @@ var MapAPI = function(canvas) {
 			self.hideLine(id);
 		}
 		self.lines = {};
+	}
+	
+	this.addCircle = function(obj) {
+		var i = Object.keys(self.circles).length;
+		self.circles[obj.id] = L.circle([obj.lat, obj.lon], obj.radius, {color: self.colors[i]});
+	}
+	
+	this.getCircle = function(id) {
+		return self.circles[id];
+	}
+	
+	this.showCircle = function(id) {
+		var circle = self.getCircle(id);
+		circle.addTo(self.mapL);
+		self.showAt(circle.getLatLng());
+	}
+	
+	this.hideCircle = function(id) {
+		self.mapL.removeLayer(self.getCircle(id));
+	}
+	
+	this.clearCircles = function() {
+		for(var id in self.circles) {
+			self.hideCircle(id);
+		}
+		self.circles = {};
+	}
+	
+	this.addPolygon = function(obj) {
+		var i = Object.keys(self.polygons).length;
+		self.polygons[obj.id] = L.polygon(obj.latlons, {color: self.colors[i]});
+	}
+	
+	this.getPolygon = function(id) {
+		return self.polygons[id];
+	}
+	
+	this.showPolygon = function(id) {
+		var polygon = self.getPolygon(id);
+		polygon.addTo(self.mapL);
+		var latlons = polygon.getLatLngs();
+		self.showAt(latlons[0]);
+	}
+	
+	this.hidePolygon = function(id) {
+		self.mapL.removeLayer(self.getPolygon(id));
+	}
+	
+	this.clearPolygons = function() {
+		for(var id in self.polygons) {
+			self.hidePolygon(id);
+		}
+		self.polygons = {};
 	}
 }
