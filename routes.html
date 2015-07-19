@@ -29,10 +29,27 @@
 		<script type="text/javascript" src="./js/leaflet.js"></script>
 		<script type="text/javascript" src="./js/gps/map-api.js"></script>
 		
+<style type="text/css">
+.icon-routes, .icon-routes-disabled {
+	background: url(img/right.gif) 5px 5px no-repeat;
+	width: 21px;
+	height: 21px;
+	display: inline-block;
+	float: right;
+}
+.icon-routes-disabled {
+	opacity: 0.5;
+}
+</style>
 		<script type="text/javascript">
 var objectsPanel;
 
 $(function(){
+	var obj = {'id1': {title: 'Some obj 1'}, 'id2' : {title: 'Some obj 2'}};
+	console.log(obj);
+	obj.id1 = null;
+	console.log(obj);
+	
 	aModules = [
 		'header', 
 		'panel-map-object-list', 
@@ -40,7 +57,11 @@ $(function(){
 		'panel-map-object-infowin', 
 		'popup', 
 		'popup-add-object', 
-		'panel-map-object-form'
+		'panel-map-object-form',
+		'route-start',
+		'route-finish',
+		'route-parking',
+		'route-movement'
 	];
 	Tmpl().loadModules(aModules, function(){ 
 		setCurrMenu(2, 2);
@@ -48,10 +69,13 @@ $(function(){
 		rome(period1, {time: false});
 		rome(period2, {time: false});
 		
+		objectsPanel = new ObjectRoutesPanel();
+		objectsPanel.init();
+		
 		$('.tmpl-panel-map-object-form .btn').click(function(){
 			if (isFormValid()) {
-				objectsPanel = new ObjectRoutesPanel();
-				objectsPanel.init();
+				// objectsPanel = new ObjectRoutesPanel();
+				objectsPanel.updateRoutes();
 			}
 		});
 	});
@@ -67,8 +91,8 @@ function isFormValid() {
 			<div class="header clearfix tmpl-header"></div>
 			<div class="maket clearfix">
 				<div class="leftSide">
+					<div class="block tmpl-panel-map-object-list"></div>
 					<div class="block tmpl-panel-map-object-form"></div>
-					<div class="block tmpl-panel-map-object-list" style="display: none"></div>
 				</div>
 				<div class="rightSide">
 					<div id="map-canvas" class="mapContainer" style="border: 1px solid #e5e5e5; height: 200px; "></div>

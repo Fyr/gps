@@ -19,21 +19,21 @@
           "lon": 27.4292698,
           "parkingDuration": 4449,
           "parkingEnd": "2015-07-08T09:29:06",
-          "pointId": 840825710
+          "pointId": 840825711
         },
         {
           "status": "movement",
           "period": "2015-07-08T09:29:06",
           "lat": 53.8889399,
           "lon": 27.4292678,
-          "pointId": 840825710
+          "pointId": 840825712
         },
         {
           "status": "movement",
           "period": "2015-07-08T09:29:49",
           "lat": 53.8888779,
           "lon": 27.4290337,
-          "pointId": 840825709
+          "pointId": 840825713
         }
       ]
     }

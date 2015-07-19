@@ -109,7 +109,7 @@ var MapObjectsPanel = function() {
 				visible.push(self.objects[id]);
 			}
 		}
-		_old_objects = self.objects;
+		var _old_objects = self.objects;
 		self.clearObjects();
 		self.setObjects(visible);
 		self.show();
@@ -130,7 +130,6 @@ var MapObjectsPanel = function() {
 	}
 	
 	this.onCheckObject = function(checked, id) {
-		console.log([checked, id]);
 		self.objects[id].checked = checked; // save checked state for sorting
 		self.hideObject(id);
 		if (checked) {

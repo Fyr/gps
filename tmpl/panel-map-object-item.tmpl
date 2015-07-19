@@ -9,6 +9,9 @@
 	<label style="margin-left: 24px">{%=o.title%}</label>
 {%
 	}
+%}
+	<a id="route{%=o.id%}" class="icon-routes icon-routes-disabled" href="javascript:void(0)" onclick="objectsPanel.toggleRoute(this)" style="display: none"></a>
+{%
 	if (o.updated_ago > 0) {
 		var color = getStatusColor((o.updated_ago >= 24) ? 24 : o.updated_ago);
 %}

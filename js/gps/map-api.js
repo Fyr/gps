@@ -19,13 +19,6 @@ var MapAPI = function(canvas) {
 	this.init = function() {
 		self.canvas = canvas;
 		self.mapL = L.map(canvas).setView([0, 0], 16);
-		// http://{s}.tile.osm.org/{z}/{x}/{y}.png
-		/*
-		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ', {
-			maxZoom: 18,
-			id: 'mapbox.streets'
-		}).addTo(self.mapL);
-		*/
 		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(self.mapL);
 	}
 	
@@ -37,7 +30,7 @@ var MapAPI = function(canvas) {
 		Object must contain properties: id, title, lat, lon\lng
 	**/
 	this.addMarker = function(obj) {
-		self.markers[obj.id] = L.marker([obj.lat, obj.lon], {title: obj.title});
+		self.markers[obj.id] = L.marker([obj.lat, obj.lon], {title: obj.title || ''});
 	}
 	
 	this.showMarker = function(id) {
