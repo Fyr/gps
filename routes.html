@@ -16,6 +16,7 @@
 		<script type="text/javascript" src="./js/rome.js"></script>
 		<script type="text/javascript" src="./js/tmpl.min.js"></script>
 		<script type="text/javascript" src="./js/highcharts.js"></script>
+		<script type="text/javascript" src="http://code.highcharts.com/themes/grid-light.js"></script>
 		<script type="text/javascript">document.addEventListener("touchstart", function() {},false);</script>
 		
 		<script type="text/javascript" src="./js/gps/xtmpl.js"></script>
@@ -25,31 +26,13 @@
 		<script type="text/javascript" src="./js/gps/map-objects-panel.js"></script>
 		<script type="text/javascript" src="./js/gps/routes-panel.js"></script>
 		<script type="text/javascript" src="./js/gps/popup.js"></script>
-		
 		<script type="text/javascript" src="./js/leaflet.js"></script>
 		<script type="text/javascript" src="./js/gps/map-api.js"></script>
-		
-<style type="text/css">
-.icon-routes, .icon-routes-disabled {
-	background: url(img/right.gif) 5px 5px no-repeat;
-	width: 21px;
-	height: 21px;
-	display: inline-block;
-	float: right;
-}
-.icon-routes-disabled {
-	opacity: 0.5;
-}
-</style>
+		<script type="text/javascript" src="./js/gps/locale/ru.js"></script>
 		<script type="text/javascript">
-var objectsPanel;
+var objectsPanel, sensors;
 
 $(function(){
-	var obj = {'id1': {title: 'Some obj 1'}, 'id2' : {title: 'Some obj 2'}};
-	console.log(obj);
-	obj.id1 = null;
-	console.log(obj);
-	
 	aModules = [
 		'header', 
 		'panel-map-object-list', 
@@ -73,16 +56,16 @@ $(function(){
 		objectsPanel.init();
 		
 		$('.tmpl-panel-map-object-form .btn').click(function(){
-			if (isFormValid()) {
+			// if (isFormValid()) {
 				// objectsPanel = new ObjectRoutesPanel();
 				objectsPanel.updateRoutes();
-			}
+			// }
 		});
 	});
 });
 
 function isFormValid() {
-	return true;
+	return $('#period1').val().length && $('#period2').val().length;
 }
 </script>
 	</head>
@@ -95,8 +78,8 @@ function isFormValid() {
 					<div class="block tmpl-panel-map-object-form"></div>
 				</div>
 				<div class="rightSide">
-					<div id="map-canvas" class="mapContainer" style="border: 1px solid #e5e5e5; height: 200px; "></div>
-					<div id="charts-canvas" class="mapContainer" style="border: 1px solid #e5e5e5; height: 200px;"></div>
+					<div id="map-canvas" class="mapContainer" style="border: 1px solid #e5e5e5; height: 350px; "></div>
+					<div id="charts-canvas" class="mapContainer" style="border: 1px solid #e5e5e5; height: 350px;"></div>
 				</div>
 			</div>
 			<div class="contacts tmpl-footer"></div>

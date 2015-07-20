@@ -16,12 +16,10 @@
 		</select>
 	</div-->
 	<button id="getRoutesBtn" class="btn" style="margin: 7px auto 7px auto">Показать маршруты</button>
-	<!--span class="name">График изменений датчика:</span>
-	<select class="sensor">
-		<option>Список датчиков</option>
-		<option>Список датчиков</option>
-		<option>Список датчиков</option>
-		<option>Список датчиковСписок датчиков</option>
-		<option>Список датчиков</option>
-	</select-->
+	<span id="sensors" style="display: none;">
+		<span class="name">График изменений датчика:</span>
+		<select class="sensor" onchange="if ($(this).val()) { objectsPanel.updateSensorCharts($(this).val()); }">
+			<option></option>
+		</select>
+	</span>
 </div>

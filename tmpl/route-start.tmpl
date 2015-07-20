@@ -1,1 +1,5 @@
-Start 
+<b>Старт</b><br/>
+{%
+	var date = Date.fromSqlDate(o.period);
+%}
+Начало маршрута: {%=date.fullDate('rus')%} {%=date.hoursMinutes('rus')%}

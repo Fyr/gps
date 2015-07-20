@@ -9,13 +9,15 @@
 	<label style="margin-left: 24px">{%=o.title%}</label>
 {%
 	}
+	if (o.routesEnabled) {
 %}
-	<a id="route{%=o.id%}" class="icon-routes icon-routes-disabled" href="javascript:void(0)" onclick="objectsPanel.toggleRoute(this)" style="display: none"></a>
+	<a id="route{%=o.id%}" class="icon icon-routes{%=(o.showRoute ? '' : ' disabled')%}" href="javascript:void(0)" onclick="objectsPanel.toggleRoute(this)"></a>
 {%
+	}
 	if (o.updated_ago > 0) {
 		var color = getStatusColor((o.updated_ago >= 24) ? 24 : o.updated_ago);
 %}
-	<span class="icon icon-statusArrow" style="background-color: #{%=color%}">{%=(o.updated_ago > 24 ? '24+' : o.updated_ago)%}</span>
+	<span class="icon icon-statusArrow{%=(o.updated_ago >= 24 ? ' add' : '')%}" style="background-color: #{%=color%}; color: #{%=color%}">{%=(o.updated_ago > 24 ? '24+' : o.updated_ago)%}</span>
 {%
 		if (o.updated_ago >= 24) {
 %}

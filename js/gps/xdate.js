@@ -20,18 +20,18 @@ Date.prototype.toSqlDateTime = function() {
 	return this.getFullYear() + '-' + zeroFormat(this.getMonth() + 1) + '-' + zeroFormat(this.getDate()) + ' ' + 
 		zeroFormat(this.getHours()) + ':' + zeroFormat(this.getMinutes()) + ':' + zeroFormat(this.getSeconds());
 }
-Date.HoursMinutes = function(jsdate, locale) {
-	var hours = jsdate.getHours();
+Date.prototype.hoursMinutes = function(locale) {
+	var hours = this.getHours();
 	if (locale && locale == 'rus') {
-		return zeroFormat(hours) + ':' + zeroFormat(jsdate.getMinutes());
+		return zeroFormat(hours) + ':' + zeroFormat(this.getMinutes());
 	}
-	return zeroFormat((hours > 12) ? hours - 12 : hours) + ':' + zeroFormat(jsdate.getMinutes()) + ((hours >= 12) ? 'pm' : 'am');
+	return zeroFormat((hours > 12) ? hours - 12 : hours) + ':' + zeroFormat(this.getMinutes()) + ((hours >= 12) ? 'pm' : 'am');
 }
-Date.fullDate = function(js_date, locale) {
+Date.prototype.fullDate = function(locale) {
 	if (locale && locale == 'rus') {
-		return zeroFormat(js_date.getDate()) + '.' + zeroFormat(js_date.getMonth() + 1) + '.' + js_date.getFullYear();
+		return zeroFormat(this.getDate()) + '.' + zeroFormat(this.getMonth() + 1) + '.' + this.getFullYear();
 	}
-	return zeroFormat(js_date.getMonth() + 1) + '/' + zeroFormat(js_date.getDate()) + '/' + js_date.getFullYear();
+	return zeroFormat(this.getMonth() + 1) + '/' + zeroFormat(this.getDate()) + '/' + this.getFullYear();
 }
 Date.prototype.addDays = function(days) {
 	this.setTime(this.getTime() + Date.timeDays(days));

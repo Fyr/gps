@@ -1,1 +1,6 @@
-Остановка
+<b>Стоянка</b><br/>
+{%
+	var date = Date.fromSqlDate(o.period);
+	var date2 = Date.fromSqlDate(o.parkingEnd);
+%}
+{%=date.fullDate('rus')%} {%=date.hoursMinutes('rus')%} - {%=date2.fullDate('rus')%} {%=date2.hoursMinutes('rus')%}

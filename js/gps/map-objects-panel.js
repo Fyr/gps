@@ -36,12 +36,10 @@ var MapObjectsPanel = function() {
 	
 	this.update = function() {
 		sendApiRequest('getTopicalityData', null, function(response) {
-			if (checkJson(response)) {
-				$('#checkAll', $self).prop('checked', false).trigger('refresh');
-				self.clearObjects();
-				self.setObjects(response.data);
-				self.show();
-			}
+			$('#checkAll', $self).prop('checked', false).trigger('refresh');
+			self.clearObjects();
+			self.setObjects(response.data);
+			self.show();
 		});
 	}
 	

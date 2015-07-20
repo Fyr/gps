@@ -1,1 +1,5 @@
-Движение
+<b>Движение</b><br/>
+{%
+	var date = Date.fromSqlDate(o.period);
+%}
+{%=date.fullDate('rus')%} {%=date.hoursMinutes('rus')%}
