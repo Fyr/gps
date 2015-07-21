@@ -21,26 +21,6 @@ var ObjectRoutesPanel = function() {
 			self.setObjects(_old_objects, response.data);
 			self.show();
 		});
-		
-		var params = {
-			monitoringObjects: self.getCheckedIds()
-		};
-		sendApiRequest('getSensors', 'params=' + JSON.stringify(params), function(response){
-			var sensors = {};
-			for(var i = 0; i < response.data.length; i++) {
-				var id = response.data[i].monitoringObject;
-				for(var j = 0; j < response.data[i].sensors.length; j++) {
-					var data = response.data[i].sensors[j];
-					sensors[data.guid] = data.name;
-				}
-			}
-			for(var id in sensors) {
-				var option = '<option value="' + id + '">' + sensors[id] + '</option>';
-				$('select').append(option);
-			}
-			$('select').styler({selectPlaceholder: locale.selectSensor});
-			$('#sensors').show();
-		});
 	}
 	
 	this.setObjects = function(data, routesData) {
@@ -74,14 +54,15 @@ var ObjectRoutesPanel = function() {
 			if (data && data.length) {
 				data.id = id;
 				for(var j = 0; j < data.length; j++) {
-					var route = data[j];
-					route.id = route.pointId;
-					route.period = route.period.replace(/T/, ' ');
-					if (route.parkingEnd) {
-						route.parkingEnd = route.parkingEnd.replace(/T/, ' ');
+					var point = data[j];
+					point.id = point.pointId;
+					point.period = point.period.replace(/T/, ' ');
+					if (point.parkingEnd) {
+						point.parkingEnd = point.parkingEnd.replace(/T/, ' ');
 					}
 				}
 				self.objects[id].routesEnabled = true;
+				self.objects[id].chartsEnabled = true;
 				self.objects[id].showRoute = false;
 				self.objects[id].routes = data;
 				self.objects[id].latlons = data;
@@ -95,18 +76,23 @@ var ObjectRoutesPanel = function() {
 		if (self.objects[id].checkable && self.objects[id].routesEnabled) {
 			map.addLine(self.objects[id]);
 			for(var j = 0; j < self.objects[id].routes.length; j++) {
-				var route = self.objects[id].routes[j];
-				if (j == 0) {
-					map.addMarker(route);
-					map.bindMarkerPopup(route.id, Tmpl('route-start').render(route));
-				} else if (j == (self.objects[id].routes.length - 1)) {
-					map.addMarker(route);
-					map.bindMarkerPopup(route.id, Tmpl('route-finish').render(route));
-				} else {
-					map.addMarker(route);
-					map.bindMarkerPopup(route.id, Tmpl('route-' + route.status).render(route));
-				}
+				self.addRoutePoint(id, j);
 			}
+		}
+	}
+	
+	this.addRoutePoint = function(id, i, selected) {
+		selected = (selected) ? '-selected' : '';
+		var point = self.objects[id].routes[i];
+		if (i == 0) {
+			map.addMarker(point, 'start' + selected);
+			map.bindMarkerPopup(point.id, Tmpl('route-start').render(point));
+		} else if (i == (self.objects[id].routes.length - 1)) {
+			map.addMarker(point, 'finish' + selected);
+			map.bindMarkerPopup(point.id, Tmpl('route-finish').render(point));
+		} else {
+			map.addMarker(point, point.status + selected);
+			map.bindMarkerPopup(point.id, Tmpl('route-' + point.status).render(point));
 		}
 	}
 	
@@ -145,35 +131,40 @@ var ObjectRoutesPanel = function() {
 		}
 	}
 	
-	this.updateSensorCharts = function(sensor_code) {
+	this.updateSensorCharts = function(id) {
+		var sensor_ids = [];
+		$('#selectSensors [type=checkbox]:checked').each(function(){
+			sensor_ids.push($(this).prop('id').replace(/sensor/, ''));
+		});
 		var params = {
-			monitoringObjects: self.getCheckedIds(),
+			monitoringObjects: [id],
 			startRoute: $('#period1').val() ? $('#period1').val() + 'T00:00:00' : '',
 			endRoute: $('#period2').val() ? $('#period2').val() + 'T00:00:00' : '',
-			sensors: [sensor_code]
+			sensors: [sensor_ids]
 		}
 		sendApiRequest('getSensorData', 'params=' + JSON.stringify(params), function(response) {
-			self.showCharts(response.data);
+			self.dialog.close();
+			self.showCharts(id, response.data[0].sensors);
 		});
 	}
 	
-	this.showCharts = function(data) {
-		var xItems = [], series = [];
-		
-		for(var i = 0; i < data.length; i++) {
-			for(var j = 0; j < data[i].sensors.length; j++) {
-				xItems = []; 
-				var s_data = [], points = [];
-				for(var n = 0; n < data[i].sensors[j].points.length; n++) {
-					var _data = data[i].sensors[j].points[n];
-					var dt = Date.fromSqlDate(_data.period.replace(/T/, ''));
-					xItems.push(dt.fullDate('rus') + ' ' + dt.hoursMinutes('rus'));
-					s_data.push(_data.data);
-					points.push(_data.pointId);
-				}
+	this.showCharts = function(id, data) {
+		var xItems = [], series = [], yAxis = [], opposite = false;
+		for(var j = 0; j < data.length; j++) {
+			xItems = []; 
+			var s_data = [], points = [];
+			for(var n = 0; n < data[j].points.length; n++) {
+				var _data = data[j].points[n];
+				var dt = Date.fromSqlDate(_data.period.replace(/T/, ''));
+				xItems.push(dt.fullDate('rus') + ' ' + dt.hoursMinutes('rus'));
+				s_data.push(_data.data);
+				points.push(_data.pointId);
 			}
-			var id = data[i].monitoringObject;
-			series.push({name: self.objects[id].title, data: s_data, guid: id, points: points});
+			var sensorTitle = self.sensors[id][data[j].sensor];
+			yAxis.push({opposite: opposite, title: {text: sensorTitle}});
+			series.push({name: sensorTitle, data: s_data, yAxis: j, guid: id, points: points});
+			
+			opposite = !opposite;
 		}
 		var options = {
 	        title: {
@@ -187,11 +178,7 @@ var ObjectRoutesPanel = function() {
 	        xAxis: {
 	            categories: xItems
 	        },
-	        yAxis: {
-	            title: {
-	                text: locale.chartYAxis
-	            }
-	        },
+	        yAxis: yAxis,
 	        tooltip: {
 	            shared: true
 	        },
@@ -200,7 +187,6 @@ var ObjectRoutesPanel = function() {
 	            align: 'right',
 	            verticalAlign: 'top',
 	            borderWidth: 0,
-	            floating: true
 	        },
 	        series: series,
 	        chart: { 
@@ -216,12 +202,9 @@ var ObjectRoutesPanel = function() {
 						events: {
 							select: function(e) {
 								self.selectPoint(e.target.series.userOptions.guid, e.target.series.userOptions.points[e.target.index]);
-								// console.log([e.target.index, e.target.series.userOptions.guid, e.target.series.userOptions.points]);
 							},
 							unselect: function(e) {
 								self.unselectPoint(e.target.series.userOptions.guid, e.target.series.userOptions.points[e.target.index]);
-								// console.log(e);
-								// console.log([e.target.index, e.target.series.userOptions.guid, e.target.series.userOptions.points]);
 							}
 						}
 					}
@@ -231,17 +214,53 @@ var ObjectRoutesPanel = function() {
 		$('#charts-canvas').highcharts(options);
 	}
 	
-	this.getPointLatLon = function(id, pointId) {
-		for(i = 0; i < self.objects[id].routes.length; i++) {
+	this.onChartsClick = function(id) {
+		var params = {
+			monitoringObjects: [id]
+		};
+		sendApiRequest('getSensors', 'params=' + JSON.stringify(params), function(response){
+			self.sensors[id] = {};
+			var sensors = {};
+			for(var i = 0; i < response.data[0].sensors.length; i++) {
+				var sensor = response.data[0].sensors[i];
+				sensors[sensor.guid] = sensor.name;
+			}
+			self.sensors[id] = sensors;
 			
+			self.dialog = new Popup({
+				title: 'Выберите датчики',
+				content: Tmpl('popup-check-sensors').render({id: id, sensors: response.data[0].sensors})
+			});
+			self.dialog.open();
+			$('[type=checkbox]').styler();
+		});
+	}
+	
+	this.getRoutePoint = function(id, pointId) {
+		for(i = 0; i < self.objects[id].routes.length; i++) {
+			if (self.objects[id].routes[i].pointId == pointId) {
+				return i;
+			}
 		}
 	}
 	
 	this.selectPoint = function(id, pointId) {
-		
+		// show selected point after unselected to center on shown marker
+		if (!$('#route' + id).hasClass('disabled')) {
+			setTimeout(function(){
+				map.hideMarker(pointId);
+				self.addRoutePoint(id, self.getRoutePoint(id, pointId), true);
+				map.showMarker(pointId);
+			}, 10);
+		}
 	}
 	
-	this.unselectPoint = function(id, PointId) {
-		
+	this.unselectPoint = function(id, pointId) {
+		if (!$('#route' + id).hasClass('disabled')) {
+			map.hideMarker(pointId);
+			self.addRoutePoint(id, self.getRoutePoint(id, pointId), false);
+			map.showMarker(pointId);
+		}
 	}
+	
 }

@@ -1,5 +1,4 @@
 var locale = {
 	selectSensor: 'Выберите датчик',
-	chartsTitle: 'График изменения датчиков',
-	chartYAxis: 'Значение датчика'
+	chartsTitle: 'График изменения датчиков'
 };

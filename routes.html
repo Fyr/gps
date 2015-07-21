@@ -29,6 +29,16 @@
 		<script type="text/javascript" src="./js/leaflet.js"></script>
 		<script type="text/javascript" src="./js/gps/map-api.js"></script>
 		<script type="text/javascript" src="./js/gps/locale/ru.js"></script>
+		
+<style type="text/css">
+.icon-charts {
+	background: url(img/chart_line.png) 5px 5px no-repeat;
+	width: 21px;
+	height: 21px;
+	display: inline-block;
+	float: right;
+}
+</style>		
 		<script type="text/javascript">
 var objectsPanel, sensors;
 
@@ -44,7 +54,8 @@ $(function(){
 		'route-start',
 		'route-finish',
 		'route-parking',
-		'route-movement'
+		'route-movement',
+		'popup-check-sensors'
 	];
 	Tmpl().loadModules(aModules, function(){ 
 		setCurrMenu(2, 2);
@@ -78,11 +89,12 @@ function isFormValid() {
 					<div class="block tmpl-panel-map-object-form"></div>
 				</div>
 				<div class="rightSide">
-					<div id="map-canvas" class="mapContainer" style="border: 1px solid #e5e5e5; height: 350px; "></div>
-					<div id="charts-canvas" class="mapContainer" style="border: 1px solid #e5e5e5; height: 350px;"></div>
+					<div id="map-canvas" class="mapContainer" style="border: 1px solid #e5e5e5; height: 200px; "></div>
+					<div id="charts-canvas" class="mapContainer" style="border: 1px solid #e5e5e5; height: 200px;"></div>
 				</div>
 			</div>
 			<div class="contacts tmpl-footer"></div>
+			<div id="shadow"></div>
 		</div>
 	</body>
 </html>

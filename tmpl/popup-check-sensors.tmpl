@@ -1,0 +1,21 @@
+<div id="selectSensors">
+	<div class="block">
+		<div class="info">
+{%
+	for(var i = 0; i < o.sensors.length; i++) {
+		var guid = o.sensors[i].guid;
+		var title = o.sensors[i].name;
+%}
+			<div class="item clearfix">
+				<input id="sensor{%=guid%}" type="checkbox" name="sensor[]" onchange="$('#selectSensors .btn').get(0).disabled = !$('#selectSensors [type=checkbox]:checked').length" />{%=title%}
+			</div>
+{%
+	}
+%}
+		</div>
+	</div>
+	
+	<div class="popup-actions">
+		<button type="button" class="btn" onclick="objectsPanel.updateSensorCharts('{%=o.id%}')" disabled="disabled">Построить графики</button>
+	</div>
+</div>

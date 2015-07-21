@@ -311,6 +311,9 @@ ul { list-style: none; margin: 0; padding: 0;}
 		box-shadow:         inset 0px 0px 6px 0px rgba(0, 0, 0, 0.1);
 	}
 
+.btn[disabled] { background: #fff980; cursor: not-allowed; color: #bebebe; }
+.btn[disabled]:hover, .btn[disabled]:active { box-shadow: none; }
+
 .btn.withIcon { padding: 5px 0 5px 11px; text-align: left;}
 	.btn.withIcon span { display: inline-block; vertical-align: middle; }
 	.btn.withIcon .icon { margin-right: 4px;}

@@ -29,8 +29,20 @@ var MapAPI = function(canvas) {
 	/**
 		Object must contain properties: id, title, lat, lon\lng
 	**/
-	this.addMarker = function(obj) {
-		self.markers[obj.id] = L.marker([obj.lat, obj.lon], {title: obj.title || ''});
+	this.addMarker = function(obj, type) {
+		var Icons = {
+			'default': Point,
+			'default-selected': PointSelected,
+			'start': StartPoint,
+			'start-selected': StartPointSelected,
+			'finish': FinishPoint,
+			'finish-selected': FinishPointSelected,
+			'movement': SmallPoint,
+			'movement-selected': PointSelected,
+			'parking': ParkingPoint,
+			'parking-selected': ParkingPointSelected
+		};
+		self.markers[obj.id] = L.marker([obj.lat, obj.lon], {title: obj.title || '', icon: Icons[type || 'default']});
 	}
 	
 	this.showMarker = function(id) {
@@ -64,7 +76,7 @@ var MapAPI = function(canvas) {
 	
 	this.addLine = function(obj) {
 		var i = Object.keys(self.lines).length;
-		self.lines[obj.id] = L.polyline(obj.latlons, {color: self.colors[i]});
+		self.lines[obj.id] = L.polyline(obj.latlons, {color: self.colors[i], weight: 3});
 	}
 	
 	this.getLine = function(id) {
@@ -142,3 +154,42 @@ var MapAPI = function(canvas) {
 		self.polygons = {};
 	}
 }
+
+var PointIcon = L.Icon.extend({
+	options: {
+		iconSize: [16, 16],
+		iconAnchor: [8, 8],
+		popupAnchor: [0, -5]
+	}
+});
+var Point = new PointIcon({iconUrl: 'img/marker-point.png'});
+var PointSelected = new PointIcon({iconUrl: 'img/marker-point-selected.png'});
+/*
+var Point = L.icon({
+	iconUrl: 'img/marker-point.png',
+	iconSize: [16, 16],
+	iconAnchor: [8, 8],
+	popupAnchor: [0, -5]
+});
+*/
+var SmallPoint = L.icon({
+	iconUrl: 'img/marker-small-point.png',
+	iconSize: [8, 8],
+	iconAnchor: [4, 4],
+	popupAnchor: [0, -2]
+});
+
+var RouteIcon = L.Icon.extend({
+	options: {
+		iconSize: [37, 42],
+		iconAnchor: [10, 40],
+		popupAnchor: [4, -38]
+	}
+});
+
+var StartPoint = new RouteIcon({iconUrl: 'img/marker-start.png'});
+var StartPointSelected = new RouteIcon({iconUrl: 'img/marker-start-selected.png'});
+var FinishPoint = new RouteIcon({iconUrl: 'img/marker-finish.png'});
+var FinishPointSelected = new RouteIcon({iconUrl: 'img/marker-finish-selected.png'});
+var ParkingPoint = new RouteIcon({iconUrl: 'img/marker-parking.png'});
+var ParkingPointSelected = new RouteIcon({iconUrl: 'img/marker-parking-selected.png'});

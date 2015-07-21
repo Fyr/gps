@@ -22,7 +22,6 @@ var MapObjectsPanel = function() {
 			self.update();
 		});
 		$('.panel #addObject', $self).click(function(){
-			var html = Tmpl('popup-add-object').render();
 			var dialog = new Popup({
 				title: 'Добавление обьекта',
 				content: Tmpl('popup-add-object').render()

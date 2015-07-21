@@ -4,7 +4,7 @@ var Popup = function(params) {
 	self.params = $.extend({title: '', content: ''}, params);
 	
 	this.init = function() {
-		$('body').append(tmpl('tmpl-popup', params));
+		$('body').append(Tmpl('popup').render(params));
 		$('.popup .close-popup').click(function() {
 			self.close();
 		});
