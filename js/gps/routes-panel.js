@@ -228,7 +228,7 @@ var ObjectRoutesPanel = function() {
 			self.sensors[id] = sensors;
 			
 			self.dialog = new Popup({
-				title: 'Выберите датчики',
+				title: locale.selectSensors,
 				content: Tmpl('popup-check-sensors').render({id: id, sensors: response.data[0].sensors})
 			});
 			self.dialog.open();
@@ -263,4 +263,8 @@ var ObjectRoutesPanel = function() {
 		}
 	}
 	
+	this.onCheckObject = function(checked, id) {
+		$('.tmpl-panel-map-object-form .btn').get(0).disabled = !$('.tmpl-panel-map-object-list .info [type=checkbox]:checked').length
+		self.parent.onCheckObject(checked, id);
+	}
 }

@@ -23,7 +23,7 @@ var MapObjectsPanel = function() {
 		});
 		$('.panel #addObject', $self).click(function(){
 			var dialog = new Popup({
-				title: 'Добавление обьекта',
+				title: locale.addObject,
 				content: Tmpl('popup-add-object').render()
 			});
 			dialog.open();
@@ -141,7 +141,7 @@ var MapObjectsPanel = function() {
 			html+= Tmpl('panel-map-object-item').render(self.objects[i]);
 		}
 		if (!html) {
-			html = '<div style="text-align: center; margin: 10px 0"> - нет обьектов -</div>';
+			html = '<div style="text-align: center; margin: 10px 0"> - ' + locale.noObjects + ' -</div>';
 		}
 		$('.info', $self).html(html);
 		$('input[type=checkbox]', $self).styler();

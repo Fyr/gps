@@ -1,4 +1,6 @@
 var locale = {
-	selectSensor: 'Выберите датчик',
-	chartsTitle: 'График изменения датчиков'
+	addObject: 'Добавление обьекта',
+	noObjects: 'нет обьектов',
+	selectSensors: 'Выберите датчики',
+	chartsTitle: 'Графики изменения датчиков'
 };
