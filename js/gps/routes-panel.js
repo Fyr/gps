@@ -1,5 +1,5 @@
 var ObjectRoutesPanel = function() {
-	var self = this, $self = $('.leftSide');
+	var self = this;
 	
 	extend(this, MapObjectsPanel);
 
@@ -63,7 +63,7 @@ var ObjectRoutesPanel = function() {
 				}
 				self.objects[id].routesEnabled = true;
 				self.objects[id].chartsEnabled = true;
-				self.objects[id].showRoute = false;
+				self.objects[id].showRoute = true;
 				self.objects[id].routes = data;
 				self.objects[id].latlons = data;
 			}

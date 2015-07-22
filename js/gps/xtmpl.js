@@ -20,7 +20,15 @@ var Tmpl = function(tpl) {
 		$.get('./tmpl/' + module + '.tmpl', null, function(html){
 			// если надо склеить 2 tmpl в 1 - можно сделать через поиск и замену <!-- Section: -->
 			
-			$('#tmpl').append('<script type="text/x-tmpl" id="tmpl-' + module + '">' + html + '</script>');
+			if (html.indexOf('<!-- Template') > -1) {
+				html = html.replace(/<!-- Template: ([a-zA-Z0-9_\-]+) -->/g, '<script type="text/x-tmpl" id="tmpl-$1">');
+				html = html.replace(/<!-- end -->/g, '</script>');
+				html = html.replace(/include\(\'/g, 'include(\'tmpl-');
+				html = html.replace(/include\(\"/g, 'include(\"tmpl-');
+			} else {
+				html = '<script type="text/x-tmpl" id="tmpl-' + module + '">' + html + '</script>';
+			}
+			$('#tmpl').append(html);
 			self.modules++;
 			if (self.modules >= self.aModules.length) {
 				for(i = 0; i < self.aModules.length; i++) {

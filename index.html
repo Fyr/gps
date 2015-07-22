@@ -22,12 +22,17 @@
 		<script type="text/javascript" src="./js/gps/withoutscroll.js"></script>
 		<script type="text/javascript" src="./js/gps/popup.js"></script>
 		<script type="text/javascript" src="./js/gps/send-message-popup.js"></script>
-		
+		<script type="text/javascript" src="./js/gps/locale/ru.js"></script>
+		<script type="text/javascript" src="./js/gps/menu.js"></script>
 		<script type="text/javascript">
 $(function(){
-	aModules = ['header', 'footer', 'docs', 'popup', 'popup-favorites', 'popup-send-message', 'popup-message-thanks'];
+	
+	var html = '<!-- Template: template-1 --> template 1!!! html <-- end --><!-- Template: template_2 --> template 2!!! html <-- end -->';
+	html = html.replace(/<!-- Template: ([a-zA-Z]+[a-zA-Z_\-]*) -->/g, '<script type="text/x-tmpl" id="tmpl-$1">')
+	console.log(html);
+	
+	aModules = ['menu', 'footer', 'docs', 'popup', 'popup-favorites', 'popup-send-message', 'popup-message-thanks'];
 	Tmpl().loadModules(aModules, function(){ 
-		
 		setCurrMenu(1);
 		
 		sendApiRequest('getContacts', null, function(response) {
@@ -83,7 +88,10 @@ $(function(){
 	</head>
 	<body>
 		<div class="mainContainer">
-			<div class="header clearfix tmpl-header"></div>
+			<div class="header clearfix">
+				<a href="/" class="logo"><img src="./img/logo.gif" alt="Velcom" /></a>
+				<span class="tmpl-menu"></span>
+			</div>
 			<div class="clearfix">
 				<div class="leftSide">
 					<div class="block newsBlock">

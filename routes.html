@@ -29,7 +29,7 @@
 		<script type="text/javascript" src="./js/leaflet.js"></script>
 		<script type="text/javascript" src="./js/gps/map-api.js"></script>
 		<script type="text/javascript" src="./js/gps/locale/ru.js"></script>
-		
+		<script type="text/javascript" src="./js/gps/menu.js"></script>
 <style type="text/css">
 .icon-charts {
 	background: url(img/chart_line.png) 5px 5px no-repeat;
@@ -38,13 +38,13 @@
 	display: inline-block;
 	float: right;
 }
-</style>		
+</style>
 		<script type="text/javascript">
-var objectsPanel, sensors;
+var objectsPanel;
 
 $(function(){
 	aModules = [
-		'header', 
+		'menu',
 		'panel-map-object-list', 
 		'panel-map-object-item', 
 		'panel-map-object-infowin', 
@@ -57,7 +57,7 @@ $(function(){
 		'route-movement',
 		'popup-check-sensors'
 	];
-	Tmpl().loadModules(aModules, function(){ 
+	Tmpl().loadModules(aModules, function(){
 		setCurrMenu(2, 2);
 		
 		rome(period1, {time: false});
@@ -67,29 +67,25 @@ $(function(){
 		objectsPanel.init();
 		
 		$('.tmpl-panel-map-object-form .btn').click(function(){
-			// if (isFormValid()) {
-				// objectsPanel = new ObjectRoutesPanel();
-				objectsPanel.updateRoutes();
-			// }
+			objectsPanel.updateRoutes();
 		});
 	});
 });
-
-function isFormValid() {
-	return $('#period1').val().length && $('#period2').val().length;
-}
 </script>
 	</head>
 	<body>
 		<div class="mainContainer">
-			<div class="header clearfix tmpl-header"></div>
+			<div class="header clearfix">
+				<a href="/" class="logo"><img src="./img/logo.gif" alt="Velcom" /></a>
+				<span class="tmpl-menu"></span>
+			</div>
 			<div class="maket clearfix">
 				<div class="leftSide">
 					<div class="block tmpl-panel-map-object-list"></div>
 					<div class="block tmpl-panel-map-object-form"></div>
 				</div>
 				<div class="rightSide">
-					<div id="map-canvas" class="mapContainer" style="border: 1px solid #e5e5e5; height: 200px; "></div>
+					<div id="map-canvas" class="mapContainer" style="border: 1px solid #e5e5e5; height: 400px;"></div>
 					<div id="charts-canvas" class="mapContainer" style="border: 1px solid #e5e5e5; height: 200px;"></div>
 				</div>
 			</div>

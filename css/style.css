@@ -172,9 +172,11 @@ ul { list-style: none; margin: 0; padding: 0;}
 	padding: 0 24px 0 5px;
 	border: 1px solid #fff200;
 	background: #fafcf5;
-	color: #8a8c8d;
+	color: #b0b0b0;
 	line-height: 19px;
 }
+.jq-selectbox.changed .jq-selectbox__select { color: #68696a }
+
 .jq-selectbox__select:hover {
 	background-color: #fff;
 }
@@ -196,6 +198,8 @@ ul { list-style: none; margin: 0; padding: 0;}
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
+
+
 .jq-selectbox .placeholder {
 	color: #888;
 }
@@ -325,7 +329,12 @@ ul { list-style: none; margin: 0; padding: 0;}
 	.btn.thick .icon-plus { margin-right: 4px;}
 */
 
-input[type=text], textarea { border: 1px solid #fff200; color: #8a8c8d; display: inline-block; vertical-align: middle; background: #fafcf5; font-size: 12px;  padding: 2px 4px 1px 4px; border-radius: 0; box-shadow: none; resize: none;}
+input[type=text], textarea { border: 1px solid #fff200; color: #68696a; display: inline-block; vertical-align: middle; background: #fafcf5; font-size: 12px;  padding: 2px 4px 1px 4px; border-radius: 0; box-shadow: none; resize: none;}
+
+input[type=text]::-webkit-input-placeholder { color: #b0b0b0; opacity: 1;}
+input[type=text]::-moz-placeholder          {color: #b0b0b0; opacity: 1; }/* Firefox 19+ */
+input[type=text]:-moz-placeholder           {color: #b0b0b0; opacity: 1; }/* Firefox 18- */
+input[type=text]:-ms-input-placeholder { color: #b0b0b0; opacity: 1; }
 
 .sensorGraphic { margin-bottom: 10px; }
 .mapContainer { margin-bottom: 10px; }
@@ -365,3 +374,15 @@ only screen and (                min-resolution: 2dppx) {
 	.treegrid-expander-expanded { background-image: url('../img/sprite@2x.png'); background-size: 125px 300px; }
 	.treegrid-expander-collapsed { background-image: url('../img/sprite@2x.png'); background-size: 125px 300px; }
 }
+
+.scheduleItem { padding: 4px 0 4px 10px; border-top: 1px solid #e5e5e5; color: #171609; cursor: pointer; }
+	.scheduleItem a { display: inline-block; color: #171609; }
+	.scheduleItem a:hover { text-decoration: underline; }
+
+.fc-schedule-view.block { border-top: none;}
+	.fc-schedule-view .scheduleItem:nth-child(odd) { background: #e5e5e5;}
+
+#smallCalendar {}
+	#smallCalendar .rd-days { width: 100%;}
+	#smallCalendar .rd-container { display: block !important; border-color: #e5e5e5; height: 145px; margin-bottom: 10px; }
+	#smallCalendar .rd-month { display: block !important; }

@@ -24,7 +24,8 @@
 		<script type="text/javascript" src="./js/gps/map-objects-panel.js"></script>
 		<script type="text/javascript" src="./js/gps/geo-objects-panel.js"></script>
 		<script type="text/javascript" src="./js/gps/popup.js"></script>
-		
+		<script type="text/javascript" src="./js/gps/locale/ru.js"></script>
+		<script type="text/javascript" src="./js/gps/menu.js"></script>
 		<script type="text/javascript" src="./js/leaflet.js"></script>
 		<script type="text/javascript" src="./js/gps/map-api.js"></script>
 		
@@ -32,7 +33,7 @@
 var objectsPanel;
 
 $(function(){
-	aModules = ['header', 'panel-map-object-list', 'panel-map-object-item', 'panel-map-object-infowin', 'popup', 'popup-add-object'];
+	aModules = ['menu', 'panel-map-object-list', 'panel-map-object-item', 'panel-map-object-infowin', 'popup', 'popup-add-object'];
 	Tmpl().loadModules(aModules, function(){ 
 		setCurrMenu(2, 3);
 		
@@ -45,7 +46,10 @@ $(function(){
 	</head>
 	<body>
 		<div class="mainContainer">
-			<div class="header clearfix tmpl-header"></div>
+			<div class="header clearfix">
+				<a href="/" class="logo"><img src="./img/logo.gif" alt="Velcom" /></a>
+				<span class="tmpl-menu"></span>
+			</div>
 			<div class="maket clearfix">
 				<div class="leftSide">
 					<div class="block tmpl-panel-map-object-list"></div>

@@ -88,6 +88,7 @@ var MapAPI = function(canvas) {
 		line.addTo(self.mapL);
 		var latlons = line.getLatLngs();
 		self.showAt(latlons[0]);
+		// self.mapL.fitBounds(line.getBounds())
 	}
 	
 	this.hideLine = function(id) {

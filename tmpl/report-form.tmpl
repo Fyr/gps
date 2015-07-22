@@ -1,0 +1,39 @@
+<!-- Template: report-form -->
+<div class="info1">
+	<form id="reportForm">
+{%
+	for(var i = 0; i < o.settings.length; i++) {
+		var e = o.settings[i];
+		if (e.elem == 'input' && e.attrs.type == 'datetime') {
+			include('reportform-datetime', e.attrs);
+		} else if (e.elem == 'select') {
+			include('reportform-select', e.attrs);
+		}
+	}
+%}
+		<button id="SubmitBtn" type="button" class="btn" onclick="objectsPanel.submitReportForm()" style="margin: 7px auto">Отправить</button>
+	</form>
+</div>
+<!-- end -->
+
+<!-- Template: reportform-datetime -->
+<div class="line">
+	<span class="name">{%=o.label%}:</span>
+	<input type="text" name="{%=o.id%}" class="rome-datetime" />
+</div>
+<!-- end -->
+
+<!-- Template: reportform-select -->
+<div class="line">
+	<span class="name">{%=o.label%}:</span>
+	<select name="{%=o.id%}" class="styler-select">
+{%
+	for(var i = 0; i < o.options.length; i++) {
+%}
+		<option value="{%=o.options[i].guid%}">{%=o.options[i].name%}</option>
+{%
+	}
+%}
+	</select>
+</div>
+<!-- end -->

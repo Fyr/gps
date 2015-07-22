@@ -38,15 +38,19 @@ function int2hex(n, length) {
 	return s.toUpperCase();
 }
 
-function toggleMarker(lShow, id) {
-	markers[id].setMap((lShow) ? map : null);
-}
-
 function setCurrMenu(n, m) {
-	$('ul.menu > li:eq(' + (n-1) + ')').addClass('active');
-	if (m) {
-		$('ul.subMenu > li:eq(' + (m-1) + ')', $('ul.menu > li:eq(' + (n-1) + ')')).addClass('active');
-	}
+	sendApiRequest('getReports', null, function(response){
+		MainMenu[3].submenu = [];
+		for(var i = 0; i < response.data.length; i++) {
+			var item = response.data[i];
+			MainMenu[3].submenu.push({href: 'reports.html?report=' + item.guid, title: item.name})
+		}
+		$('.tmpl-menu').html(Tmpl('menu').render());
+		$('ul.menu > li:eq(' + (n-1) + ')').addClass('active');
+		if (m) {
+			$('ul.subMenu > li:eq(' + (m-1) + ')', $('ul.menu > li:eq(' + (n-1) + ')')).addClass('active');
+		}
+	});
 }
 
 function extend(self, fnObj) {

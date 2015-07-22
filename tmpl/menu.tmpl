@@ -1,0 +1,28 @@
+<ul class="menu clearfix">
+{%
+	for(var i = 0; i < MainMenu.length; i++) {
+		var item = MainMenu[i];
+%}
+	<li>
+		<a href="{%=item.href%}">{%#item.title%}</a>
+{%
+		if (item.submenu) {
+%}
+		<ul class="subMenu map">
+{%
+		for(j = 0; j < item.submenu.length; j++) {
+			var subitem = item.submenu[j];
+%}
+			<li><a href="{%=subitem.href%}">{%#subitem.title%}</a></li>
+{%
+		}
+%}
+		</ul>
+{%
+		}
+%}
+	</li>
+{%
+	}
+%}
+</ul>
