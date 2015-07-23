@@ -27,10 +27,6 @@
 		<script type="text/javascript">
 $(function(){
 	
-	var html = '<!-- Template: template-1 --> template 1!!! html <-- end --><!-- Template: template_2 --> template 2!!! html <-- end -->';
-	html = html.replace(/<!-- Template: ([a-zA-Z]+[a-zA-Z_\-]*) -->/g, '<script type="text/x-tmpl" id="tmpl-$1">')
-	console.log(html);
-	
 	aModules = ['menu', 'footer', 'docs', 'popup', 'popup-favorites', 'popup-send-message', 'popup-message-thanks'];
 	Tmpl().loadModules(aModules, function(){ 
 		setCurrMenu(1);
@@ -82,12 +78,20 @@ $(function(){
 			});
 			dialog.open();
 		});
+		
+		reviewScroll();
+	
+		$(window).resize(function() {
+			reviewScroll();
+		});
+		
+		$(".scroller").niceScroll({autohidemode:false, cursorcolor: "#ecdc00", background: "#dddddd", cursorborderradius: "0", cursorwidth: "7px"});
 	});
 });
 </script>
 	</head>
 	<body>
-		<div class="mainContainer">
+		<div class="mainContainer index">
 			<div class="header clearfix">
 				<a href="/" class="logo"><img src="./img/logo.gif" alt="Velcom" /></a>
 				<span class="tmpl-menu"></span>
@@ -108,7 +112,7 @@ $(function(){
 							<span class="icon icon-instructions"></span>
 							<span class="name">Инструкции</span>
 						</div>
-						<div class="description scroller">
+						<div class="description scroller" style="height: 57px;">
 							Загрузка...
 						</div>
 					</div>
@@ -142,14 +146,14 @@ $(function(){
 							<span class="icon icon-documents"></span>
 							<span class="name">Документы</span>
 						</div>
-						<div class="description scroller">
+						<div class="description scroller" style="height: 57px;">
 							Загрузка...
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="contacts tmpl-footer"></div>
+			<div id="shadow"></div>
 		</div>
-		<div id="shadow"></div>
 	</body>
 </html>

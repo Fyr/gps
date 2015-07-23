@@ -8,7 +8,7 @@
 {%
 		if (item.submenu) {
 %}
-		<ul class="subMenu map">
+		<ul class="subMenu {%=item.smclass%}">
 {%
 		for(j = 0; j < item.submenu.length; j++) {
 			var subitem = item.submenu[j];

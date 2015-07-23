@@ -69,6 +69,7 @@ ul { list-style: none; margin: 0; padding: 0;}
 		.header .subMenu { display: none; background: #e5e5e5; position: absolute; }
 		.header .subMenu.map { width: 570px;}
 		.header .subMenu.planning { width: 495px;}
+		.header .subMenu.reports { width: 361px;}
 		.header .subMenu li { float: left; text-align: center; color: #68696a; font-size: 12px; }
 		.header .subMenu li a { color: #68696a; display: block; padding: 7px 15px 0 15px; height: 30px; min-width: 75px; box-sizing: border-box; text-shadow: none !important; font-weight: normal !important; }
 		.header .subMenu li.active a, .header .subMenu li a:hover { background: #68696a; color: #fff; text-shadow: none; font-weight: normal;  }

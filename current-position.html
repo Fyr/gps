@@ -45,9 +45,12 @@ $(function(){
 		
 		objectsPanel = new MapObjectsPanel();
 		objectsPanel.init();
+		
+		$(window).resize(function() {
+			objectsPanel.fixPanelHeight();
+		});
 	});
 });
-
 </script>
 	</head>
 	<body>
@@ -61,10 +64,10 @@ $(function(){
 					<div class="block tmpl-panel-map-object-list"></div>
 				</div>
 				<div class="rightSide">
-					<div id="map-canvas" class="mapContainer" style="border: 1px solid #e5e5e5; height: 400px;"></div>
+					<div id="map-canvas" class="mapContainer" style="border: 1px solid #e5e5e5; height: 200px;"></div>
 				</div>
 			</div>
-			<div class="contacts tmpl-footer"></div>
+			<div id="shadow"></div>
 		</div>
 	</body>
 </html>

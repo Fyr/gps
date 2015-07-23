@@ -264,7 +264,30 @@ var ObjectRoutesPanel = function() {
 	}
 	
 	this.onCheckObject = function(checked, id) {
-		$('.tmpl-panel-map-object-form .btn').get(0).disabled = !$('.tmpl-panel-map-object-list .info [type=checkbox]:checked').length
+		$('.tmpl-panel-map-object-form .btn').get(0).disabled = !$('.tmpl-panel-map-object-list .info [type=checkbox]:checked').length;
 		self.parent.onCheckObject(checked, id);
+	}
+	
+	this.fixPanelHeight = function() {
+		var freeH = self.getFreeHeight([
+			'.header', 
+			'.tmpl-panel-map-object-list .search', 
+			'.tmpl-panel-map-object-list .panel', 
+			'.tmpl-panel-map-object-form'
+		])-3;
+		var panel = $('.tmpl-panel-map-object-list .info').get(0);
+		$(panel).css('height', 'auto');
+		
+		var panelH = self.getHeight(panel);
+		if (panelH > freeH) {
+			$(panel).css('height', freeH + 'px');
+			$(panel).niceScroll({autohidemode:false, cursorcolor: "#ecdc00", background: "#dddddd", cursorborderradius: "0", cursorwidth: "7px"});
+		}
+		
+		freeH = self.getFreeHeight([
+			'.header', 
+			'#charts-canvas' 
+		]) + 13;
+		$('#map-canvas').css('height', freeH + 'px');
 	}
 }

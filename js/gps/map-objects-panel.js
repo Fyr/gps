@@ -145,6 +145,40 @@ var MapObjectsPanel = function() {
 		}
 		$('.info', $self).html(html);
 		$('input[type=checkbox]', $self).styler();
+		
+		self.fixPanelHeight();
+	}
+	
+	this.getHeight = function(e) {
+		return $(e).height() 
+			+ parseInt($(e).css('margin-top').replace(/px/, ''))
+			+ parseInt($(e).css('margin-bottom').replace(/px/, ''))
+			+ parseInt($(e).css('padding-top').replace(/px/, ''))
+			+ parseInt($(e).css('padding-bottom').replace(/px/, ''));
+	}
+	
+	this.getFreeHeight = function(aElements) {
+		var freeH = $(window).height();
+		for(var i = 0; i < aElements.length; i++) {
+			freeH-= self.getHeight(aElements[i]);
+		}
+		freeH-= 20 + 20; // padding for mainContainer
+		return freeH;
+	}
+	
+	this.fixPanelHeight = function() {
+		var freeH = self.getFreeHeight(['.header', '.tmpl-panel-map-object-list .search', '.tmpl-panel-map-object-list .panel']);
+		var panel = $('.tmpl-panel-map-object-list .info').get(0);
+		$(panel).css('height', 'auto');
+		
+		var panelH = self.getHeight(panel); 
+		if (panelH > freeH) {
+			$(panel).css('height', freeH + 'px');
+			$(panel).niceScroll({autohidemode:false, cursorcolor: "#ecdc00", background: "#dddddd", cursorborderradius: "0", cursorwidth: "7px"});
+		}
+		
+		freeH = self.getFreeHeight(['.header']);
+		$('#map-canvas').css('height', freeH + 16 + 'px');
 	}
 	
 	this.show = function() {

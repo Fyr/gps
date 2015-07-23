@@ -1,0 +1,24 @@
+{%
+	if (o.address) {
+%}
+		<div>{%=o.address%}</div>
+{%
+	}
+	if (o.start) {
+		var startDate = Date.fromSqlDate(o.start);
+%}
+		<div>Время начала: {%=startDate.fullDate('rus')%} {%=startDate.hoursMinutes('rus')%}</div>
+{%
+	}
+	if (o.end) {
+		var endDate = Date.fromSqlDate(o.end);
+%}	
+		<div>Время окончания: {%=endDate.fullDate('rus')%} {%=endDate.hoursMinutes('rus')%}</div>
+{%
+	}
+	if (o.description) {
+%}
+		<div>{%=o.description%}</div>
+{%
+	}
+%}

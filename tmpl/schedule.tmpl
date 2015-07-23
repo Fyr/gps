@@ -1,0 +1,20 @@
+{%
+	if (o.events.length) {
+		for(var i = 0; i < o.events.length; i++) {
+			var date = Date.fromSqlDate(o.events[i].start);
+			var event = o.events[i];
+			// var popupHtml = Tmpl('popup-calendar-info').render(event).replace(/"/g, '\"').replace(//g, );
+			// console.log(popupHtml);
+%}
+	<div class="scheduleItem" onclick="dialog = new Popup({title: '{%=event.title%}', content: Tmpl('popup-calendar-info').render({address: '{%=event.address%}', start: '{%=event.start%}', end: '{%=event.end%}', description: '{%=event.description%}'})}); dialog.open();">
+		<span>{%=date.fullDate('rus')%} {%=date.hoursMinutes('rus')%}</span>: 
+		{%=event.title%}
+	</div>
+{%
+		} 
+	} else {
+%}
+	<div class="scheduleItem" style="text-align: center; padding: 20px 0">- {%=locale.noEvents%} -</div>
+{%
+	}
+%}

@@ -1,6 +1,7 @@
 function sendApiRequest(method, data, successFn) {
-	var prodUrl = 'http://1c.softmax.by/sstm/hs/monitoringObjects/';
-	var baseUrl = (window.location.href.indexOf('1c.softmax.by') > -1) ? prodUrl : './server/';
+	// var prodUrl = 'http://1c.softmax.by/sstm/hs/monitoringObjects/';
+	// var baseUrl = (window.location.href.indexOf('1c.softmax.by') > -1) ? prodUrl : './server/';
+	var baseUrl = './server/';
 	
 	var methodType = 'GET';
 	if (method.indexOf('post.') > -1) {

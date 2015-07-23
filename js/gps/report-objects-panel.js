@@ -28,7 +28,6 @@ var ReportObjectsPanel = function() {
 		$('#reportForm input, #reportForm select').each(function(){
 			params[this.name] = this.value;
 		});
-		console.log(params);
 		sendApiRequest('getReport', {guid: self.reportId, format: 'json', params: JSON.stringify(params)}, function(response){
 			console.log(response.data);
 			grida = webix.ui({
