@@ -162,7 +162,7 @@ var MapObjectsPanel = function() {
 		for(var i = 0; i < aElements.length; i++) {
 			freeH-= self.getHeight(aElements[i]);
 		}
-		freeH-= 20 + 20; // padding for mainContainer
+		freeH-= 20 + 8; // padding for mainContainer
 		return freeH;
 	}
 	

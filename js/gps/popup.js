@@ -5,6 +5,8 @@ var Popup = function(params) {
 	
 	this.init = function() {
 		$('body').append(Tmpl('popup').render(params));
+		$('.popup').css('left', parseInt($(window).width() / 2 - $('.popup').width() / 2) + 'px');
+		$('.popup').css('top', parseInt($(window).height() / 2 - $('.popup').height() / 2) + 'px');
 		$('.popup .close-popup').click(function() {
 			self.close();
 		});

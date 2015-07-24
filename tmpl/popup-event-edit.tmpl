@@ -1,0 +1,34 @@
+<form id="eventForm">
+	<div class="line">
+		<label>* Объект:</label>
+		<select name="monitoringObject">
+{%
+	for(var val in o.objectOptions) {
+%}
+			<option value="{%=val%}">{%=o.objectOptions[val]%}</option>
+{%
+	}
+%}
+		</select>
+	</div>
+	<div class="line">
+		<label>* Название:</label>
+		<input type="text" name="summary" onchange="objectsPanel.updateEventForm()" />
+	</div>
+	<div class="line">
+		<label>* Период:</label>
+		c <input type="text" class="rome-datetime" name="start" onchange="objectsPanel.updateEventForm()" style="width: 75px" />
+		по <input type="text" class="rome-datetime" name="end" onchange="objectsPanel.updateEventForm()" style="width: 75px" />
+	</div>
+	<div class="line">
+		<label>Описание:</label>
+		<textarea name="message" style="height: 50px"></textarea>
+	</div>
+	Кликните по карте чтобы задать местоположение события
+	<div id="minimap-canvas" style="margin: 5px 0 10px 0; height: 200px;"></div>
+	<input type="hidden" name="location[lat]" value="" />
+	<input type="hidden" name="location[lon]" value="" />
+	<div class="popup-actions">
+		<button type="button" class="btn" disabled="disabled" onclick="objectsPanel.saveEvent()">Сохранить</button>
+	</div>
+</form>

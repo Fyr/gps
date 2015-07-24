@@ -46,7 +46,9 @@ $(function(){
 		'popup', 
 		'popup-add-object',
 		'schedule',
-		'popup-calendar-info'
+		'popup-event-view',
+		'popup-event-edit',
+		'popup-event-created'
 	];
 	Tmpl().loadModules(aModules, function(){ 
 		setCurrMenu(2, 1);
@@ -69,29 +71,32 @@ $(function(){
 			lang: 'ru',
 			editable: true,
 			eventLimit: true, // allow "more" link when too many events
-			events: function(start, end, timezone, callback) {
-				callback(objectsPanel.getEvents());
-			},
+			eventSources: [
+				{
+					events: function(start, end, timezone, callback) {
+						callback(objectsPanel.getEvents(objectsPanel.PLANNED));
+					}
+				},
+				{
+					events: function(start, end, timezone, callback) {
+						callback(objectsPanel.getEvents(objectsPanel.FAILED));
+					},
+					color: 'red'
+				},
+				{
+					events: function(start, end, timezone, callback) {
+						callback(objectsPanel.getEvents(objectsPanel.OCCURED));
+					},
+					color: 'green'
+				}
+			],
 			viewRender: function(view, element) {
 				if (view.name === 'schedule') {
-					$('.fc-schedule-view table').hide();
-					$('.fc-schedule-view').addClass('block');
-					
-					$('.fc-schedule-view').append(Tmpl('schedule').render({events: objectsPanel.getEvents()}));
+					objectsPanel.showSchedule();
 				}
 			},
 			eventClick: function(calEvent, jsEvent, view) {
-				var event = {}; 
-				for(var i in calEvent) {
-					event[i] = calEvent[i];
-				}
-				event.start = calEvent.start._i;
-				event.end = calEvent.end._i;
-				dialog = new Popup({
-					title: calEvent.title,
-					content: Tmpl('popup-calendar-info').render(event)
-				});
-				dialog.open();
+				objectsPanel.showEvent(calEvent.id);
 			}
 		});
 		
@@ -114,6 +119,7 @@ $(function(){
 			</div>
 			<div class="maket clearfix">
 				<div class="leftSide">
+					<button id="createEvent" type="button" class="btn" onclick="objectsPanel.createEvent()" style="display: block; margin: 10px 0;">Создать</button>
 					<div class="block tmpl-panel-map-object-list"></div>
 					<button id="loadEvents" type="button" class="btn" onclick="objectsPanel.loadEvents()" disabled="disabled" style="display: block; margin: 10px auto;">Показать</button>
 					<div id="smallCalendar" style="display: none;"></div>
@@ -123,6 +129,7 @@ $(function(){
 					<div id="map-canvas" class="mapContainer" style="border: 1px solid #e5e5e5; height: 0px; display: none;"></div>
 				</div>
 			</div>
+			<div id="shadow"></div>
 		</div>
 	</body>
 </html>

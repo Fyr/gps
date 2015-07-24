@@ -18,5 +18,10 @@ var locale = {
 	chartsTitle: 'Графики изменения датчиков',
 	
 	schedule: 'Расписание',
-	noEvents: 'нет загруженных событий'
+	noEvents: 'нет загруженных событий',
+	eventPlanned: 'Запланирована',
+	eventOccured: 'Состоялась',
+	eventFailed: 'НеСостоялась',
+	createEvent: 'Создать событие',
+	eventCreated: 'Событие успешно создано'
 };

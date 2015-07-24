@@ -1,0 +1,27 @@
+Статус: {%=o.status%}<br/>
+<br/>
+{%
+	if (o.location.address) {
+%}
+		{%=o.location.address%}<br/>
+{%
+	}
+	if (o.start) {
+		var startDate = Date.fromSqlDate(o.start);
+%}
+		Время начала: {%=startDate.fullDate('rus')%} {%=startDate.hoursMinutes('rus')%}<br/>
+{%
+	}
+	if (o.end) {
+		var endDate = Date.fromSqlDate(o.end);
+%}	
+		Время окончания: {%=endDate.fullDate('rus')%} {%=endDate.hoursMinutes('rus')%}<br/>
+{%
+	}
+	if (o.description) {
+%}
+		{%=o.description%}<br/>
+{%
+	}
+%}
+<div id="minimap-canvas" style="margin-top: 10px; height: 200px;"></div>

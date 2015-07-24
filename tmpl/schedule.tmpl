@@ -1,12 +1,10 @@
 {%
-	if (o.events.length) {
-		for(var i = 0; i < o.events.length; i++) {
-			var date = Date.fromSqlDate(o.events[i].start);
-			var event = o.events[i];
-			// var popupHtml = Tmpl('popup-calendar-info').render(event).replace(/"/g, '\"').replace(//g, );
-			// console.log(popupHtml);
+	if (!$.isEmptyObject(o.events)) {
+		for(var id in o.events) {
+			var date = Date.fromSqlDate(o.events[id].start);
+			var event = o.events[id];
 %}
-	<div class="scheduleItem" onclick="dialog = new Popup({title: '{%=event.title%}', content: Tmpl('popup-calendar-info').render({address: '{%=event.address%}', start: '{%=event.start%}', end: '{%=event.end%}', description: '{%=event.description%}'})}); dialog.open();">
+	<div class="scheduleItem" onclick="objectsPanel.showEvent('{%=event.id%}')">
 		<span>{%=date.fullDate('rus')%} {%=date.hoursMinutes('rus')%}</span>: 
 		{%=event.title%}
 	</div>

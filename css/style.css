@@ -48,11 +48,12 @@ a:focus {outline: none; text-decoration: none;}
 
 ul { list-style: none; margin: 0; padding: 0;}
 
-.mainContainer { background: #fff; margin: 0; padding: 0 20px 10px 20px; position: relative; 
+.mainContainer { background: #fff; margin: 0; padding: 0 10px 0 10px; position: relative; 
 	-webkit-box-shadow: 0px -2px 9px 0px rgba(0, 0, 0, 0.43);
 	-moz-box-shadow:    0px -2px 9px 0px rgba(0, 0, 0, 0.43);
 	box-shadow:         0px -2px 9px 0px rgba(0, 0, 0, 0.43);
 }
+.mainContainer.index { padding-bottom: 10px;}
 
 .header { height: 80px; }
 	.header .logo { float: left; display: block; margin-top: 8px; }
@@ -119,12 +120,12 @@ ul { list-style: none; margin: 0; padding: 0;}
 .billingBlock .description { line-height: 32px;}
 
 .leftSide { float: left; width: 42.5%}
-.rightSide { float: right; width: 55.3%;}
+.rightSide { float: right; width: 56.3%;}
 
 .maket .leftSide { float: left; width: 340px; }
-.maket .rightSide { float: none; width: auto; margin-left: 360px; }
+.maket .rightSide { float: none; width: auto; margin-left: 350px; }
 
-.yellowBlocks { margin-right: -20px;}
+.yellowBlocks { }
 	.yellowBlocks .item { float: left; border: 1px solid #fff200; width: 158px; display: block;  margin: 0 20px 10px 0; }
 	.yellowBlocks .item .picture { display: block; height: 86px; text-align: center; padding-top: 16px;}
 	.yellowBlocks .item .description { background: #fff200; display: block; height: 43px; color: #171609; text-transform: uppercase; font-size: 14px; padding: 7px 10px 0 15px; }
@@ -342,7 +343,7 @@ input[type=text]:-ms-input-placeholder { color: #b0b0b0; opacity: 1; }
 
 #shadow {  background: rgba(0, 0, 0, 0.55); display: none; height: 100%; left: 0; position: absolute; top: 0; width: 100%; z-index: 10000;}
 
-.popup { background: #fff; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.55); padding: 10px; position: absolute; text-align: left; width: 360px; z-index: 10001; display: none; left: 50%; top:50px; margin-left: -190px; }
+.popup { background: #fff; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.55); padding: 10px; position: absolute; text-align: left; width: 360px; z-index: 10001; display: none;}
 	.popup .close {  font-size: 21px; font-weight: bold; color: #7f7f7f; cursor: pointer; position: absolute; right: 5px; top: 0; line-height: 20px; }
 	.popup .close:hover { color: #000;}
 

@@ -74,6 +74,10 @@ var MapAPI = function(canvas) {
 		self.getMarker(id).bindPopup(html);
 	}
 	
+	this.bindMapClick = function(callback) {
+		self.mapL.on('click', callback);
+	}
+	
 	this.addLine = function(obj) {
 		var i = Object.keys(self.lines).length;
 		self.lines[obj.id] = L.polyline(obj.latlons, {color: self.colors[i], weight: 3});
