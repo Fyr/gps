@@ -10,6 +10,12 @@ var SearchPanel = function() {
 		self.initHandlers();
 	}
 	
+	this.genMarkerId = function() {
+		var date = new Date();
+		var id = 'marker-' + date.getTime();
+		return id;
+	}
+	
 	this.initHandlers = function() {
 		$('#q').autoComplete({
 			minChars: 3,
@@ -18,7 +24,12 @@ var SearchPanel = function() {
 				sendApiRequest('getLocation', {adress: q}, function(response){
 					var suggestions = [];
 					for (var i = 0; i < response.data.length; i++) { 
-						suggestions.push(response.data[i]);
+						var marker = response.data[i];
+						marker.id = self.genMarkerId();
+						marker.title = marker.adress;
+						marker.lat = response.data[i].location.lat;
+						marker.lon = response.data[i].location.lon;
+						suggestions.push(marker);
 					} 
 					callGetItems(suggestions);
 				});
@@ -26,14 +37,16 @@ var SearchPanel = function() {
 			renderItem: function (item, q){
 				return Tmpl('search-item').render({item: item, q: q});
 			},
-			onSelect: function(e, q, item){
-				map.clearMarkers();
-				var marker = $(item).data();
-				marker.id = 'map-marker';
-				map.addMarker(marker);
-				map.showMarker('map-marker');
+			onSelect: function(e, q, $item){
+				self.onSearchSelect(json_decode($item.data('item'), true));
             }
 		});
+	}
+	
+	this.onSearchSelect = function(marker) {
+		map.clearMarkers();
+		map.addMarker(marker);
+		map.showMarker(marker.id);
 	}
 	
 	this.getHeight = function(e) {
@@ -49,12 +62,11 @@ var SearchPanel = function() {
 		for(var i = 0; i < aElements.length; i++) {
 			freeH-= self.getHeight(aElements[i]);
 		}
-		freeH-= 14; // padding for mainContainer
 		return freeH;
 	}
 	
 	this.fixPanelHeight = function() {
-		var freeH = self.getFreeHeight(['.header']);
+		var freeH = self.getFreeHeight(['.header']) - 14;
 		$('#map-canvas').css('height', freeH + 'px');
 	}
 	

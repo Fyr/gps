@@ -1,0 +1,17 @@
+{%
+	if (!$.isEmptyObject(o.objects)) {
+		for(var id in o.objects) {
+			var item = o.objects[id];
+%}
+<div class="item clearfix">
+	<label>{%=item.title%}</label>
+	<a class="fa fa-remove" style="float: right" href="javascript:void(0)" onclick="objectsPanel.onObjectRemove('{%=id%}')"></a>
+</div>
+{%
+		}
+	} else {
+%}
+<div style="text-align: center; padding: 10px 0"> - {%=locale.noObjects%} - </div>
+{%
+	}
+%}

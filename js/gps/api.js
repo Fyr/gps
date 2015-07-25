@@ -64,3 +64,12 @@ function extend(self, fnObj) {
 		}
 	}
 }
+
+function json_encode(param, lEscapeQuotes) {
+	var _ret = JSON.stringify(param);
+	return (lEscapeQuotes) ? _ret.replace(/\"/g, "'"): _ret;
+}
+
+function json_decode(json, lEscapeQuotes) {
+	return JSON.parse((lEscapeQuotes) ? json.replace(/\'/g, '"') : json);
+}
