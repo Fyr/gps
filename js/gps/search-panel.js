@@ -11,30 +11,7 @@ var SearchPanel = function() {
 	}
 	
 	this.initHandlers = function() {
-		var data = [
-			{
-				name: "Breaking Bad",
-				description: "A chemistry teacher ..."
-			},
-			{
-				name: "Breaking Bad 2",
-				description: "A chemistry teacher 2..."
-			},
-			{
-				name: "Close bad",
-				description: "description ..."
-			},
-			{
-				name: "Game of Thrones",
-				description: "Several noble families fight ..."
-			},
-			{
-				name: "Dexter",
-				description: "A Miami police forensics ..."
-			}
-		];
-		
-		$('#searchAutoComplete').autoComplete({
+		$('#q').autoComplete({
 			minChars: 3,
 			delay: 500,
 			source: function(q, callGetItems){
