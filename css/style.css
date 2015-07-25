@@ -1,6 +1,6 @@
 body { font-family: arial, sans-serif; font-size: 12px; color: #68696a; margin: 0; padding: 0; background: #eef0f1; }
 
-.icon { background-image: url('../img/sprite.png'); background-repeat: no-repeat; display: inline-block; vertical-align: middle;}
+.icon { background-image: url('../img/sprite.png'); background-repeat: no-repeat; display: inline-block; vertical-align: middle; opacity: 0.7}
 .icon-news { background-position: 0 0; width: 22px; height: 20px;}
 .icon-instructions { background-position: -27px 0; width: 21px; height: 23px;}
 .icon-billing { background-position: -50px 0; width: 22px; height: 22px;}
@@ -10,8 +10,8 @@ body { font-family: arial, sans-serif; font-size: 12px; color: #68696a; margin: 
 .icon-techsupport { background-position: 0 -110px; width: 89px; height: 78px;}
 .icon-feedback { background-position: 0 -196px; width: 102px; height: 69px;}
 .icon-search { background-position: -99px -29px; width: 26px; height: 21px;}
-.icon-attention { background-position: -96px -58px; width: 21px; height: 19px;}
-.icon-statusArrow { background-position: -96px -82px; width: 24px; height: 20px; text-align: center; font-weight: bold; font-size: 9px; padding-top: 4px;}
+.icon-attention { background-position: -96px -58px; width: 21px; height: 19px; opacity: 1;}
+.icon-statusArrow { background-position: -96px -82px; width: 24px; height: 20px; text-align: center; font-weight: bold; font-size: 9px; padding-top: 4px; opacity: 1;}
 .icon-plus { background-position: -96px -109px; width: 23px; height: 23px;}
 .icon-align-left { background-position: -96px -136px; width: 19px; height: 18px;}
 .icon-align-center { background-position: -96px -156px; width: 19px; height: 18px;}
@@ -20,6 +20,7 @@ body { font-family: arial, sans-serif; font-size: 12px; color: #68696a; margin: 
 .icon-refresh { background-position: 0px -270px; width: 22px; height: 22px;}
 .icon-routes { background-position: -65px -270px; width: 19px; height: 20px;}
 
+.icon:hover { opacity: 1}
 
 
 @media
@@ -36,7 +37,7 @@ only screen and (                min-resolution: 2dppx) {
 .clearfix:before, .clearfix:after { content: " "; display: table;}
 .clearfix:after { clear: both; }
 
-a { text-decoration: none; color: #68696a;}
+a { text-decoration: none;  color: #68696a;  }
 a:hover { color: #272727;}
 a:focus {outline: none; text-decoration: none;}
 .btn:focus,
@@ -85,22 +86,26 @@ ul { list-style: none; margin: 0; padding: 0;}
 		.block .description .value { font-size: 13px; margin-left: 10px;}
 		.block .description p { margin: 0 0 10px 0;}
 
-	.block .info { padding: 0 17px 0 13px; margin: 10px 4px 7px 0;}
-		.block .info .item { padding: 6px 0 0 0;}
+	.block .info { padding: 0 10px 0 13px; margin: 10px 4px 7px 0;}
+		.block .info .item { padding: 5px 0 0 0;}
 		.block .info .item:first-child { padding-top: 0;}
-		.block .info label { font-size: 13px; margin-top: 3px; display: inline-block; }
+		.block .info label { font-size: 13px; margin-top: 3px; display: inline-block; max-width: 165px; }
 			.block .info .jq-checkbox { margin-right: 6px;}
-			.block .info .icon { float: right;}
-			.block .info .icon-attention { margin: 2px 5px 0 0; }
-			.block .info .icon-routes { margin: 3px 0 0 5px; }
+			.block .info .rightIcons { float: right;}
+			.block .info .rightIcons .icon { vertical-align: middle; }
+			.block .info .icon-attention { margin: 0 2px 0 0; }
+			.block .info .icon-routes { margin: 0 0 0 2px; }
 			.block .info .icon.add { text-align: left; padding-left: 3px; width: 21px; }
 			.block .info .icon.icon-routes.disabled { opacity: 0.5; }
+
+			.block .info .item .fa { font-size: 20px; margin-left: 2px; vertical-align: middle;}
+
 
 	.block .panel { border-bottom: 1px solid #e5e5e5; padding: 9px 14px 9px 13px;}
 	.block .panel .separator { display: inline-block; vertical-align: middle; border-left: 1px solid #b0b0b0; height: 20px; margin: 0 3px; }
 	.block .panel .jq-checkbox { margin-right: 3px;}
 	.block .panel .btn { min-width: 120px;}
-	.block .panel .fa { font-size: 24px; vertical-align: middle; }
+	.block .panel a.fa { vertical-align: middle; margin: 0 2px; }
 
 	.block .info1 { padding: 15px 15px 14px 10px; }
 		.block .info1 .btn { margin: 7px auto 35px auto; display: block; width: 175px; }
@@ -324,6 +329,7 @@ ul { list-style: none; margin: 0; padding: 0;}
 .btn.withIcon { padding: 5px 0 5px 11px; text-align: left;}
 	.btn.withIcon span { display: inline-block; vertical-align: middle; }
 	.btn.withIcon .icon { margin-right: 4px;}
+	.btn.withIcon .fa { margin-right: 4px; font-size: 20px;}
 
 
 /*

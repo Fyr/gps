@@ -9,26 +9,32 @@
 	<label style="margin-left: 24px">{%=o.title%}</label>
 {%
 	}
-	if (o.chartsEnabled) {
 %}
-	<a class="icon-charts" href="javascript:void(0)" onclick="objectsPanel.onChartsClick('{%=o.id%}')"></a>
+	<div class="rightIcons">
 {%
-	}
-	if (o.routesEnabled) {
-%}
-	<a id="route{%=o.id%}" class="icon icon-routes{%=(o.showRoute ? '' : ' disabled')%}" href="javascript:void(0)" onclick="objectsPanel.toggleRoute(this)"></a>
-{%
-	}
 	if (o.updated_ago > 0) {
 		var color = getStatusColor((o.updated_ago >= 24) ? 24 : o.updated_ago);
-%}
-	<span class="icon icon-statusArrow{%=(o.updated_ago >= 24 ? ' add' : '')%}" style="background-color: #{%=color%}; color: #{%=color%}">{%=(o.updated_ago > 24 ? '24+' : o.updated_ago)%}</span>
-{%
 		if (o.updated_ago >= 24) {
 %}
-	<span class="icon icon-attention"></span>
+		<span class="icon icon-attention"></span>
 {%
 		}
+%}
+		<span class="icon icon-statusArrow{%=(o.updated_ago >= 24 ? ' add' : '')%}" style="background-color: #{%=color%}; color: #{%=color%}">{%=(o.updated_ago > 24 ? '24+' : o.updated_ago)%}</span>
+{%
+	}
+
+	if (o.routesEnabled) {
+%}
+	<a id="route{%=o.id%}" class="fa fa-code-fork{%=(o.showRoute ? '' : ' disabled')%}" href="javascript:void(0)" onclick="objectsPanel.toggleRoute(this)" title="Показать маршрут"></a>
+{%
+	}
+	
+	if (o.chartsEnabled) {
+%}
+	<a class="fa fa-line-chart" href="javascript:void(0)" onclick="objectsPanel.onChartsClick('{%=o.id%}')" title="Показать график"></a>
+{%
 	}
 %}
+	</div>
 </div>

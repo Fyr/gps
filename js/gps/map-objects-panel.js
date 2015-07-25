@@ -16,13 +16,13 @@ var MapObjectsPanel = function() {
 		$('.panel input[type=checkbox]', $self).change(function(){
 			self.checkAll();
 		});
-		$('.panel .icon-align-alphabet', $self).click(function(){
+		$('.panel .fa-sort-alpha-desc', $self).click(function(){
 			self.sortObjects(1);
 		});
-		$('.panel .icon-align-alphabet-back', $self).click(function(){
+		$('.panel .fa-sort-alpha-asc', $self).click(function(){
 			self.sortObjects(0);
 		});
-		$('.panel .icon-refresh', $self).click(function(){
+		$('.panel .fa-refresh', $self).click(function(){
 			self.update();
 		});
 		$('.panel #addObject', $self).click(function(){
