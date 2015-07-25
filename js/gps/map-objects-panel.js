@@ -26,11 +26,11 @@ var MapObjectsPanel = function() {
 			self.update();
 		});
 		$('.panel #addObject', $self).click(function(){
-			var dialog = new Popup({
+			self.dialog = new Popup({
 				title: locale.addObject,
 				content: Tmpl('popup-add-object').render()
 			});
-			dialog.open();
+			self.dialog.open();
 		});
 		$('.outerSearch input[type=text]', $self).keyup(function(){
 			self.filterObjects($(this).val());
@@ -247,5 +247,22 @@ var MapObjectsPanel = function() {
 	this.clearObjects = function() {
 		map.clearMarkers();
 		self.objects = {};
+	}
+	
+	this.saveObject = function() {
+		self.dialog.close();
+		var params = $('#addObjectForm').serialize();
+		sendApiRequest('post.monitoringObjects', params, function(){
+			self.dialog = new Popup({
+				title: locale.addObject, 
+				content: Tmpl('popup-object-created').render()
+			});
+			self.dialog.open();
+		});
+	}
+	
+	this.objectCreated = function() {
+		self.dialog.close();
+		self.update();
 	}
 }
