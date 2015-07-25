@@ -100,6 +100,7 @@ ul { list-style: none; margin: 0; padding: 0;}
 	.block .panel .separator { display: inline-block; vertical-align: middle; border-left: 1px solid #b0b0b0; height: 20px; margin: 0 3px; }
 	.block .panel .jq-checkbox { margin-right: 3px;}
 	.block .panel .btn { min-width: 120px;}
+	.block .panel .fa { font-size: 24px; vertical-align: middle; }
 
 	.block .info1 { padding: 15px 15px 14px 10px; }
 		.block .info1 .btn { margin: 7px auto 35px auto; display: block; width: 175px; }
@@ -111,10 +112,10 @@ ul { list-style: none; margin: 0; padding: 0;}
 		.block .info1 .tire { display: inline-block; vertical-align: middle; font-size: 13px; margin: 0 11px 0 11px}
 		.block .info1 .period1 { margin-left: 10px;}
 
-	.block .search { background: #e5e5e5; padding: 12px 15px 11px 17px;}
-		.block .search input[type=text] { display: block; font-size: 15px; height: 30px; margin: 0; outline: none; resize: none; width: 100%; border: none; font-family: Arial; font-style: italic; background: none;}
-		.block .search .outerSearch { background: #fff; padding: 0 47px 0 8px; position: relative;}
-		.block .search .icon-search { border: none; cursor: pointer; background-color: transparent; position: absolute; right: 6px; top: 5px;}
+	.search { background: #e5e5e5; padding: 12px 15px 11px 17px;}
+		.search input[type=text] { display: block; font-size: 15px; height: 30px; margin: 0; outline: none; resize: none; width: 100%;  border-color: #e5e5e5; font-family: Arial; font-style: italic; background: none; padding-right: 40px; }
+		.search .outerSearch { background: #fff; padding: 0 46px 0 0px; position: relative;}
+		.search .icon-search { border: none; cursor: pointer; background-color: transparent; position: absolute; right: 6px; top: 5px;}
 
 .newsBlock .description { margin-left: 11px; }
 .billingBlock .description { line-height: 32px;}
@@ -388,3 +389,5 @@ only screen and (                min-resolution: 2dppx) {
 	#smallCalendar .rd-days { width: 100%;}
 	#smallCalendar .rd-container { display: block !important; border-color: #e5e5e5; height: 145px; margin-bottom: 10px; }
 	#smallCalendar .rd-month { display: block !important; }
+
+.searchMap { position: absolute; top: 90px; left: 55px; padding: 0; z-index: 1; border: 2px solid #fff200; }

@@ -1,10 +1,3 @@
-var map;
-
-$(function(){
-	map = new MapAPI('map-canvas');
-	map.init();
-});
-
 var MapAPI = function(canvas) {
 	var self = this;
 	
@@ -48,7 +41,7 @@ var MapAPI = function(canvas) {
 	this.showMarker = function(id) {
 		var marker = self.getMarker(id)
 		marker.addTo(self.mapL);
-		self.showAt(marker.getLatLng());
+		self.showAt(marker.getLatLng(), 16);
 	}
 	
 	this.hideMarker = function(id) {
@@ -66,8 +59,8 @@ var MapAPI = function(canvas) {
 		return self.getMarker(id).getLatLng();
 	}
 	
-	this.showAt = function(objLatLng) {
-		self.mapL.setView(objLatLng);
+	this.showAt = function(objLatLng, zoom) {
+		self.mapL.setView(objLatLng, zoom);
 	}
 	
 	this.bindMarkerPopup = function(id, html) {

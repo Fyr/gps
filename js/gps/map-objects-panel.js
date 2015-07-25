@@ -1,9 +1,13 @@
+var map;
 var MapObjectsPanel = function() {
 	var self = this, $self = $('.tmpl-panel-map-object-list');
 	
 	self.objects = {};
 	
 	this.init = function() {
+		self.fixPanelHeight();
+		map = new MapAPI('map-canvas');
+		map.init();
 		self.update();
 		self.initHandlers();
 	}

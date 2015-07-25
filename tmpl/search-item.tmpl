@@ -1,0 +1,10 @@
+{%
+	var re = new RegExp("(" + o.q.split(' ').join('|') + ")", "gi");
+	var title = o.item.adress.replace(re, "<b>$1</b>");
+%}
+<div class="autocomplete-suggestion" data-title="{%=o.item.adress%}" data-lat="{%=o.item.location.lat%}" data-lon="{%=o.item.location.lon%}">
+	{%#title%}
+	<div>
+		<em>{%=o.descr%}</em>
+	</div>
+</div>
