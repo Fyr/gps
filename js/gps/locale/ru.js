@@ -23,5 +23,8 @@ var locale = {
 	eventOccured: 'Состоялась',
 	eventFailed: 'НеСостоялась',
 	createEvent: 'Создать событие',
-	eventCreated: 'Событие успешно создано'
+	eventCreated: 'Событие успешно создано',
+	
+	createMailing: 'Создать рассылку',
+	mailingSaved: 'Рассылка успешно сохранена'
 };

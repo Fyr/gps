@@ -47,7 +47,7 @@ var Tmpl = function(tpl) {
 	
 	this.render = function(tpl, params) {
 		if (!document.getElementById('tmpl-' + tpl)) {
-			throw 'Tmpl: You must load ' + tpl + ' template';
+			throw 'Tmpl: You must load `' + tpl + '` template';
 		}
 		return tmpl('tmpl-' + tpl, (params) ? params : {});
 	}

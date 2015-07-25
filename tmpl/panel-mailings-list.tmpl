@@ -1,0 +1,18 @@
+{%
+	if (o.items && o.items.length) {
+		for(var i = 0; i < o.items.length; i++) {
+			var item = o.items[i];
+%}
+<div class="item clearfix">
+	<label>{%=item.name%}</label>
+	<!-- a class="fa fa-edit" style="float: right" href="javascript:void(0)" onclick="mailPanel.edit('{%=item.guid%}')"></a>
+	<a class="fa fa-remove" style="float: right" href="javascript:void(0)" onclick="if (confirm('Удалить эту запись?') { mailPanel.remove('{%=item.guid%}'); }"></a -->
+</div>
+{%
+		}
+	} else {
+%}
+<div style="text-align: center; padding: 10px 0"> - {%=locale.noObjects%} - </div>
+{%
+	}
+%}

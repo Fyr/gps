@@ -4,7 +4,7 @@ var Popup = function(params) {
 	self.params = $.extend({title: '', content: ''}, params);
 	
 	this.init = function() {
-		$('body').append(Tmpl('popup').render(params));
+		$('body').append(Tmpl('popup').render(self.params));
 		$('.popup').css('left', parseInt($(window).width() / 2 - $('.popup').width() / 2) + 'px');
 		$('.popup').css('top', parseInt($(window).height() / 2 - $('.popup').height() / 2) + 'px');
 		$('.popup .close-popup').click(function() {
@@ -13,22 +13,13 @@ var Popup = function(params) {
 	}
 	
 	this.open = function() {
-		/*
-		$('#shadow').fadeIn(400);
-		$('.popup').fadeIn(400);
-		*/
 		$('#shadow').show();
 		$('.popup').show();
 	}
 	
 	this.close = function() {
-		/*
-		$('#shadow').fadeOut(400);
-		$('.popup').fadeOut(400);
-		*/
 		$('#shadow').hide();
 		$('.popup').remove();
-		// setTimeout(function(), 400);
 	}
 	
 	this.init();

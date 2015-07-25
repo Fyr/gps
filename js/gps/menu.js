@@ -11,6 +11,6 @@ var MainMenu = [
 		{href: 'routes-points.html', title: locale.menuRoutesPoints}
 	]},
 	{href: 'javascript:void(0)', title: locale.menuReports, smclass: 'reports'},
-	{href: 'javascript:void(0)', title: locale.menuNotifications},
-	{href: 'javascript:void(0)', title: locale.menuAdministration}
+	{href: 'notifications.html', title: locale.menuNotifications},
+	{href: 'admin.html', title: locale.menuAdministration}
 ];

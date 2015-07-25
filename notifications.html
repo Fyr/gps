@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1.0, initial-scale=1.0, minimum-scale=1.0">
+		<title>Velcom</title>
+		<link href="./css/style.css" rel="stylesheet">
+		<link href="./css/extra.css" rel="stylesheet">
+		<link href="./css/rome.css" rel="stylesheet">
+		<link href="./css/fonts.css" rel="stylesheet">
+		
+		<script type="text/javascript" src="./js/jquery-1.10.2.min.js"></script>
+		<script type="text/javascript" src="./js/jquery.nicescroll.min.js" ></script>
+		<script type="text/javascript" src="./js/jquery.formstyler.min.js"></script>
+		<script type="text/javascript" src="./js/jquery.auto-complete.min.js"></script>
+		<script type="text/javascript" src="./js/rome.js"></script>
+		<script type="text/javascript" src="./js/tmpl.min.js"></script>
+		<script type="text/javascript">document.addEventListener("touchstart", function() {},false);</script>
+		
+		<script type="text/javascript" src="./js/gps/xtmpl.js"></script>
+		<script type="text/javascript" src="./js/gps/xdate.js"></script>
+		<script type="text/javascript" src="./js/gps/json_handler.js"></script>
+		<script type="text/javascript" src="./js/gps/api.js"></script>
+		<script type="text/javascript" src="./js/gps/mailings-panel.js"></script>
+		<script type="text/javascript" src="./js/gps/popup.js"></script>
+		<script type="text/javascript" src="./js/gps/popup-info.js"></script>
+		<script type="text/javascript" src="./js/gps/locale/ru.js"></script>
+		<script type="text/javascript" src="./js/gps/menu.js"></script>
+		
+		<script type="text/javascript">
+var mailPanel;
+
+$(function(){
+	aModules = [
+		'menu', 
+		'popup',
+		'popup-info',
+		'panel-mailings-list',
+		'panel-notifocations-list'
+		'popup-mailing-edit'
+	];
+	Tmpl().loadModules(aModules, function(){ 
+		setCurrMenu(3, 2);
+		
+		mailPanel = new MailingsPanel();
+		mailPanel.init();
+		
+		$(window).resize(function() {
+			mailPanel.fixPanelHeight();
+		});
+	});
+});
+</script>
+	</head>
+	<body>
+		<div class="mainContainer">
+			<div class="header clearfix">
+				<a href="/" class="logo"><img src="./img/logo.gif" alt="Velcom" /></a>
+				<span class="tmpl-menu"></span>
+			</div>
+			<div class="maket clearfix">
+				<div class="leftSide">
+					<div class="tableHeader">
+						<span style="text-decoration: underline; font-size: 1.2em; font-weight: bold;">Рассылки</span>
+						<button type="button" class="btn" onclick="mailPanel.createMailing()" style="display: block; margin: 10px 0;">Создать</button>
+					</div>
+					<div class="block tmpl-panel-mailings-list"></div>
+				</div>
+				<div class="rightSide">
+					<div class="tableHeader">
+						<span style="text-decoration: underline; font-size: 1.2em; font-weight: bold;">Рассылки</span>
+						<button type="button" class="btn" onclick="mailPanel.createMailing()" style="display: block; margin: 10px 0;">Создать</button>
+					</div>
+					<div class="block tmpl-panel-notifications-list"></div>
+				</div>
+			</div>
+			<div id="shadow"></div>
+		</div>
+	</body>
+</html>

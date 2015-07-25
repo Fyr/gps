@@ -274,7 +274,7 @@ var ObjectRoutesPanel = function() {
 			'.tmpl-panel-map-object-list .search', 
 			'.tmpl-panel-map-object-list .panel', 
 			'.tmpl-panel-map-object-form'
-		])-3;
+		])-5;
 		var panel = $('.tmpl-panel-map-object-list .info').get(0);
 		$(panel).css('height', 'auto');
 		
