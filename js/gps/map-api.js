@@ -35,7 +35,8 @@ var MapAPI = function(canvas) {
 			'parking': ParkingPoint,
 			'parking-selected': ParkingPointSelected
 		};
-		self.markers[obj.id] = L.marker([obj.lat, obj.lon], {title: obj.title || '', icon: Icons[type || 'default']});
+		var icon = (type && type.indexOf('icon-') == 0) ? new ObjectIcon({iconUrl: 'img/markers/' + type + '.png'}) : Icons[type || 'default'];
+		self.markers[obj.id] = L.marker([obj.lat, obj.lon], {title: obj.title || '', icon: icon});
 	}
 	
 	this.showMarker = function(id) {
@@ -160,18 +161,18 @@ var PointIcon = L.Icon.extend({
 		popupAnchor: [0, -5]
 	}
 });
-var Point = new PointIcon({iconUrl: 'img/marker-point.png'});
-var PointSelected = new PointIcon({iconUrl: 'img/marker-point-selected.png'});
+var Point = new PointIcon({iconUrl: 'img/markers/point.png'});
+var PointSelected = new PointIcon({iconUrl: 'img/markers/point-selected.png'});
 /*
 var Point = L.icon({
-	iconUrl: 'img/marker-point.png',
+	iconUrl: 'img//markers/point.png',
 	iconSize: [16, 16],
 	iconAnchor: [8, 8],
 	popupAnchor: [0, -5]
 });
 */
 var SmallPoint = L.icon({
-	iconUrl: 'img/marker-small-point.png',
+	iconUrl: 'img//markers/small-point.png',
 	iconSize: [8, 8],
 	iconAnchor: [4, 4],
 	popupAnchor: [0, -2]
@@ -185,9 +186,17 @@ var RouteIcon = L.Icon.extend({
 	}
 });
 
-var StartPoint = new RouteIcon({iconUrl: 'img/marker-start.png'});
-var StartPointSelected = new RouteIcon({iconUrl: 'img/marker-start-selected.png'});
-var FinishPoint = new RouteIcon({iconUrl: 'img/marker-finish.png'});
-var FinishPointSelected = new RouteIcon({iconUrl: 'img/marker-finish-selected.png'});
-var ParkingPoint = new RouteIcon({iconUrl: 'img/marker-parking.png'});
-var ParkingPointSelected = new RouteIcon({iconUrl: 'img/marker-parking-selected.png'});
+var ObjectIcon = L.Icon.extend({
+	options: {
+		iconSize: [24, 24],
+		iconAnchor: [17, 24],
+		popupAnchor: [0, -23]
+	}
+});
+
+var StartPoint = new RouteIcon({iconUrl: 'img//markers/start.png'});
+var StartPointSelected = new RouteIcon({iconUrl: 'img//markers/start-selected.png'});
+var FinishPoint = new RouteIcon({iconUrl: 'img//markers/finish.png'});
+var FinishPointSelected = new RouteIcon({iconUrl: 'img//markers/finish-selected.png'});
+var ParkingPoint = new RouteIcon({iconUrl: 'img//markers/parking.png'});
+var ParkingPointSelected = new RouteIcon({iconUrl: 'img//markers/parking-selected.png'});

@@ -71,7 +71,7 @@ var ObjectRoutesPanel = function() {
 	}
 	
 	this.setMapObject = function(id) {
-		self.parent.setMapObject(id);
+		self.parent.setMapObject(id, self.objects[id].type);
 		
 		if (self.objects[id].checkable && self.objects[id].routesEnabled) {
 			map.addLine(self.objects[id]);
@@ -211,6 +211,8 @@ var ObjectRoutesPanel = function() {
 				}
 			}
 	    };
+	    $('#charts-canvas').show();
+	    self.fixPanelHeight();
 		$('#charts-canvas').highcharts(options);
 	}
 	
@@ -283,11 +285,11 @@ var ObjectRoutesPanel = function() {
 			$(panel).css('height', freeH + 'px');
 			$(panel).niceScroll({autohidemode:false, cursorcolor: "#ecdc00", background: "#dddddd", cursorborderradius: "0", cursorwidth: "7px"});
 		}
-		
-		freeH = self.getFreeHeight([
-			'.header', 
-			'#charts-canvas' 
-		]) + 13;
+		var divs = ['.header'];
+		if ($('#charts-canvas:visible').length) {
+			divs.push('#charts-canvas');
+		}
+		freeH = self.getFreeHeight(divs) + 13;
 		$('#map-canvas').css('height', freeH + 'px');
 	}
 }

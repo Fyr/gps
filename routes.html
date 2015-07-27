@@ -54,8 +54,8 @@ $(function(){
 	Tmpl().loadModules(aModules, function(){
 		setCurrMenu(2, 2);
 		
-		rome(period1, {time: false});
-		rome(period2, {time: false});
+		rome(period1);
+		rome(period2);
 		
 		objectsPanel = new ObjectRoutesPanel();
 		objectsPanel.init();
@@ -84,7 +84,7 @@ $(function(){
 				</div>
 				<div class="rightSide">
 					<div id="map-canvas" class="mapContainer" style="border: 1px solid #e5e5e5; height: 200px;"></div>
-					<div id="charts-canvas" class="mapContainer" style="border: 1px solid #e5e5e5; height: 200px;"></div>
+					<div id="charts-canvas" class="mapContainer" style="border: 1px solid #e5e5e5; height: 200px; display: none;"></div>
 				</div>
 			</div>
 			<div id="shadow"></div>

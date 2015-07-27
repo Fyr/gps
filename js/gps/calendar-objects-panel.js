@@ -91,7 +91,7 @@ var CalendarObjectsPanel = function() {
 		return options;
 	}
 	
-	this.createEvent = function() {
+	this.create = function() {
 		var id = Object.keys(self.objects)[0];
 		var ids = self.getCheckedIds();
 		if (ids.length) {

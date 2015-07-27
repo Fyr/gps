@@ -25,16 +25,17 @@ var MapObjectsPanel = function() {
 		$('.panel .fa-refresh', $self).click(function(){
 			self.update();
 		});
-		$('.panel #addObject', $self).click(function(){
-			self.dialog = new Popup({
-				title: locale.addObject,
-				content: Tmpl('popup-add-object').render()
-			});
-			self.dialog.open();
-		});
 		$('.outerSearch input[type=text]', $self).keyup(function(){
 			self.filterObjects($(this).val());
 		});
+	}
+	
+	this.create = function() {
+		self.dialog = new Popup({
+			title: locale.addObject,
+			content: Tmpl('popup-add-object').render()
+		});
+		self.dialog.open();
 	}
 	
 	this.update = function() {
@@ -52,7 +53,7 @@ var MapObjectsPanel = function() {
 			var id = data[i].guid;
 			data[i].checkable = (data[i].topicality) && true;
 			self.setObjectData(id, data[i]);
-			self.setMapObject(id);
+			self.setMapObject(id, data[i].type);
 		}
 	}
 	
@@ -69,9 +70,9 @@ var MapObjectsPanel = function() {
 		self.objects[id].updated_ago = (data.topicality) ? self._updatedAgo(data.topicality.replace(/T/, ' ')) : 0;
 	}
 	
-	this.setMapObject = function(id) {
+	this.setMapObject = function(id, type) {
 		if (self.objects[id].checkable) {
-			map.addMarker(self.objects[id]);
+			map.addMarker(self.objects[id], (type) ? 'icon-' + type : type);
 			map.bindMarkerPopup(id, Tmpl('panel-map-object-infowin').render(self.objects[id]));
 		}
 	}
