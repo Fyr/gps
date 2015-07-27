@@ -95,13 +95,8 @@ var ObjectRoutesPanel = function() {
 			map.bindMarkerPopup(point.id, Tmpl('route-' + point.status).render(point));
 		} else {
 			var nextPoint = self.objects[id].routes[i + 1];
-			console.log(point.id, [point.lat, nextPoint.lat], [point.lon, nextPoint.lon]);
-			//map.addMarker(point, 'movement');
-			//map.bindMarkerPopup(point.id, Tmpl('route-' + point.status).render(point));
-			
-			map.addMarker(point, 'dir-' + getAngle(point, nextPoint));
+			map.addMarker(point, 'dir' + selected + '-' + getAngle(point, nextPoint));
 			map.bindMarkerPopup(point.id, Tmpl('route-' + point.status).render(point));
-			
 		}
 	}
 	
@@ -162,12 +157,18 @@ var ObjectRoutesPanel = function() {
 		for(var j = 0; j < data.length; j++) {
 			xItems = []; 
 			var s_data = [], points = [];
+			var _date = '', _showDate = '';
 			for(var n = 0; n < data[j].points.length; n++) {
 				var _data = data[j].points[n];
 				var dt = Date.fromSqlDate(_data.period.replace(/T/, ''));
-				xItems.push(dt.fullDate('rus') + ' ' + dt.hoursMinutes('rus'));
+				
+				xItems.push((_date !== dt.fullDate('rus') ? dt.fullDate('rus') : '') + ' ' + dt.hoursMinutes('rus'));
 				s_data.push(_data.data);
 				points.push(_data.pointId);
+				
+				if (_date !== dt.fullDate('rus')) {
+					_date = dt.fullDate('rus');
+				}
 			}
 			var sensorTitle = self.sensors[id][data[j].sensor];
 			yAxis.push({opposite: opposite, title: {text: sensorTitle}});
@@ -222,6 +223,7 @@ var ObjectRoutesPanel = function() {
 	    };
 	    $('#charts-canvas').show();
 	    self.fixPanelHeight();
+	    setTimeout(function(){ map.refresh(); }, 10);
 		$('#charts-canvas').highcharts(options);
 	}
 	
