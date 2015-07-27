@@ -1,0 +1,31 @@
+{"status": "OK", "data": [
+  {
+    "monitoringObject": "bf4bf56f-257b-11e5-909d-00155dbb7703",
+    "events": [
+      {
+        "id": "bf4bf56f-257b-11e5-909d-00155dbb7703",
+        "location": {
+          "address": "Минск",
+          "lat": 53,
+          "lon": 27
+        },
+        "summary": "Событие 1",
+        "description": "Описание события 1",
+        "start": "2015-07-08T09:30:00",
+        "end": "2015-07-08T12:00:00"
+      },
+      {
+        "id": "bf4bf56f-257b-11e5-909d-00155dbb7702",
+        "location": {
+          "address": "Минск",
+          "lat": 53,
+          "lon": 27
+        },
+        "summary": "Событие 2",
+        "description": "Длинное описание события 2",
+        "start": "2015-07-03T17:30:00",
+        "end": "2015-07-03T18:00:00"
+      }
+    ]
+  }
+]}

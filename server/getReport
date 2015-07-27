@@ -1,0 +1,62 @@
+{
+  "status": "OK",
+  "data": {
+    "columns": {
+      "day": "День",
+      "milageGPS": "Пробег GPS",
+      "monitoringObject": "Объект мониторинга",
+      "status": "Статус",
+      "period": "Период",
+      "duration": "Длительность",
+      "geofence": "Геозона"
+    },
+    "data": [
+      {
+        "monitoringObject": "Витя",
+        "day": null,
+        "period": null,
+        "status": null,
+        "geofence": null,
+        "duration": 2405,
+        "milageGPS": 0,
+        "data": [
+          {
+            "monitoringObject": "Витя",
+            "day": "2015-07-01T00:00:00Z",
+            "period": null,
+            "status": null,
+            "geofence": null,
+            "duration": 2405,
+            "milageGPS": 0,
+            "data": [
+              {
+                "monitoringObject": "Витя",
+                "day": "2015-07-01T00:00:00Z",
+                "period": "2015-07-01T07:22:54Z",
+                "status": "Движение",
+                "geofence": "",
+                "duration": 2405,
+                "milageGPS": 0,
+                "data": [
+                  
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "monitoringObject": null,
+        "day": null,
+        "period": null,
+        "status": null,
+        "geofence": null,
+        "duration": 2405,
+        "milageGPS": 0,
+        "data": [
+          
+        ]
+      }
+    ]
+  }
+}
