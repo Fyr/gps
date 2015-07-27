@@ -35,7 +35,16 @@ var MapAPI = function(canvas) {
 			'parking': ParkingPoint,
 			'parking-selected': ParkingPointSelected
 		};
-		var icon = (type && type.indexOf('icon-') == 0) ? new ObjectIcon({iconUrl: 'img/markers/' + type + '.png'}) : Icons[type || 'default'];
+		
+		var icon;
+		if (type && type.indexOf('icon-') == 0) {
+			icon = new ObjectIcon({iconUrl: 'img/markers/' + type + '.png'});
+		} else if (type && type.indexOf('dir-') == 0) {
+			console.log([type, parseInt(type.replace(/dir-/, '')), DirIcon[parseInt(type.replace(/dir-/, ''))]]);
+			icon = DirIcon[parseInt(type.replace(/dir-/, ''))];
+		} else {
+			icon = Icons[type || 'default'];
+		}
 		self.markers[obj.id] = L.marker([obj.lat, obj.lon], {title: obj.title || '', icon: icon});
 	}
 	
@@ -200,3 +209,25 @@ var FinishPoint = new RouteIcon({iconUrl: 'img//markers/finish.png'});
 var FinishPointSelected = new RouteIcon({iconUrl: 'img//markers/finish-selected.png'});
 var ParkingPoint = new RouteIcon({iconUrl: 'img//markers/parking.png'});
 var ParkingPointSelected = new RouteIcon({iconUrl: 'img//markers/parking-selected.png'});
+
+var DirIcon = [];
+for (var i = 0; i < 360; i += 10) {
+	DirIcon[i] = L.divIcon({className: 'line-marker-' + i, iconSize: [16, 16]});
+}
+
+function getAngle(point, nextPoint) {
+    var angle = Math.atan2(
+        	(parseFloat(nextPoint.lon) * 100000 - parseFloat(point.lon) * 100000),
+        	(parseFloat(nextPoint.lat) * 100000 - parseFloat(point.lat) * 100000)
+    	) * (180 / Math.PI);
+    if (angle < 0) {
+        angle += 360;
+    }
+    console.log('angle:' + angle);
+    for (var i = 0; i < 360; i += 10) {
+        if (angle > (i - 5) && angle <= (i + 5)) {
+            return i;
+        }
+    }
+    return 0;
+}

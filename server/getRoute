@@ -24,16 +24,44 @@
         {
           "status": "movement",
           "period": "2015-07-08T09:29:06",
-          "lat": 53.8876369,
+          "lat": 53.887638,
           "lon": 27.4282658,
           "pointId": 840825712
+        },
+        {
+          "status": "movement",
+          "period": "2015-07-08T09:29:06",
+          "lat": 53.888,
+          "lon": 27.427,
+          "pointId": 840825713
+        },
+        {
+          "status": "movement",
+          "period": "2015-07-08T09:29:06",
+          "lat": 53.88778,
+          "lon": 27.426,
+          "pointId": 840825714
+        },
+        {
+          "status": "movement",
+          "period": "2015-07-08T09:29:06",
+          "lat": 53.8872,
+          "lon": 27.4281,
+          "pointId": 840825715
+        },
+        {
+          "status": "movement",
+          "period": "2015-07-08T09:29:06",
+          "lat": 53.885,
+          "lon": 27.427,
+          "pointId": 840825716
         },
         {
           "status": "movement",
           "period": "2015-07-08T09:29:49",
           "lat": 53.8888779,
           "lon": 27.4250337,
-          "pointId": 840825713
+          "pointId": 840825717
         }
       ]
     }

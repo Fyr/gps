@@ -73,3 +73,7 @@ function json_encode(param, lEscapeQuotes) {
 function json_decode(json, lEscapeQuotes) {
 	return JSON.parse((lEscapeQuotes) ? json.replace(/\'/g, '"') : json);
 }
+
+function in_array(needle, haystack) {
+	return $.inArray(needle, haystack) > -1;
+}

@@ -90,9 +90,18 @@ var ObjectRoutesPanel = function() {
 		} else if (i == (self.objects[id].routes.length - 1)) {
 			map.addMarker(point, 'finish' + selected);
 			map.bindMarkerPopup(point.id, Tmpl('route-finish').render(point));
-		} else {
+		} else if (in_array(point.status, ['parking'])) {
 			map.addMarker(point, point.status + selected);
 			map.bindMarkerPopup(point.id, Tmpl('route-' + point.status).render(point));
+		} else {
+			var nextPoint = self.objects[id].routes[i + 1];
+			console.log(point.id, [point.lat, nextPoint.lat], [point.lon, nextPoint.lon]);
+			//map.addMarker(point, 'movement');
+			//map.bindMarkerPopup(point.id, Tmpl('route-' + point.status).render(point));
+			
+			map.addMarker(point, 'dir-' + getAngle(point, nextPoint));
+			map.bindMarkerPopup(point.id, Tmpl('route-' + point.status).render(point));
+			
 		}
 	}
 	
