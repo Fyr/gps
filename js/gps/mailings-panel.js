@@ -45,4 +45,9 @@ var MailingsPanel = function() {
 		});
 	}
 	
+	this.remove = function(id) {
+		sendApiRequest('mailings?remove=' + id, null, function(response){
+			self.refresh();
+		});
+	}
 }

@@ -42,4 +42,9 @@ var NotificationsPanel = function() {
 		});
 	}
 	
+	this.remove = function(id) {
+		sendApiRequest('notifications?remove=' + id, null, function(response){
+			self.refresh();
+		});
+	}
 }
