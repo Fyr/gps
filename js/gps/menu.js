@@ -12,5 +12,5 @@ var MainMenu = [
 	]},
 	{href: 'javascript:void(0)', title: locale.menuReports, smclass: 'reports'},
 	{href: 'notifications.html', title: locale.menuNotifications},
-	{href: 'admin.html', title: locale.menuAdministration}
+	{href: 'users.html', title: locale.menuAdministration}
 ];

@@ -1,0 +1,37 @@
+<table class="admin" cellspacing="0" border="0">
+{%
+	if (!$.isEmptyObject(o.items)) {
+		for(var id in o.items) {
+			var item = o.items[id];
+%}
+<tr>
+	<td>{%=item.name%}</td>
+	<td>{%=item.email%}</td>
+	<td>
+{%
+	for(var i = 0; i < item.monitoringObjects.length; i++) {
+		var _obj = item.monitoringObjects[i];
+%}
+		{%=_obj.name%}<br />
+{%
+	}
+%}
+	</td>
+	<td align="right">
+		<a class="fa fa-edit" href="javascript:void(0)" onclick="userPanel.edit('{%=item.guid%}')"></a>
+		<a class="fa fa-remove" href="javascript:void(0)" onclick="if (confirm('Удалить эту запись?')) { userPanel.remove('{%=item.guid%}'); }"></a>		
+	</td>
+</tr>
+{%
+		}
+	} else {
+%}
+<tr>
+	<td colspan="4" style="text-align: center; padding: 10px 0;">
+		 - {%=locale.noObjects%} - 
+	</td>
+</tr>
+{%
+	}
+%}
+</table>

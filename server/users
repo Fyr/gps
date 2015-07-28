@@ -1,0 +1,32 @@
+{"status": "OK", "data": [
+	{
+		"guid": "1",
+		"name": "User 1",
+		"email": "User1@email.com",
+		"monitoringObjects": [
+			{
+				"guid": "358316065297416",
+				"name": "Тест 2"
+			},
+			{
+				"guid": "13226005443565",
+				"name": "Тест 3"
+			}
+		]
+	},
+	{
+		"guid": "2",
+		"name": "User 2",
+		"email": "User2@email.com",
+		"monitoringObjects": [
+			{
+				"guid": "358316065297416",
+				"name": "Тест 2"
+			},
+			{
+				"guid": "13226005443569",
+				"name": "Тест 4"
+			}
+		]
+	}
+]}

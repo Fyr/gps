@@ -1,0 +1,40 @@
+{%
+	var _item = (o.id) ? o.items[o.id] : null;
+%}
+<form id="editForm">
+	<div class="line">
+		<label>* E-mail:</label>
+		<input type="email" name="email" value="{%=(_item && _item.email)%}" onkeyup="userPanel.updateFormState()" />
+	</div>
+	<div class="line">
+		<label>* Объект:</label>
+		<div class="block">
+			<div class="info niceScroller" style="max-height: 200px;">
+{%
+	var usersObjects = [];
+	if (_item) {
+		for(var j = 0; j < _item.monitoringObjects.length; j++) {
+			usersObjects.push(_item.monitoringObjects[j].guid);
+		}
+	}
+	for(var i = 0; i < o.settings.objects.length; i++) {
+		var item = o.settings.objects[i];
+		var checked = in_array(item.guid, usersObjects) ? 'checked="checked"' : '';
+%}
+			<div class="item">
+				<input type="checkbox" name="monitoringObject[]" value="{%=item.guid%}" {%=checked%}>{%=item.name%}</option><br />
+			</div>
+{%
+	}
+%}
+			</div>
+		</div>
+	</div>
+	<div class="line">
+		<label>* Пароль:</label>
+		<input type="password" name="password" value="" />
+	</div>
+	<div class="popup-actions">
+		<button type="button" class="btn" disabled="disabled" onclick="userPanel.save('{%=o.id%}')">Сохранить</button>
+	</div>
+</form>

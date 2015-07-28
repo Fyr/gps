@@ -23,6 +23,8 @@ var AdminTablePanel = function() {
 		$('.rome-datetime').each(function(){
 			rome(this);
 		});
+		niceScroller('.niceScroller');
+		self.updateFormState();
 	}
 	
 	this.isFormValid = function() {
