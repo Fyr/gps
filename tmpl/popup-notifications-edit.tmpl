@@ -1,0 +1,58 @@
+{%
+	var _item = (o.id) ? o.items[o.id] : null;
+%}
+<form id="editForm">
+	<div class="line">
+		<label>* Объект:</label>
+		<select name="monitoringObject">
+{%
+	for(var i = 0; i < o.settings.objects.length; i++) {
+		var item = o.settings.objects[i];
+		var selected = (_item && _item.monitoringObject.guid == item.guid) ? 'selected="selected"' : '';
+%}
+			<option value="{%=item.guid%}" {%=selected%}>{%=item.name%}</option>
+{%
+	}
+%}
+		</select>
+	</div>
+	<div class="line">
+		<label>* Период действия:</label>
+		с&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="rome-datetime" name="start" value="{%=(_item ? _item.start : '')%}" onchange="notifyPanel.updateFormState()" style="width: 114px" />
+	</div>
+	<div class="line">
+		<label></label>
+		по <input type="text" class="rome-datetime" name="end" value="{%=(_item ? _item.end : '')%}" onchange="notifyPanel.updateFormState()" style="width: 114px" />
+	</div>
+	<div class="line">
+		<label>* Тип уведомления:</label>
+		<select name="notifyType">
+{%
+	for(var i = 0; i < o.settings.notifyType.length; i++) {
+		var item = o.settings.notifyType[i];
+		var selected = (_item && _item.notifyType.guid == item.guid) ? 'selected="selected"' : '';
+%}
+			<option value="{%=item.guid%}" {%=selected%}>{%=item.name%}</option>
+{%
+	}
+%}
+		</select>
+	</div>
+	<div class="line">
+		<label>* Источник события:</label>
+		<select name="eventSource">
+{%
+	for(var i = 0; i < o.settings.eventSource.length; i++) {
+		var item = o.settings.eventSource[i];
+		var selected = (_item && _item.eventSource.guid == item.guid) ? 'selected="selected"' : '';
+%}
+			<option value="{%=item.guid%}" {%=selected%}>{%=item.name%}</option>
+{%
+	}
+%}
+		</select>
+	</div>
+	<div class="popup-actions">
+		<button type="button" class="btn" onclick="notifyPanel.save('{%=o.id%}')">Сохранить</button>
+	</div>
+</form>

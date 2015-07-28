@@ -14,7 +14,7 @@
 }
 .rd-container-attachment {
 	position: absolute;
-	z-index: 100;
+	z-index: 10002;
 }
 .rd-month {
   display: inline-block;

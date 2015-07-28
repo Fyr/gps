@@ -1,0 +1,68 @@
+{%
+	var _item = (o.id) ? o.items[o.id] : null;
+%}
+<form id="editForm">
+	<div class="line">
+		<label>* E-mail:</label>
+		<input type="email" name="email" value="{%=(_item && _item.email)%}" onkeyup="mailPanel.updateFormState()" />
+	</div>
+	<div class="line">
+		<label>* Объект:</label>
+		<select name="monitoringObject">
+{%
+	for(var i = 0; i < o.settings.objects.length; i++) {
+		var item = o.settings.objects[i];
+		var selected = (_item && _item.monitoringObject.guid == item.guid) ? 'selected="selected"' : '';
+%}
+			<option value="{%=item.guid%}" {%=selected%}>{%=item.name%}</option>
+{%
+	}
+%}
+		</select>
+	</div>
+	<div class="line">
+		<label>* Отчет:</label>
+		<select name="report">
+{%
+	for(var i = 0; i < o.settings.reports.length; i++) {
+		var item = o.settings.reports[i];
+		var selected = (_item && _item.report.guid == item.guid) ? 'selected="selected"' : '';
+%}
+			<option value="{%=item.guid%}" {%=selected%}>{%=item.name%}</option>
+{%
+	}
+%}
+		</select>
+	</div>
+	<div class="line">
+		<label>* Период:</label>
+		<select name="period">
+{%
+	for(var i = 0; i < o.settings.period.length; i++) {
+		var item = o.settings.period[i];
+		var selected = (_item && _item.period.guid == item.guid) ? 'selected="selected"' : '';
+%}
+			<option value="{%=item.guid%}" {%=selected%}>{%=item.name%}</option>
+{%
+	}
+%}
+		</select>
+	</div>
+	<div class="line">
+		<label>* Формат:</label>
+		<select name="format">
+{%
+	for(var i = 0; i < o.settings.format.length; i++) {
+		var item = o.settings.format[i];
+		var selected = (_item && _item.format.guid == item.guid) ? 'selected="selected"' : '';
+%}
+			<option value="{%=item.guid%}" {%=selected%}>{%=item.name%}</option>
+{%
+	}
+%}
+		</select>
+	</div>
+	<div class="popup-actions">
+		<button type="button" class="btn" disabled="disabled" onclick="mailPanel.save('{%=o.id%}')">Сохранить</button>
+	</div>
+</form>

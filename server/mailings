@@ -1,0 +1,50 @@
+{"status": "OK", "data": [
+	{
+		"guid": "1",
+		"monitoringObject": {
+			"guid": "358316065297416",
+			"name": "Тест 2"
+		},
+		"report": {
+			"guid": "ebf9c50a-1a6a-11e5-b0e5-00155dbb7703",
+			"name": "Движения и стоянки"
+		},
+		"schedule": {
+			"guid": "3",
+			"name": "Ежемесячно"
+		},
+		"period": {
+			"guid": "3",
+			"name": "За месяц"
+		},
+		"format": {
+			"guid": "3",
+			"name": "MS-Word"
+		},
+		"email": "fyr@tut.by"
+	},
+	{
+		"guid": "2",
+		"monitoringObject": {
+			"guid": "13226005443565",
+			"name": "Тест 3"
+		},
+		"report": {
+			"guid": "b736186a-f564-11e4-a0a3-00155dbb7703",
+			"name": "Анализ версий объектов"
+		},
+		"schedule": {
+			"guid": "2",
+			"name": "Еженедельно"
+		},
+		"period": {
+			"guid": "2",
+			"name": "За неделю"
+		},
+		"format": {
+			"guid": "2",
+			"name": "XSL"
+		},
+		"email": "fyr.work@gmail.com"
+	}
+]}

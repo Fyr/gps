@@ -26,5 +26,9 @@ var locale = {
 	eventCreated: 'Событие успешно создано',
 	
 	createMailing: 'Создать рассылку',
-	mailingSaved: 'Рассылка успешно сохранена'
+	mailingSaved: 'Рассылка успешно сохранена',
+	recordCreate: 'Новая запись',
+	recordEdit: 'Редактировать запись',
+	recordDelete: 'Редактировать запись',
+	recordSaved: 'Запись успешно сохранена'
 };

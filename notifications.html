@@ -22,32 +22,39 @@
 		<script type="text/javascript" src="./js/gps/xdate.js"></script>
 		<script type="text/javascript" src="./js/gps/json_handler.js"></script>
 		<script type="text/javascript" src="./js/gps/api.js"></script>
+		<script type="text/javascript" src="./js/gps/admin-table-panel.js"></script>
 		<script type="text/javascript" src="./js/gps/mailings-panel.js"></script>
+		<script type="text/javascript" src="./js/gps/notifications-panel.js"></script>
 		<script type="text/javascript" src="./js/gps/popup.js"></script>
 		<script type="text/javascript" src="./js/gps/popup-info.js"></script>
 		<script type="text/javascript" src="./js/gps/locale/ru.js"></script>
 		<script type="text/javascript" src="./js/gps/menu.js"></script>
 		
 		<script type="text/javascript">
-var mailPanel;
+var mailPanel, notifyPanel;
 
 $(function(){
-	aModules = [
+	var aModules = [
 		'menu', 
 		'popup',
 		'popup-info',
 		'panel-mailings-list',
-		'panel-notifocations-list'
-		'popup-mailing-edit'
+		'popup-mailings-edit',
+		'panel-notifications-list',
+		'popup-notifications-edit'
 	];
 	Tmpl().loadModules(aModules, function(){ 
-		setCurrMenu(3, 2);
+		setCurrMenu(5);
 		
 		mailPanel = new MailingsPanel();
 		mailPanel.init();
 		
+		notifyPanel = new NotificationsPanel();
+		notifyPanel.init();
+		
 		$(window).resize(function() {
 			mailPanel.fixPanelHeight();
+			notifyPanel.fixPanelHeight();
 		});
 	});
 });
@@ -60,17 +67,17 @@ $(function(){
 				<span class="tmpl-menu"></span>
 			</div>
 			<div class="maket clearfix">
-				<div class="leftSide">
-					<div class="tableHeader">
-						<span style="text-decoration: underline; font-size: 1.2em; font-weight: bold;">Рассылки</span>
-						<button type="button" class="btn" onclick="mailPanel.createMailing()" style="display: block; margin: 10px 0;">Создать</button>
+				<div id="mailings">
+					<div class="tableHeader clearfix">
+						<button type="button" class="btn" onclick="mailPanel.edit()" style="float: right; margin-bottom: 10px;">Создать</button>
+						<span style="font-size: 1.2em; font-weight: bold;">Рассылки</span>
 					</div>
 					<div class="block tmpl-panel-mailings-list"></div>
 				</div>
-				<div class="rightSide">
-					<div class="tableHeader">
-						<span style="text-decoration: underline; font-size: 1.2em; font-weight: bold;">Рассылки</span>
-						<button type="button" class="btn" onclick="mailPanel.createMailing()" style="display: block; margin: 10px 0;">Создать</button>
+				<div id="notifications" style="display: none1">
+					<div class="tableHeader clearfix">
+						<button type="button" class="btn" onclick="notifyPanel.edit()" style="float: right; margin-bottom: 10px;">Создать</button>
+						<span style="font-size: 1.2em; font-weight: bold;">Уведомления</span>
 					</div>
 					<div class="block tmpl-panel-notifications-list"></div>
 				</div>

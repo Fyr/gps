@@ -4,8 +4,8 @@ function sendApiRequest(method, data, successFn) {
 	var baseUrl = './server/';
 	
 	var methodType = 'GET';
-	if (method.indexOf('post.') > -1) {
-		methodType = 'POST';
+	if (method.indexOf('.') > -1) {
+		methodType = method.split('.')[0];
 		method = method.split('.')[1];
 	}
 	$.ajax({
@@ -76,4 +76,8 @@ function json_decode(json, lEscapeQuotes) {
 
 function in_array(needle, haystack) {
 	return $.inArray(needle, haystack) > -1;
+}
+
+function niceScroller(e) {
+	$(e).niceScroll({autohidemode:false, cursorcolor: "#ecdc00", background: "#dddddd", cursorborderradius: "0", cursorwidth: "7px"});
 }

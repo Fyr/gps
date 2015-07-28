@@ -1,18 +1,31 @@
+<table class="admin" cellspacing="0" border="0">
 {%
-	if (o.items && o.items.length) {
-		for(var i = 0; i < o.items.length; i++) {
-			var item = o.items[i];
+	if (!$.isEmptyObject(o.items)) {
+		for(var id in o.items) {
+			var item = o.items[id];
 %}
-<div class="item clearfix">
-	<label>{%=item.name%}</label>
-	<!-- a class="fa fa-edit" style="float: right" href="javascript:void(0)" onclick="mailPanel.edit('{%=item.guid%}')"></a>
-	<a class="fa fa-remove" style="float: right" href="javascript:void(0)" onclick="if (confirm('Удалить эту запись?') { mailPanel.remove('{%=item.guid%}'); }"></a -->
-</div>
+<tr>
+	<td>{%=item.email%}</td>
+	<td>{%=item.monitoringObject.name%}</td>
+	<td>{%=item.report.name%}</td>
+	<td>{%=item.schedule.name%}</td>
+	<td>{%=item.period.name%}</td>
+	<td>{%=item.format.name%}</td>
+	<td align="right">
+		<a class="fa fa-edit" href="javascript:void(0)" onclick="mailPanel.edit('{%=item.guid%}')"></a>
+		<a class="fa fa-remove" href="javascript:void(0)" onclick="if (confirm('Удалить эту запись?') { mailPanel.remove('{%=item.guid%}'); }"></a>		
+	</td>
+</tr>
 {%
 		}
 	} else {
 %}
-<div style="text-align: center; padding: 10px 0"> - {%=locale.noObjects%} - </div>
+<tr>
+	<td colspan="7" style="text-align: center; padding: 10px 0;">
+		 - {%=locale.noObjects%} - 
+	</td>
+</tr>
 {%
 	}
 %}
+</table>

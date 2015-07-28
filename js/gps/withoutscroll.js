@@ -13,8 +13,6 @@ function reviewScroll  () {
 	height1 = $(window).height() - 557;
 	height2 = $(window).height() - 327;
 	
-	console.log(height1);
-		
 	if ( $(window).height() > 558 ) {
 		$('.newsBlock .description').height( height2 ); 
 	}

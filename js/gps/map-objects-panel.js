@@ -16,10 +16,10 @@ var MapObjectsPanel = function() {
 		$('.panel input[type=checkbox]', $self).change(function(){
 			self.checkAll();
 		});
-		$('.panel .fa-sort-alpha-desc', $self).click(function(){
+		$('.panel .icon-align-alphabet-back', $self).click(function(){
 			self.sortObjects(1);
 		});
-		$('.panel .fa-sort-alpha-asc', $self).click(function(){
+		$('.panel .icon-align-alphabet', $self).click(function(){
 			self.sortObjects(0);
 		});
 		$('.panel .fa-refresh', $self).click(function(){

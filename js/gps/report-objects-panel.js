@@ -29,7 +29,6 @@ var ReportObjectsPanel = function() {
 			params[this.name] = this.value;
 		});
 		sendApiRequest('getReport', {guid: self.reportId, format: 'json', params: JSON.stringify(params)}, function(response){
-			console.log(response.data);
 			grida = webix.ui({
                 container: "testA",
                 view: "treetable",
