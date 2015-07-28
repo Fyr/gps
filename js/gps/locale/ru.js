@@ -13,6 +13,7 @@ var locale = {
 	menuAdministration: 'Администрирование',
 	
 	addObject: 'Добавление обьекта',
+	objectCreated: 'Обьект успешно создан',
 	noObjects: 'нет обьектов',
 	selectSensors: 'Выберите датчики',
 	chartsTitle: 'Графики изменения датчиков',
@@ -30,5 +31,8 @@ var locale = {
 	recordCreate: 'Новая запись',
 	recordEdit: 'Редактировать запись',
 	recordDelete: 'Редактировать запись',
-	recordSaved: 'Запись успешно сохранена'
+	recordSaved: 'Запись успешно сохранена',
+	
+	radiusRequired: 'Вы должны задать радиус зоны',
+	geoObjectCreated: 'Геозона успешно создана'
 };

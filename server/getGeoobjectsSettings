@@ -1,0 +1,12 @@
+{"status": "OK", "data": {
+	"types": [
+		{
+			"guid": "circle",
+			"name": "Окружность"
+		},
+		{
+			"guid": "polygon",
+			"name": "Полигон"
+		}
+	]
+}}

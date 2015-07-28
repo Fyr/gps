@@ -1,0 +1,36 @@
+<form id="editForm">
+	<div class="line">
+		<label>* Название:</label>
+		<input type="text" name="name" onkeyup="objectsPanel.updateFormState()" />
+	</div>
+		<div class="line">
+		<label>* Тип зоны:</label>
+		<select class="styler" name="type" onchange="objectsPanel.changeType()">
+{%
+	for(var i = 0; i < o.settings.types.length; i++) {
+		var item = o.settings.types[i];
+%}
+			<option value="{%=item.guid%}">{%=item.name%}</option>
+{%
+	}
+%}
+		</select>
+	</div>
+	<div class="line type type-circle">
+		<label>* Радиус:</label>
+		<input type="text" class="" name="radius" onchange="objectsPanel.updateFormState()" style="width: 50px" />
+	</div>
+	<span class="type type-circle">
+		Кликните по карте чтобы задать центр геозоны
+	</span>
+	<span class="type type-polygon">
+		Кликайте по карте чтобы задать точки геозоны<br />
+		Кликните на точке еще раз, чтобы ее удалить
+	</span>
+	<div id="minimap-canvas" style="margin: 5px 0 10px 0; height: 200px;"></div>
+	<input type="hidden" name="location[lat]" value="" />
+	<input type="hidden" name="location[lon]" value="" />
+	<div class="popup-actions">
+		<button type="button" class="btn" disabled="disabled" onclick="objectsPanel.save()">Сохранить</button>
+	</div>
+</form>

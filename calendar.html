@@ -31,6 +31,7 @@
 		<script type="text/javascript" src="./js/gps/map-objects-panel.js"></script>
 		<script type="text/javascript" src="./js/gps/calendar-objects-panel.js"></script>
 		<script type="text/javascript" src="./js/gps/popup.js"></script>
+		<script type="text/javascript" src="./js/gps/popup-info.js"></script>
 		<script type="text/javascript" src="./js/gps/locale/ru.js"></script>
 		<script type="text/javascript" src="./js/gps/menu.js"></script>
 		<script type="text/javascript" src="./js/gps/map-api.js"></script>
@@ -45,12 +46,11 @@ $(function(){
 		'panel-map-object-item', 
 		'panel-map-object-infowin', 
 		'popup', 
+		'popup-info', 
 		'popup-add-object',
 		'schedule',
 		'popup-event-view',
-		'popup-event-edit',
-		'popup-event-created',
-		'popup-object-created'
+		'popup-event-edit'
 	];
 	Tmpl().loadModules(aModules, function(){ 
 		setCurrMenu(2, 1);

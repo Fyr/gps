@@ -17,13 +17,6 @@ var AdminTablePanel = function() {
 			content: Tmpl(self.tplEdit).render(self)
 		});
 		self.dialog.open();
-		
-		$('input[type=checkbox]').styler();
-		$('select').styler();
-		$('.rome-datetime').each(function(){
-			rome(this);
-		});
-		niceScroller('.niceScroller');
 		self.updateFormState();
 	}
 	

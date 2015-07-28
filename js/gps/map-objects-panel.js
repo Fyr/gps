@@ -3,6 +3,7 @@ var MapObjectsPanel = function() {
 	var self = this, $self = $('.tmpl-panel-map-object-list');
 	
 	self.objects = {};
+	self.settings = {};
 	
 	this.init = function() {
 		self.fixPanelHeight();
@@ -30,10 +31,10 @@ var MapObjectsPanel = function() {
 		});
 	}
 	
-	this.create = function() {
+	this.edit = function() {
 		self.dialog = new Popup({
 			title: locale.addObject,
-			content: Tmpl('popup-add-object').render()
+			content: Tmpl('popup-add-object').render(self)
 		});
 		self.dialog.open();
 	}
@@ -44,6 +45,10 @@ var MapObjectsPanel = function() {
 			self.clearObjects();
 			self.setObjects(response.data);
 			self.show();
+			
+			sendApiRequest('getObjectsSettings', null, function(response){
+				self.settings = response.data;
+			});
 		});
 	}
 	
@@ -67,7 +72,7 @@ var MapObjectsPanel = function() {
 		self.objects[id].id = id;
 		self.objects[id].checked = (data.checked) ? data.checked : false;
 		self.objects[id].title = data.name;
-		self.objects[id].updated_ago = (data.topicality) ? self._updatedAgo(data.topicality.replace(/T/, ' ')) : 0;
+		self.objects[id].updated_ago = (data.topicality) ? self._updatedAgo(data.topicality.replace(/T/, ' ')) : -1;
 	}
 	
 	this.setMapObject = function(id, type) {
@@ -254,16 +259,19 @@ var MapObjectsPanel = function() {
 		self.dialog.close();
 		var params = $('#addObjectForm').serialize();
 		sendApiRequest('post.monitoringObjects', params, function(){
-			self.dialog = new Popup({
+			self.dialog = new PopupInfo({
 				title: locale.addObject, 
-				content: Tmpl('popup-object-created').render()
+				text: locale.objectCreated
 			});
 			self.dialog.open();
 		});
 	}
 	
-	this.objectCreated = function() {
-		self.dialog.close();
-		self.update();
+	this.isFormValid = function() {
+		return $('#addObjectForm [name="name"]').val() && $('#addObjectForm [name="imei"]').val();
+	}
+	
+	this.updateFormState = function() {
+		$('#addObjectForm .btn').get(0).disabled = !self.isFormValid();
 	}
 }

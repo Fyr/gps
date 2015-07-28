@@ -102,13 +102,8 @@ var CalendarObjectsPanel = function() {
 			title: locale.createEvent,
 			content: Tmpl('popup-event-edit').render({objectOptions: self.getObjectOptions()})
 		});
-		
-		$('.rome-datetime').each(function(){
-			rome(this);
-		});
-		$('select').styler();
-		
 		dialog.open();
+		
 		var miniMap = new MapAPI('minimap-canvas');
 		miniMap.init();
 		miniMap.showAt(self.objects[id]);
@@ -137,18 +132,11 @@ var CalendarObjectsPanel = function() {
 		var data = $('#eventForm').serialize();
 		self.dialog.close();
 		sendApiRequest('post.events', data, function(){
-			self.dialog = new Popup({
+			self.dialog = new PopupInfo({
 				title: locale.createEvent, 
-				content: Tmpl('popup-event-created').render()
+				text: locale.eventCreated
 			});
 			self.dialog.open();
 		});
-	}
-	
-	this.eventCreated = function() {
-		self.dialog.close();
-		if (!$.isEmptyObject(self.allEvents)) {
-			self.loadEvents();
-		}
 	}
 }

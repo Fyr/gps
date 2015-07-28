@@ -245,7 +245,6 @@ var ObjectRoutesPanel = function() {
 				content: Tmpl('popup-check-sensors').render({id: id, sensors: response.data[0].sensors})
 			});
 			self.dialog.open();
-			$('[type=checkbox]').styler();
 		});
 	}
 	

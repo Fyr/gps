@@ -6,7 +6,7 @@
 }
 
 input.error, textarea.error { border-color: red;}
-span.note.error { font-size: 0.8em; color: red; margin-left: 122px;}
+span.note.error { font-size: 0.8em; color: red; margin-left: 122px;display: block;}
 a.fa {margin: 0 2px !important}
 table.admin { width: 100%; }
 .admin td, .admin th { padding: 3px 5px; border-left: 1px solid #efefef; }

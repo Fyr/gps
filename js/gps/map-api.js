@@ -33,7 +33,8 @@ var MapAPI = function(canvas) {
 			'movement': SmallPoint,
 			'movement-selected': PointSelected,
 			'parking': ParkingPoint,
-			'parking-selected': ParkingPointSelected
+			'parking-selected': ParkingPointSelected,
+			'small-point': SmallPoint
 		};
 		
 		var icon;

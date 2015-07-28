@@ -1,13 +1,39 @@
 <form id="addObjectForm">
 	<div class="line">
 		<label>* Наименование обьекта:</label>
-		<input type="text" name="name" />
+		<input type="text" name="name" onkeyup="objectsPanel.updateFormState()" />
 	</div>
 	<div class="line">
 		<label>* IMEI:</label>
-		<input type="text" name="imei" />
+		<input type="text" name="imei" onkeyup="objectsPanel.updateFormState()" />
+	</div>
+	<div class="line">
+		<label>* Объект:</label>
+		<div class="block">
+			<div class="info niceScroller" style="max-height: 200px;">
+{%
+	/*
+	var usersIds = [];
+	if (_item) {
+		for(var j = 0; j < _item.monitoringObjects.length; j++) {
+			usersObjects.push(_item.monitoringObjects[j].guid);
+		}
+	}
+	*/
+	for(var i = 0; i < o.settings.users.length; i++) {
+		var item = o.settings.users[i];
+		// var checked = in_array(item.guid, usersObjects) ? 'checked="checked"' : '';
+%}
+			<div class="item">
+				<input type="checkbox" name="user[]" value="{%=item.guid%}">{%=item.name%}</option><br />
+			</div>
+{%
+	}
+%}
+			</div>
+		</div>
 	</div>
 	<div class="popup-actions">
-		<button type="button" class="btn" onclick="objectsPanel.saveObject()">Сохранить</button>
+		<button type="button" class="btn" disabled="disabled" onclick="objectsPanel.saveObject()">Сохранить</button>
 	</div>
 </form>

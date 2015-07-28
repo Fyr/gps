@@ -15,6 +15,13 @@ var Popup = function(params) {
 	this.open = function() {
 		$('#shadow').show();
 		$('.popup').show();
+		
+		$('input[type=checkbox]').styler();
+		$('select').styler();
+		$('.rome-datetime').each(function(){
+			rome(this);
+		});
+		niceScroller('.niceScroller');
 	}
 	
 	this.close = function() {

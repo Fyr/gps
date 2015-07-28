@@ -12,7 +12,7 @@
 %}
 	<div class="rightIcons">
 {%
-	if (o.updated_ago > 0) {
+	if (o.updated_ago >= 0) {
 		var color = getStatusColor((o.updated_ago >= 24) ? 24 : o.updated_ago);
 		if (o.updated_ago >= 24) {
 %}
