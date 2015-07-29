@@ -13,7 +13,7 @@
 	</div>
 	<div class="line">
 		<label>* Название:</label>
-		<input type="text" name="summary" onchange="objectsPanel.updateEventForm()" />
+		<input type="text" name="summary" onkeyup="objectsPanel.updateEventForm()" />
 	</div>
 	<div class="line">
 		<label>* Период:</label>
@@ -24,7 +24,8 @@
 		<label>Описание:</label>
 		<textarea name="message" style="height: 50px"></textarea>
 	</div>
-	Кликните по карте чтобы задать местоположение события
+	Кликните по карте или введите адрес чтобы задать местоположение события
+	<input type="text" id="q" style="width: 350px">
 	<div id="minimap-canvas" style="margin: 5px 0 10px 0; height: 200px;"></div>
 	<input type="hidden" name="location[lat]" value="" />
 	<input type="hidden" name="location[lon]" value="" />

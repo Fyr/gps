@@ -11,10 +11,12 @@
 		<link href="./css/leaflet.css" rel="stylesheet">
 		<link href="./css/fullcalendar.css" rel="stylesheet">
 		<link href="./css/fonts.css" rel="stylesheet">
+		<link href="./css/jquery.auto-complete.css" rel="stylesheet">
 		
 		<script type="text/javascript" src="./js/jquery-1.10.2.min.js"></script>
 		<script type="text/javascript" src="./js/jquery.nicescroll.min.js" ></script>
 		<script type="text/javascript" src="./js/jquery.formstyler.min.js"></script>
+		<script type="text/javascript" src="./js/jquery.auto-complete.min.js"></script>
 		<script type="text/javascript" src="./js/rome.js"></script>
 		<script type="text/javascript" src="./js/tmpl.min.js"></script>
 		<script type="text/javascript" src="./js/leaflet.js"></script>
@@ -50,7 +52,8 @@ $(function(){
 		'popup-add-object',
 		'schedule',
 		'popup-event-view',
-		'popup-event-edit'
+		'popup-event-edit',
+		'search-item'
 	];
 	Tmpl().loadModules(aModules, function(){ 
 		setCurrMenu(2, 1);
@@ -77,7 +80,8 @@ $(function(){
 				{
 					events: function(start, end, timezone, callback) {
 						callback(objectsPanel.getEvents(objectsPanel.PLANNED));
-					}
+					},
+					color: 'yellow'
 				},
 				{
 					events: function(start, end, timezone, callback) {

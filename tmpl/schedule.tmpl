@@ -3,9 +3,15 @@
 		for(var id in o.events) {
 			var date = Date.fromSqlDate(o.events[id].start);
 			var event = o.events[id];
+			var color = 'yellow';
+			if (event.status == objectsPanel.OCCURED) {
+				color = 'green';
+			} else if (event.status == objectsPanel.FAILED) {
+				color = 'red';
+			}
 %}
 	<div class="scheduleItem" onclick="objectsPanel.showEvent('{%=event.id%}')">
-		<span>{%=date.fullDate('rus')%} {%=date.hoursMinutes('rus')%}</span>: 
+		<span style="color: {%=color%}; font-size: 1.5em; line-height: 1em;">&bull;</span> <span>{%=date.fullDate('rus')%} {%=date.hoursMinutes('rus')%}</span>: 
 		{%=event.title%}
 	</div>
 {%

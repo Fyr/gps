@@ -91,7 +91,7 @@ var CalendarObjectsPanel = function() {
 		return options;
 	}
 	
-	this.create = function() {
+	this.edit = function() {
 		var id = Object.keys(self.objects)[0];
 		var ids = self.getCheckedIds();
 		if (ids.length) {
@@ -116,7 +116,49 @@ var CalendarObjectsPanel = function() {
 			self.updateEventForm();
 		});
 		
+		self.miniMap = miniMap;
+		
 		self.dialog = dialog;
+		$('#q').autoComplete({
+			minChars: 3,
+			delay: 500,
+			source: function(q, callGetItems){
+				sendApiRequest('getLocation', {adress: q}, function(response){
+					var suggestions = [];
+					for (var i = 0; i < response.data.length; i++) { 
+						var marker = response.data[i];
+						marker.id = self.genMarkerId();
+						marker.title = marker.adress;
+						marker.lat = response.data[i].location.lat;
+						marker.lon = response.data[i].location.lon;
+						suggestions.push(marker);
+					} 
+					callGetItems(suggestions);
+				});
+			},
+			renderItem: function (item, q){
+				return Tmpl('search-item').render({item: item, q: q});
+			},
+			onSelect: function(e, q, $item){
+				self.onSearchSelect(json_decode($item.data('item'), true));
+            }
+		});
+	}
+	
+	this.genMarkerId = function() {
+		var date = new Date();
+		var id = 'marker-' + date.getTime();
+		return id;
+	}
+	
+	this.onSearchSelect = function(marker) {
+		self.miniMap.clearMarkers();
+		self.miniMap.addMarker(marker);
+		self.miniMap.showMarker(marker.id);
+		$('#eventForm [name="location[lat]"]').val(marker.lat);
+		$('#eventForm [name="location[lon]"]').val(marker.lon);
+		
+		self.updateEventForm();
 	}
 	
 	this.isFormValid = function() {
