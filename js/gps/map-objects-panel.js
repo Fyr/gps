@@ -29,6 +29,17 @@ var MapObjectsPanel = function() {
 		$('.outerSearch input[type=text]', $self).keyup(function(){
 			self.filterObjects($(this).val());
 		});
+		
+		$('.handle').click ( function() {
+			if ( !$(this).hasClass('closed') ) {
+				$('.leftSide').addClass('closed');
+				$(this).addClass('closed').text("»");
+			}
+			else {
+				$('.leftSide').removeClass('closed');
+				$(this).removeClass('closed').text("«");
+			}
+		});
 	}
 	
 	this.edit = function() {

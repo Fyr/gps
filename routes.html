@@ -64,12 +64,16 @@ $(function(){
 		
 		$('.tmpl-panel-map-object-form .btn').click(function(){
 			objectsPanel.updateRoutes();
+			$('.leftSide').addClass('closed');
+			$('.handle').addClass('closed').text("»");
 		});
 		
 		$(window).resize(function() {
 			objectsPanel.fixPanelHeight();
 		});
 	});
+	
+	
 });
 </script>
 	</head>
@@ -80,6 +84,7 @@ $(function(){
 				<span class="tmpl-menu"></span>
 			</div>
 			<div class="maket clearfix">
+				<a href="javascript:void(0)" class="handle">«</a>
 				<div class="leftSide">
 					<div class="block tmpl-panel-map-object-list"></div>
 					<div class="block tmpl-panel-map-object-form"></div>
