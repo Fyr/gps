@@ -1,0 +1,22 @@
+{"status": "OK", "data": [
+	{
+		"guid": "1",
+		"name": "Рассылка 1",
+		"monitoringObject": "358316065297416",
+		"report": "b736186a-f564-11e4-a0a3-00155dbb7703",
+		"schedule": "2",
+		"period": "3",
+		"format": "1",
+		"email": "fyr@tut.by"
+	},
+	{
+		"guid": "1",
+		"name": "Рассылка 2",
+		"monitoringObject": "358316065297416",
+		"report": "b736186a-f564-11e4-a0a3-00155dbb7703",
+		"schedule": "2",
+		"period": "1",
+		"format": "2",
+		"email": "fyr.work@gmail.com"
+	}
+]}

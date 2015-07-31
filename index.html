@@ -10,9 +10,11 @@
 		<title>Velcom</title>
 		<link href="./css/style.css" rel="stylesheet">
 		<link href="./css/extra.css" rel="stylesheet">
+		<link href="./css/slicknav.css" rel="stylesheet">
 		
 		<script type="text/javascript" src="./js/jquery-1.10.2.min.js"></script>
 		<script type="text/javascript" src="./js/jquery.nicescroll.min.js"></script>
+		<script type="text/javascript" src="./js/jquery.slicknav.min.js"></script>
 		<script type="text/javascript" src="./js/tmpl.min.js"></script>
 		<script type="text/javascript">document.addEventListener("touchstart", function() {},false);</script>
 		
@@ -78,14 +80,15 @@ $(function(){
 			});
 			dialog.open();
 		});
-		
-		reviewScroll();
 	
 		$(window).resize(function() {
 			reviewScroll();
 		});
 		
+		setTimeout ( function(){ reviewScroll() }, 500);
+		
 		$(".scroller").niceScroll({autohidemode:false, cursorcolor: "#ecdc00", background: "#dddddd", cursorborderradius: "0", cursorwidth: "7px"});
+		
 	});
 });
 </script>
@@ -96,7 +99,21 @@ $(function(){
 				<a href="/" class="logo"><img src="./img/logo.gif" alt="Velcom" /></a>
 				<span class="tmpl-menu"></span>
 			</div>
-			<div class="clearfix">
+			<div class="clearfix obzor">
+				<div class="clearfix yellowBlocks">
+					<a href="javascript: void(0)" class="item feedback" id="feedback">
+						<img src="./img/add_object.png" alt="" />
+					</a>
+					<a href="javascript: void(0)" class="item favorities" id="favorites">
+						<img src="./img/favorities.png" alt="" />
+					</a>
+					<a href="javascript: void(0)" class="item techsupport" id="techsupport">
+						<img src="./img/techsupport.png" alt="" />
+					</a>
+					<a href="javascript: void(0)" class="item feedback" id="feedback">
+						<img src="./img/feedback.png" alt="" />
+					</a>
+				</div>
 				<div class="leftSide">
 					<div class="block newsBlock">
 						<div class="title">
@@ -107,31 +124,8 @@ $(function(){
 							Загрузка...
 						</div>
 					</div>
-					<div class="block instructionsBlock">
-						<div class="title">
-							<span class="icon icon-instructions"></span>
-							<span class="name">Инструкции</span>
-						</div>
-						<div class="description scroller" style="height: 57px;">
-							Загрузка...
-						</div>
-					</div>
 				</div>
 				<div class="rightSide">
-					<div class="clearfix yellowBlocks">
-						<a href="javascript: void(0)" class="item" id="favorites">
-							<span class="picture"><span class="icon icon-stars"></span></span>
-							<span class="description">Избранные функции</span>
-						</a>
-						<a href="javascript: void(0)" class="item" id="techsupport">
-							<span class="picture"><span class="icon icon-techsupport"></span></span>
-							<span class="description">Обращение в техподдержку</span>
-						</a>
-						<a href="javascript: void(0)" class="item" id="feedback">
-							<span class="picture"><span class="icon icon-feedback"></span></span>
-							<span class="description">Отправить отзыв</span>
-						</a>
-					</div>
 					<div class="block billingBlock">
 						<div class="title">
 							<span class="icon icon-billing"></span>
@@ -141,12 +135,21 @@ $(function(){
 							Загрузка...
 						</div>
 					</div>
+					<div class="block instructionsBlock">
+						<div class="title">
+							<span class="icon icon-instructions"></span>
+							<span class="name">Инструкции</span>
+						</div>
+						<div class="description scroller" style="height: 40px;">
+							Загрузка...
+						</div>
+					</div>
 					<div class="block docsBlock">
 						<div class="title">
 							<span class="icon icon-documents"></span>
 							<span class="name">Документы</span>
 						</div>
-						<div class="description scroller" style="height: 57px;">
+						<div class="description scroller" style="height: 40px;">
 							Загрузка...
 						</div>
 					</div>

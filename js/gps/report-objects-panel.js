@@ -10,6 +10,7 @@ var ReportObjectsPanel = function() {
 		self.parent.init();
 		sendApiRequest('getReportSettings', {guid: reportId}, function(response){
 			self.renderReportForm(response.data);
+			self.fixPanelHeight();
 		});
 	}
 	
@@ -23,35 +24,48 @@ var ReportObjectsPanel = function() {
 	
 	this.submitReportForm = function() {
 		$('#map-canvas').hide();
-		$('#report-canvas').show();
 		var params = {};
 		$('#reportForm input, #reportForm select').each(function(){
 			params[this.name] = this.value;
 		});
 		sendApiRequest('getReport', {guid: self.reportId, format: 'json', params: JSON.stringify(params)}, function(response){
-			grida = webix.ui({
-                container: "testA",
-                view: "treetable",
-                columns: [
-                    // { id:"id",	header:"", css:{"text-align":"right"},  	width:50},
-                    {
-                        id: "monitoringObject", header: "monitoringObject", 
-                        template: "{common.treetable()} #monitoringObject#"
-                    },
-                    {id: "day", header: "day", width: 200},
-                    {id: "period", header: "period", width: 200},
-                    {id: "status", header: "status", width: 200},
-                    //{ id:"geofence",	header:"geofence",	width:200},
-                    {id: "duration", header: "duration", width: 200},
-                    {id: "milageGPS", header: "milageGPS", width: 200}
-
-                ],
-                autoheight: true,
-                autowidth: true,
-
-                data: response.data.data
-
-            });
+			$('#report-canvas').show();
+			self.columns = response.data.columns;
+			self.group = response.data.group || [];
+			self.processData(response.data.data);
+			self.renderReport();
 		});
+	}
+	
+	this.processData = function(data) {
+		self.data = data;
+		for(var i = 0; i < data.length; i++) {
+			
+		}
+	}
+	
+	this.renderReport = function() {
+		$('#report-canvas').html(Tmpl('report-table').render(self));
+		$('#report-canvas table').treegrid();
+	}
+	
+	this.fixPanelHeight = function() {
+		var freeH = self.getFreeHeight(['.header', '.tmpl-panel-map-object-list .search', '.tmpl-panel-map-object-list .panel', '#reportForm']) - 4;
+		var panel = $('.tmpl-panel-map-object-list .info').get(0);
+		$(panel).css('height', 'auto');
+		
+		var panelH = self.getHeight(panel); 
+		console.log(panelH, freeH);
+		if (panelH > freeH) {
+			$(panel).css('height', freeH + 'px');
+		}
+		niceScroller(panel);
+		
+		freeH = self.getFreeHeight(['.header']);
+		$('#map-canvas').css('height', freeH + 16 + 'px');
+		
+		freeH = self.getFreeHeight(['.header']);
+		$('#report-canvas').css('height', freeH + 16 + 'px');
+		niceScroller('#report-canvas');
 	}
 }

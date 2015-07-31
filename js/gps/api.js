@@ -44,13 +44,27 @@ function setCurrMenu(n, m) {
 		MainMenu[3].submenu = [];
 		for(var i = 0; i < response.data.length; i++) {
 			var item = response.data[i];
-			MainMenu[3].submenu.push({href: 'reports.html?report=' + item.guid, title: item.name})
+			if (item.items) {
+				var items = [];
+				for(var j = 0; j < item.items.length; j++) {
+					var item3 = item.items[j];
+					items.push({href: 'reports.html?report=' + item3.guid, title: item3.name});
+				}
+				MainMenu[3].submenu.push({href: 'javascript:vois(0)', title: item.name, submenu: items});
+			} else {
+				MainMenu[3].submenu.push({href: 'reports.html?report=' + item.guid, title: item.name});
+			}
 		}
 		$('.tmpl-menu').html(Tmpl('menu').render());
 		$('ul.menu > li:eq(' + (n-1) + ')').addClass('active');
 		if (m) {
 			$('ul.subMenu > li:eq(' + (m-1) + ')', $('ul.menu > li:eq(' + (n-1) + ')')).addClass('active');
 		}
+		
+		$('.menu').slicknav({
+			label: 'меню',
+			prependTo: '.header'
+		});
 	});
 }
 

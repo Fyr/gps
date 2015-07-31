@@ -11,9 +11,27 @@
 		<ul class="subMenu {%=item.smclass%}">
 {%
 		for(j = 0; j < item.submenu.length; j++) {
-			var subitem = item.submenu[j];
+			var item2 = item.submenu[j];
 %}
-			<li><a href="{%=subitem.href%}">{%#subitem.title%}</a></li>
+			<li>
+				<a href="{%=item2.href%}">{%#item2.title%}</a>
+{%
+				if (item2.submenu) {
+%}
+					<ul class="subMenuLevel3">
+{%
+					for(var n = 0; n < item2.submenu.length; n++) {
+						var item3 = item2.submenu[n];
+%}
+						<li><a href="{%=item3.href%}">{%#item3.title%}</a></li>
+{%
+					}
+%}
+					</ul>
+{%
+				}
+%}
+			</li>
 {%
 		}
 %}

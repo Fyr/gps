@@ -9,17 +9,16 @@
 		<link href="./css/extra.css" rel="stylesheet">
 		<link href="./css/rome.css" rel="stylesheet">
 		<link href="./css/leaflet.css" rel="stylesheet">
-		<link href="./css/webix.css" rel="stylesheet">
 		<link href="./css/fonts.css" rel="stylesheet">
+		<link href="./css/slicknav.css" rel="stylesheet">
 		
 		<script type="text/javascript" src="./js/jquery-1.10.2.min.js"></script>
 		<script type="text/javascript" src="./js/jquery.nicescroll.min.js" ></script>
 		<script type="text/javascript" src="./js/jquery.formstyler.min.js"></script>
+		<script type="text/javascript" src="./js/jquery.slicknav.min.js"></script>
 		<script type="text/javascript" src="./js/rome.js"></script>
 		<script type="text/javascript" src="./js/tmpl.min.js"></script>
-		<script type="text/javascript" src="./js/highcharts.js"></script>
-		<script type="text/javascript" src="http://code.highcharts.com/themes/grid-light.js"></script>
-		<script type="text/javascript" src="./js/webix.js"></script>
+		<script type="text/javascript" src="./js/jquery.treegrid.min.js"></script>
 		<script type="text/javascript">document.addEventListener("touchstart", function() {},false);</script>
 		
 		<script type="text/javascript" src="./js/gps/xtmpl.js"></script>
@@ -45,9 +44,10 @@ $(function(){
 		'panel-map-object-item', 
 		'panel-map-object-infowin', 
 		'popup', 
+		'popup-info',
 		'popup-add-object', 
 		'report-form',
-		'popup-info'
+		'report-table'
 	];
 	Tmpl().loadModules(aModules, function(){
 		setCurrMenu(4, 1);
@@ -55,6 +55,9 @@ $(function(){
 		objectsPanel = new ReportObjectsPanel();
 		objectsPanel.init(getReportId());
 		
+		$(window).resize(function() {
+			objectsPanel.fixPanelHeight();
+		});
 	});
 });
 
@@ -70,6 +73,7 @@ function getReportId() {
 				<span class="tmpl-menu"></span>
 			</div>
 			<div class="maket clearfix">
+				<a href="javascript:void(0)" class="handle">«</a>
 				<div class="leftSide">
 					<div class="block tmpl-panel-map-object-list"></div>
 					<div id="reportForm" class="block"></div>
@@ -77,11 +81,9 @@ function getReportId() {
 				<div class="rightSide">
 					<div id="map-canvas" class="mapContainer" style="border: 1px solid #e5e5e5; height: 400px; "></div>
 					<div id="report-canvas" class="mapContainer" style="border: 1px solid #e5e5e5; height: 400px; display: none;">
-						<div id="testA"></div>
 					</div>
 				</div>
 			</div>
-			<div class="contacts tmpl-footer"></div>
 			<div id="shadow"></div>
 		</div>
 	</body>

@@ -9,21 +9,5 @@ function withoutscroll (pixedPoint, minHeight, index) {
 }
 
 function reviewScroll  () {
-	
-	height1 = $(window).height() - 557;
-	height2 = $(window).height() - 327;
-	
-	if ( $(window).height() > 558 ) {
-		$('.newsBlock .description').height( height2 ); 
-	}
-	else {
-		$('.newsBlock .description').height(240); 
-	}
-		
-	if ( height1 > 0) {
-		$('.yellowBlocks').css("margin-bottom",height1+"px");
-	}
-	else {
-		$('.yellowBlocks').css("margin-bottom",10+"px");
-	}
+	$('.newsBlock .description').height( $('.yellowBlocks .item').height() + $('.obzor .rightSide').height() - 44 - 10 ); 
 }

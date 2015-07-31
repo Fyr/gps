@@ -11,10 +11,12 @@
 		<link href="./css/leaflet.css" rel="stylesheet">
 		<link href="./css/fonts.css" rel="stylesheet">
 		<link href="./css/dir-icons.css" rel="stylesheet">
+		<link href="./css/slicknav.css" rel="stylesheet">
 		
 		<script type="text/javascript" src="./js/jquery-1.10.2.min.js"></script>
 		<script type="text/javascript" src="./js/jquery.nicescroll.min.js" ></script>
 		<script type="text/javascript" src="./js/jquery.formstyler.min.js"></script>
+		<script type="text/javascript" src="./js/jquery.slicknav.min.js"></script>
 		<script type="text/javascript" src="./js/rome.js"></script>
 		<script type="text/javascript" src="./js/tmpl.min.js"></script>
 		<script type="text/javascript" src="./js/highcharts.js"></script>
@@ -33,6 +35,8 @@
 		<script type="text/javascript" src="./js/gps/map-api.js"></script>
 		<script type="text/javascript" src="./js/gps/locale/ru.js"></script>
 		<script type="text/javascript" src="./js/gps/menu.js"></script>
+		
+		
 
 		<script type="text/javascript">
 var objectsPanel;
@@ -71,8 +75,8 @@ $(function(){
 		$(window).resize(function() {
 			objectsPanel.fixPanelHeight();
 		});
+		
 	});
-	
 	
 });
 </script>
@@ -81,7 +85,7 @@ $(function(){
 		<div class="mainContainer">
 			<div class="header clearfix">
 				<a href="/" class="logo"><img src="./img/logo.gif" alt="Velcom" /></a>
-				<span class="tmpl-menu"></span>
+				<div class="clearfix tmpl-menu"></div>
 			</div>
 			<div class="maket clearfix">
 				<a href="javascript:void(0)" class="handle">«</a>

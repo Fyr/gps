@@ -1,62 +1,74 @@
 {
-  "status": "OK",
-  "data": {
-    "columns": {
-      "day": "День",
-      "milageGPS": "Пробег GPS",
-      "monitoringObject": "Объект мониторинга",
-      "status": "Статус",
-      "period": "Период",
-      "duration": "Длительность",
-      "geofence": "Геозона"
-    },
-    "data": [
-      {
-        "monitoringObject": "Витя",
-        "day": null,
-        "period": null,
-        "status": null,
-        "geofence": null,
-        "duration": 2405,
-        "milageGPS": 0,
-        "data": [
-          {
-            "monitoringObject": "Витя",
-            "day": "2015-07-01T00:00:00Z",
-            "period": null,
-            "status": null,
-            "geofence": null,
-            "duration": 2405,
-            "milageGPS": 0,
-            "data": [
-              {
-                "monitoringObject": "Витя",
-                "day": "2015-07-01T00:00:00Z",
-                "period": "2015-07-01T07:22:54Z",
-                "status": "Движение",
-                "geofence": "",
-                "duration": 2405,
-                "milageGPS": 0,
-                "data": [
-                  
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "monitoringObject": null,
-        "day": null,
-        "period": null,
-        "status": null,
-        "geofence": null,
-        "duration": 2405,
-        "milageGPS": 0,
-        "data": [
-          
-        ]
-      }
-    ]
-  }
+	"status": "OK",
+	"data": {
+		"columns": {
+			"monitoringObject": {"label": "Объект мониторинга"},
+			"period": {"label": "Дата", "format": "datetime"},
+			"status": {"label": "Статус"},
+			"duration": {"label": "Длительность"},
+			"geofence": {"label": "Геозона"},
+			"speed": {"label": "Скорость", "format": "number"},
+			"milageGPS": {"label": "Пробег GPS", "format": "float"}
+		},
+		"group": ["monitoringObject", "day"],
+		"data": [
+			{
+				"monitoringObject": "Витя",
+				"period": "2015-07-01T00:00:00Z",
+				"status": "Стоянка",
+				"duration": "22 мин 8 сек",
+				"geofence": "Геозона 1",
+				"speed": "31",
+				"milageGPS": "321.2331"
+			},
+			{
+				"monitoringObject": "Витя",
+				"period": "2015-07-01T00:00:00Z",
+				"status": "Стоянка",
+				"duration": "14 мин 2 сек",
+				"geofence": "Геозона 2",
+				"speed": "53",
+				"milageGPS": "4211.87631"
+			},
+			{
+				"monitoringObject": "Витя",
+				"period": "2015-07-02T00:00:00Z",
+				"status": "Стоянка",
+				"duration": "22 мин 8 сек",
+				"geofence": "Геозона 1",
+				"speed": "31",
+				"milageGPS": "321.2331"
+			},
+			{
+				"monitoringObject": "Витя",
+				"period": "2015-07-02T00:00:00Z",
+				"status": "Стоянка",
+				"duration": "22 мин 8 сек",
+				"geofence": "Геозона 1",
+				"speed": "31",
+				"milageGPS": "321.2331"
+			},
+			{
+				"monitoringObject": "Витя",
+				"period": "2015-07-02T00:00:00Z",
+				"status": "Стоянка",
+				"duration": "22 мин 8 сек",
+				"geofence": "Геозона 1",
+				"speed": "31",
+				"milageGPS": "343.831"
+			}
+		],
+		"groupFooterData": {
+			"monitoringObject": "Витя", 
+			"data": {
+				"monitoringObject": "Всего Витя",
+				"day": null,
+				"period": null,
+				"status": null,
+				"geofence": null,
+				"duration": 2405,
+				"milageGPS": 0
+			}
+		}
+	}
 }

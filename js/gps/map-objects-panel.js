@@ -180,7 +180,9 @@ var MapObjectsPanel = function() {
 	
 	this.getFreeHeight = function(aElements) {
 		var freeH = $(window).height();
+		console.log('window: ' + $(window).height());
 		for(var i = 0; i < aElements.length; i++) {
+			console.log(aElements[i] + ': ' + self.getHeight(aElements[i]));
 			freeH-= self.getHeight(aElements[i]);
 		}
 		freeH-= 20 + 8; // padding for mainContainer
@@ -195,7 +197,7 @@ var MapObjectsPanel = function() {
 		var panelH = self.getHeight(panel); 
 		if (panelH > freeH) {
 			$(panel).css('height', freeH + 'px');
-			$(panel).niceScroll({autohidemode:false, cursorcolor: "#ecdc00", background: "#dddddd", cursorborderradius: "0", cursorwidth: "7px"});
+			niceScroller(panel);
 		}
 		
 		freeH = self.getFreeHeight(['.header']);
