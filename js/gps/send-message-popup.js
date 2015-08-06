@@ -30,7 +30,7 @@ var SendMessagePopup = function(params) {
 			if (checkJson(response)) {
 				var dialog = new PopupInfo({
 					title: self.params.title, 
-					text: 'Ваше сообщение успешно отправлено. Спасибо!'
+					text: locale.messageSent
 				});
 				dialog.open();
 			}
