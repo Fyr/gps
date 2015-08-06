@@ -28,9 +28,9 @@ var SendMessagePopup = function(params) {
 			self.close();
 			
 			if (checkJson(response)) {
-				var dialog = new Popup({
+				var dialog = new PopupInfo({
 					title: self.params.title, 
-					content: tmpl('tmpl-popup-message-thanks', {})
+					text: 'Ваше сообщение успешно отправлено. Спасибо!'
 				});
 				dialog.open();
 			}

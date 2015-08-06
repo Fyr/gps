@@ -64,6 +64,7 @@ var ObjectRoutesPanel = function() {
 				self.objects[id].routesEnabled = true;
 				self.objects[id].chartsEnabled = true;
 				self.objects[id].showRoute = true;
+				self.objects[id].showChart = false;
 				self.objects[id].routes = data;
 				self.objects[id].latlons = data;
 			}
@@ -221,13 +222,23 @@ var ObjectRoutesPanel = function() {
 				}
 			}
 	    };
+	    
+	    self.objects[id].showChart = true;
+		$('#chart' + id).removeClass('disabled');
 	    $('#charts-canvas').show();
 	    self.fixPanelHeight();
-	    setTimeout(function(){ map.refresh(); }, 10);
 		$('#charts-canvas').highcharts(options);
 	};
 	
 	this.onChartsClick = function(id) {
+		if ($('#charts-canvas:visible').length) {
+			$('#charts-canvas').hide();
+			self.objects[id].showChart = false;
+			$('#chart' + id).addClass('disabled');
+			self.fixPanelHeight();
+			return;
+		}
+		
 		var params = {
 			monitoringObjects: [id]
 		};
@@ -301,5 +312,6 @@ var ObjectRoutesPanel = function() {
 		}
 		freeH = self.getFreeHeight(divs) + 13;
 		$('#map-canvas').css('height', freeH + 'px');
+		setTimeout(function(){ map.refresh(); }, 10);
 	};
 };

@@ -32,7 +32,7 @@
 	
 	if (o.chartsEnabled) {
 %}
-	<a class="fa fa-line-chart" href="javascript:void(0)" onclick="objectsPanel.onChartsClick('{%=o.id%}')" title="Показать график"></a>
+	<a id="chart{%=o.id%}" class="fa fa-line-chart{%=(o.showChart ? '' : ' disabled')%}" href="javascript:void(0)" onclick="objectsPanel.onChartsClick('{%=o.id%}')" title="Показать график"></a>
 {%
 	}
 %}

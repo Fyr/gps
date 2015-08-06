@@ -43,11 +43,22 @@ var MapObjectsPanel = function() {
 	};
 	
 	this.edit = function() {
-		self.dialog = new Popup({
-			title: locale.addObject,
-			content: Tmpl('popup-add-object').render(self)
-		});
-		self.dialog.open();
+		var editFn = function() {
+			self.dialog = new Popup({
+				title: locale.addObject,
+				content: Tmpl('popup-add-object').render(self)
+			});
+			self.dialog.open();
+		};
+		if ($.isEmptyObject(self.settings)) {
+			sendApiRequest('getObjectsSettings', null, function(response){
+				self.settings = response.data;
+				
+				editFn();
+			});
+		} else {
+			editFn();
+		}
 	};
 	
 	this.update = function() {

@@ -22,19 +22,32 @@
 		<script type="text/javascript" src="./js/gps/xtmpl.min.js"></script>
 		<script type="text/javascript" src="./js/gps/json_handler.min.js"></script>
 		<script type="text/javascript" src="./js/gps/api.min.js"></script>
-		<!--script type="text/javascript" src="./js/gps/withoutscroll.min.js"></script-->
+		<script type="text/javascript" src="./js/gps/withoutscroll.min.js"></script>
 		<script type="text/javascript" src="./js/gps/popup.min.js"></script>
+		<script type="text/javascript" src="./js/gps/popup-info.min.js"></script>
 		<script type="text/javascript" src="./js/gps/send-message-popup.min.js"></script>
 		<script type="text/javascript" src="./js/gps/locale/ru.js"></script>
 		<script type="text/javascript" src="./js/gps/menu.min.js"></script>
+		<script type="text/javascript" src="./js/gps/map-objects-panel.min.js"></script>
 		<script type="text/javascript">
 function fixPanelHeight() {
 	$('.leftSide').css('top', (-$('.yellowBlocks').height()) + 'px');
 	$('.newsBlock .description').height($(window).height() - $('.header').height() - $('.contacts').height() - 50); 
 }
+
+var objectsPanel;
+
 $(function(){
-	
-	aModules = ['menu', 'footer', 'docs', 'popup', 'popup-favorites', 'popup-send-message', 'popup-message-thanks'];
+	aModules = [
+		'menu', 
+		'footer', 
+		'docs', 
+		'popup', 
+		'popup-info', 
+		'popup-favorites', 
+		'popup-send-message', 
+		'popup-add-object'
+	];
 	Tmpl().loadModules(aModules, function(){ 
 		setCurrMenu(1);
 		
@@ -89,7 +102,12 @@ $(function(){
 			});
 			dialog.open();
 		});
-	
+		
+		objectsPanel = new MapObjectsPanel();
+		$('#add-object').click(function(){
+			objectsPanel.edit();
+		});
+		
 		$(window).resize(function() {
 			reviewScroll();
 		});
@@ -105,16 +123,16 @@ $(function(){
 			</div>
 			<div class="clearfix obzor">
 				<div class="clearfix yellowBlocks">
-					<a href="javascript: void(0)" class="item feedback" id="feedback">
+					<a href="javascript: void(0)" class="item" id="add-object">
 						<img src="./img/add_object.png" alt="" />
 					</a>
-					<a href="javascript: void(0)" class="item favorities" id="favorites">
+					<a href="javascript: void(0)" class="item" id="favorites">
 						<img src="./img/favorities.png" alt="" />
 					</a>
-					<a href="javascript: void(0)" class="item techsupport" id="techsupport">
+					<a href="javascript: void(0)" class="item" id="techsupport">
 						<img src="./img/techsupport.png" alt="" />
 					</a>
-					<a href="javascript: void(0)" class="item feedback" id="feedback">
+					<a href="javascript: void(0)" class="item" id="feedback">
 						<img src="./img/feedback.png" alt="" />
 					</a>
 				</div>
