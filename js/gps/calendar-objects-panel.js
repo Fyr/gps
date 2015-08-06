@@ -15,12 +15,12 @@ var CalendarObjectsPanel = function() {
 		self.allEvents = {};
 		
 		self.parent.init();
-	}
+	};
 	
 	this.onCheckObject = function(checked, id) {
 		$('#loadEvents').get(0).disabled = !$('.tmpl-panel-map-object-list .info [type=checkbox]:checked').length;
 		self.parent.onCheckObject(checked, id);
-	}
+	};
 	
 	this.getEvents = function(status) {
 		return self.events[status];
@@ -28,7 +28,7 @@ var CalendarObjectsPanel = function() {
 			return self.events[status];
 		}
 		return [];
-	}
+	};
 	
 	this.loadEvents = function() {
 		var params = {
@@ -39,7 +39,7 @@ var CalendarObjectsPanel = function() {
 			self.processEvents(response.data);
 			$('#calendar').fullCalendar('refetchEvents');
 		});
-	}
+	};
 	
 	this.processEvents = function(objects) {
 		self.allEvents = {};
@@ -57,17 +57,17 @@ var CalendarObjectsPanel = function() {
 				self.allEvents[data[i].id] = event;
 			}
 		}
-	}
+	};
 	
 	this.getEvent = function(event_id) {
 		return self.allEvents[event_id];
-	}
+	};
 	
 	this.showSchedule = function() {
 		$('.fc-schedule-view table').hide();
 		$('.fc-schedule-view').addClass('block');
 		$('.fc-schedule-view').append(Tmpl('schedule').render({events: self.allEvents}));
-	}
+	};
 	
 	this.showEvent = function(event_id) {
 		var event = self.getEvent(event_id);
@@ -81,7 +81,7 @@ var CalendarObjectsPanel = function() {
 		miniMap.init();
 		miniMap.addMarker({id: event.id, lat: event.location.lat, lon: event.location.lon, title: event.title});
 		miniMap.showMarker(event.id);
-	}
+	};
 	
 	this.getObjectOptions = function() {
 		var options = {};
@@ -89,7 +89,7 @@ var CalendarObjectsPanel = function() {
 			options[id] = self.objects[id].title;
 		}
 		return options;
-	}
+	};
 	
 	this.edit = function() {
 		var id = Object.keys(self.objects)[0];
@@ -143,13 +143,13 @@ var CalendarObjectsPanel = function() {
 				self.onSearchSelect(json_decode($item.data('item'), true));
             }
 		});
-	}
+	};
 	
 	this.genMarkerId = function() {
 		var date = new Date();
 		var id = 'marker-' + date.getTime();
 		return id;
-	}
+	};
 	
 	this.onSearchSelect = function(marker) {
 		self.miniMap.clearMarkers();
@@ -159,16 +159,16 @@ var CalendarObjectsPanel = function() {
 		$('#eventForm [name="location[lon]"]').val(marker.lon);
 		
 		self.updateEventForm();
-	}
+	};
 	
 	this.isFormValid = function() {
 		return $('#eventForm [name="summary"]').val() && $('#eventForm [name="start"]').val() && $('#eventForm [name="end"]').val() 
 			&& $('#eventForm [name="location[lat]"]').val() && $('#eventForm [name="location[lon]"]').val()
-	}
+	};
 	
 	this.updateEventForm = function() {
 		$('#eventForm .btn').get(0).disabled = !self.isFormValid();
-	}
+	};
 	
 	this.saveEvent = function() {
 		var data = $('#eventForm').serialize();
@@ -180,5 +180,5 @@ var CalendarObjectsPanel = function() {
 			});
 			self.dialog.open();
 		});
-	}
+	};
 }

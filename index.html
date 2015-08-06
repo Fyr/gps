@@ -14,19 +14,24 @@
 		
 		<script type="text/javascript" src="./js/jquery-1.10.2.min.js"></script>
 		<script type="text/javascript" src="./js/jquery.nicescroll.min.js"></script>
+		<script type="text/javascript" src="./js/jquery.formstyler.min.js"></script>
 		<script type="text/javascript" src="./js/jquery.slicknav.min.js"></script>
 		<script type="text/javascript" src="./js/tmpl.min.js"></script>
 		<script type="text/javascript">document.addEventListener("touchstart", function() {},false);</script>
 		
-		<script type="text/javascript" src="./js/gps/xtmpl.js"></script>
-		<script type="text/javascript" src="./js/gps/json_handler.js"></script>
-		<script type="text/javascript" src="./js/gps/api.js"></script>
-		<script type="text/javascript" src="./js/gps/withoutscroll.js"></script>
-		<script type="text/javascript" src="./js/gps/popup.js"></script>
-		<script type="text/javascript" src="./js/gps/send-message-popup.js"></script>
+		<script type="text/javascript" src="./js/gps/xtmpl.min.js"></script>
+		<script type="text/javascript" src="./js/gps/json_handler.min.js"></script>
+		<script type="text/javascript" src="./js/gps/api.min.js"></script>
+		<!--script type="text/javascript" src="./js/gps/withoutscroll.min.js"></script-->
+		<script type="text/javascript" src="./js/gps/popup.min.js"></script>
+		<script type="text/javascript" src="./js/gps/send-message-popup.min.js"></script>
 		<script type="text/javascript" src="./js/gps/locale/ru.js"></script>
-		<script type="text/javascript" src="./js/gps/menu.js"></script>
+		<script type="text/javascript" src="./js/gps/menu.min.js"></script>
 		<script type="text/javascript">
+function fixPanelHeight() {
+	$('.leftSide').css('top', (-$('.yellowBlocks').height()) + 'px');
+	$('.newsBlock .description').height($(window).height() - $('.header').height() - $('.contacts').height() - 50); 
+}
 $(function(){
 	
 	aModules = ['menu', 'footer', 'docs', 'popup', 'popup-favorites', 'popup-send-message', 'popup-message-thanks'];
@@ -35,10 +40,14 @@ $(function(){
 		
 		sendApiRequest('getContacts', null, function(response) {
 			$('.contacts .info').html(response.data);
+			
+			sendApiRequest('getNews', null, function(response) {
+				$('.newsBlock .description').html(response.data);
+				reviewScroll();
+				niceScroller('.newsBlock .description');
+			});
 		});
-		sendApiRequest('getNews', null, function(response) {
-			$('.newsBlock .description').html(response.data);
-		});
+		
 		sendApiRequest('getFiles', {type: 'instructions'}, function(response) {
 			$('.instructionsBlock .description').html(Tmpl('docs').render(response.data));
 		});
@@ -84,11 +93,6 @@ $(function(){
 		$(window).resize(function() {
 			reviewScroll();
 		});
-		
-		setTimeout ( function(){ reviewScroll() }, 500);
-		
-		$(".scroller").niceScroll({autohidemode:false, cursorcolor: "#ecdc00", background: "#dddddd", cursorborderradius: "0", cursorwidth: "7px"});
-		
 	});
 });
 </script>

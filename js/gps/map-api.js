@@ -13,11 +13,11 @@ var MapAPI = function(canvas) {
 		self.canvas = canvas;
 		self.mapL = L.map(canvas).setView([0, 0], 16);
 		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(self.mapL);
-	}
+	};
 	
 	this.getMarker = function(id) {
 		return self.markers[id];
-	}
+	};
 	
 	/**
 		Object must contain properties: id, title, lat, lon\lng
@@ -48,49 +48,49 @@ var MapAPI = function(canvas) {
 			icon = Icons[type || 'default'];
 		}
 		self.markers[obj.id] = L.marker([obj.lat, obj.lon], {title: obj.title || '', icon: icon});
-	}
+	};
 	
 	this.showMarker = function(id) {
-		var marker = self.getMarker(id)
+		var marker = self.getMarker(id);
 		marker.addTo(self.mapL);
 		self.showAt(marker.getLatLng(), 16);
-	}
+	};
 	
 	this.hideMarker = function(id) {
 		self.mapL.removeLayer(self.getMarker(id));
-	}
+	};
 	
 	this.clearMarkers = function() {
 		for(var id in self.markers) {
 			self.hideMarker(id);
 		}
 		self.markers = {};
-	}
+	};
 	
 	this.getMarkerLatLng = function(id) {
 		return self.getMarker(id).getLatLng();
-	}
+	};
 	
 	this.showAt = function(objLatLng, zoom) {
 		self.mapL.setView(objLatLng, zoom);
-	}
+	};
 	
 	this.bindMarkerPopup = function(id, html) {
 		self.getMarker(id).bindPopup(html);
-	}
+	};
 	
 	this.bindMapClick = function(callback) {
 		self.mapL.on('click', callback);
-	}
+	};
 	
 	this.addLine = function(obj) {
 		var i = Object.keys(self.lines).length;
 		self.lines[obj.id] = L.polyline(obj.latlons, {color: self.colors[i], weight: 3});
-	}
+	};
 	
 	this.getLine = function(id) {
 		return self.lines[id];
-	}
+	};
 	
 	this.showLine = function(id) {
 		var line = self.getLine(id);
@@ -98,76 +98,76 @@ var MapAPI = function(canvas) {
 		var latlons = line.getLatLngs();
 		self.showAt(latlons[0]);
 		// self.mapL.fitBounds(line.getBounds())
-	}
+	};
 	
 	this.hideLine = function(id) {
 		self.mapL.removeLayer(self.getLine(id));
-	}
+	};
 	
 	this.clearLines = function() {
 		for(var id in self.lines) {
 			self.hideLine(id);
 		}
 		self.lines = {};
-	}
+	};
 	
 	this.addCircle = function(obj) {
 		var i = Object.keys(self.circles).length;
 		self.circles[obj.id] = L.circle([obj.lat, obj.lon], obj.radius, {color: self.colors[i]});
-	}
+	};
 	
 	this.getCircle = function(id) {
 		return self.circles[id];
-	}
+	};
 	
 	this.showCircle = function(id) {
 		var circle = self.getCircle(id);
 		circle.addTo(self.mapL);
 		self.showAt(circle.getLatLng());
-	}
+	};
 	
 	this.hideCircle = function(id) {
 		self.mapL.removeLayer(self.getCircle(id));
-	}
+	};
 	
 	this.clearCircles = function() {
 		for(var id in self.circles) {
 			self.hideCircle(id);
 		}
 		self.circles = {};
-	}
+	};
 	
 	this.addPolygon = function(obj) {
 		var i = Object.keys(self.polygons).length;
 		self.polygons[obj.id] = L.polygon(obj.latlons, {color: self.colors[i]});
-	}
+	};
 	
 	this.getPolygon = function(id) {
 		return self.polygons[id];
-	}
+	};
 	
 	this.showPolygon = function(id) {
 		var polygon = self.getPolygon(id);
 		polygon.addTo(self.mapL);
 		var latlons = polygon.getLatLngs();
 		self.showAt(latlons[0]);
-	}
+	};
 	
 	this.hidePolygon = function(id) {
 		self.mapL.removeLayer(self.getPolygon(id));
-	}
+	};
 	
 	this.clearPolygons = function() {
 		for(var id in self.polygons) {
 			self.hidePolygon(id);
 		}
 		self.polygons = {};
-	}
+	};
 	
 	this.refresh = function() {
 		self.mapL.invalidateSize({reset: true});
-	}
-}
+	};
+};
 
 var PointIcon = L.Icon.extend({
 	options: {
@@ -216,7 +216,8 @@ var FinishPointSelected = new RouteIcon({iconUrl: 'img//markers/finish-selected.
 var ParkingPoint = new RouteIcon({iconUrl: 'img//markers/parking.png'});
 var ParkingPointSelected = new RouteIcon({iconUrl: 'img//markers/parking-selected.png'});
 
-var DirIcon = [], DirIconSelected = [];
+var DirIcon = [];
+var DirIconSelected = [];
 for (var i = 0; i < 360; i += 10) {
 	DirIcon[i] = L.divIcon({className: 'line-marker-' + i, iconSize: [16, 16]});
 	DirIconSelected[i] = L.divIcon({className: 'line-marker-selected-' + i, iconSize: [16, 16]});

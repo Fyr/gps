@@ -17,7 +17,7 @@ var GeoObjectsPanel = function() {
 				});
 			}
 		});
-	}
+	};
 	
 	this.setObjects = function(data) {
 		self.objects = {};
@@ -27,7 +27,7 @@ var GeoObjectsPanel = function() {
 			self.setObjectData(id, data[i]);
 			self.setMapObject(id);
 		}
-	}
+	};
 	
 	this.setObjectData = function(id, data) {
 		self.objects[id] = data;
@@ -36,7 +36,7 @@ var GeoObjectsPanel = function() {
 		self.objects[id].title = data.name;
 		self.objects[id].latlons = data.points || [];
 		self.objects[id].updated_ago = -1;
-	}
+	};
 	
 	this.setMapObject = function(id) {
 		if (self.objects[id].checkable) {
@@ -47,14 +47,14 @@ var GeoObjectsPanel = function() {
 			}
 			// map.bindMarkerPopup(id, Tmpl('panel-map-object-infowin').render(self.objects[id]));
 		}
-	}
+	};
 	
 	this.getObjectLatLng = function(id) {
 		if (self.objects[id].type == 'polygon') {
 			return self.objects[id].latlons[0];
 		}
 		return {lat: self.objects[id].lat, lon: self.objects[id].lon};
-	}
+	};
 	
 	this.showObject = function(id) {
 		if (self.objects[id].type == 'circle') {
@@ -62,7 +62,7 @@ var GeoObjectsPanel = function() {
 		}else if (self.objects[id].type == 'polygon') {
 			map.showPolygon(id);
 		}
-	}
+	};
 	
 	this.hideObject = function(id) {
 		if (self.objects[id].type == 'circle') {
@@ -70,13 +70,13 @@ var GeoObjectsPanel = function() {
 		} else if (self.objects[id].type == 'polygon') {
 			map.hidePolygon(id);
 		}
-	}
+	};
 	
 	this.clearObjects = function() {
 		map.clearCircles();
 		map.clearPolygons();
 		self.objects = {};
-	}
+	};
 	
 	this.edit = function() {
 		var id = Object.keys(self.objects)[0];
@@ -126,7 +126,7 @@ var GeoObjectsPanel = function() {
 		self.miniMapPoints = [];
 		self.changeType();
 		self.updateFormState();
-	}
+	};
 	
 	this.addMiniMapPoint = function(point) {
 		var count = self.miniMapPoints.length;
@@ -142,15 +142,15 @@ var GeoObjectsPanel = function() {
 			self.miniMap.addMarker({id: id, lat: point.lat, lon: point.lng}, 'small-point');
 			self.miniMap.showMarker(id);
 		}
-	}
+	};
 	
 	this.isFormValid = function() {
 		return $('#editForm [name="name"]').val();
-	}
+	};
 	
 	this.updateFormState = function() {
 		$('#editForm .btn').get(0).disabled = !self.isFormValid();
-	}
+	};
 	
 	this.changeType = function() {
 		var type = $('[name="type"]').val();
@@ -160,7 +160,7 @@ var GeoObjectsPanel = function() {
 		self.miniMap.clearCircles();
 		self.miniMapPoints = [];
 		self.miniMap.clearPolygons();
-	}
+	};
 	
 	this.save = function() {
 		var data = $('#editForm').serialize();
@@ -172,5 +172,5 @@ var GeoObjectsPanel = function() {
 			});
 			self.dialog.open();
 		});
-	}
+	};
 }

@@ -8,14 +8,14 @@ var PopupInfo = function(params) {
 	this.init = function() {
 		self.params.content = Tmpl('popup-info').render({text: self.params.text});
 		self.parent.init(self.params);
-	}
+	};
 	
 	this.close = function() {
 		self.parent.close();
 		if (self.params.afterClose) {
 			self.params.afterClose();
 		}
-	}
+	};
 	
 	this.init();
 }

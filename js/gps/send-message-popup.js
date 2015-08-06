@@ -20,7 +20,7 @@ var SendMessagePopup = function(params) {
 			$(this).removeClass('error');
 			$(this).parent().find('span.note.error').remove();
 		});
-	}
+	};
 	
 	this.submit = function() {
 		var data = $('.popup form').serialize();
@@ -35,15 +35,15 @@ var SendMessagePopup = function(params) {
 				dialog.open();
 			}
 		});
-	}
+	};
 	
 	this.open = function() {
 		self.popup.open();
-	}
+	};
 	
 	this.close = function() {
 		self.popup.close();
-	}
+	};
 	
 	this.isValid = function() {
 		self.container = $('.popup').get(0);
@@ -68,7 +68,7 @@ var SendMessagePopup = function(params) {
 			$message.parent().append('<span class="note error">Поле должно быть заполнено</span>');
 		}
 		return !$('.error', self.container).length;
-	}
+	};
 	
 	self.init();
-}
+};

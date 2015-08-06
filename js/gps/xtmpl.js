@@ -1,4 +1,3 @@
-
 var Tmpl = function(tpl) {
 	var self = this;
 	
@@ -14,7 +13,7 @@ var Tmpl = function(tpl) {
 		for(var i = 0; i < aModules.length; i++) {
 			self.load(aModules[i]);
 		}
-	}
+	};
 	
 	this.load = function(module) {
 		$.get('./tmpl/' + module + '.tmpl', null, function(html){
@@ -43,17 +42,17 @@ var Tmpl = function(tpl) {
 				}
 			}
 		}, 'html');
-	}
+	};
 	
 	this.render = function(tpl, params) {
 		if (!document.getElementById('tmpl-' + tpl)) {
 			throw 'Tmpl: You must load `' + tpl + '` template';
 		}
 		return tmpl('tmpl-' + tpl, (params) ? params : {});
-	}
+	};
 	
 	if (tpl) {
-		return { render: function(params){ return self.render(tpl, params);} };
+		return { render: function(params){ return self.render(tpl, params); } };
 	}
 	return this;
-}
+};

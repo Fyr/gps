@@ -8,13 +8,13 @@ var SearchPanel = function() {
 		map.init();
 		map.showAt({lat: 53.902568313055085, lon: 27.561521530151367}, 12);
 		self.initHandlers();
-	}
+	};
 	
 	this.genMarkerId = function() {
 		var date = new Date();
 		var id = 'marker-' + date.getTime();
 		return id;
-	}
+	};
 	
 	this.initHandlers = function() {
 		$('#q').autoComplete({
@@ -41,13 +41,13 @@ var SearchPanel = function() {
 				self.onSearchSelect(json_decode($item.data('item'), true));
             }
 		});
-	}
+	};
 	
 	this.onSearchSelect = function(marker) {
 		map.clearMarkers();
 		map.addMarker(marker);
 		map.showMarker(marker.id);
-	}
+	};
 	
 	this.getHeight = function(e) {
 		return $(e).height() 
@@ -55,7 +55,7 @@ var SearchPanel = function() {
 			+ parseInt($(e).css('margin-bottom').replace(/px/, ''))
 			+ parseInt($(e).css('padding-top').replace(/px/, ''))
 			+ parseInt($(e).css('padding-bottom').replace(/px/, ''));
-	}
+	};
 	
 	this.getFreeHeight = function(aElements) {
 		var freeH = $(window).height();
@@ -63,11 +63,11 @@ var SearchPanel = function() {
 			freeH-= self.getHeight(aElements[i]);
 		}
 		return freeH;
-	}
+	};
 	
 	this.fixPanelHeight = function() {
 		var freeH = self.getFreeHeight(['.header']) - 14;
 		$('#map-canvas').css('height', freeH + 'px');
-	}
+	};
 	
-}
+};

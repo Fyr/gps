@@ -11,24 +11,24 @@ var NotificationsPanel = function() {
 			self.settings = response.data;
 		});
 		self.refresh();
-	}
+	};
 	
 	this.isFormValid = function() {
 		return true;
-	}
+	};
 	
 	this.fixPanelHeight = function() {
 		var freeH = self.getFreeHeight(['.header', '#mailings', '#notifications .tableHeader']) - 22;
 		$('.tmpl-panel-notifications-list').css('height', freeH + 'px');
 		niceScroller('.tmpl-panel-notifications-list');
-	}
+	};
 	
 	this.save = function(id) {
 		self.dialog.close();
 		sendApiRequest(id ? 'post.notifications?guid=' + id : 'post.notifications', $('#editForm').serialize(), function(){
 			self.afterSave(id);
 		});
-	}
+	};
 	
 	this.refresh = function() {
 		sendApiRequest('notifications', null, function(response){
@@ -40,11 +40,11 @@ var NotificationsPanel = function() {
 			}
 			self.show();
 		});
-	}
+	};
 	
 	this.remove = function(id) {
 		sendApiRequest('notifications?remove=' + id, null, function(response){
 			self.refresh();
 		});
-	}
-}
+	};
+};

@@ -10,7 +10,7 @@ var Popup = function(params) {
 		$('.popup .close-popup').click(function() {
 			self.close();
 		});
-	}
+	};
 	
 	this.open = function() {
 		$('#shadow').show();
@@ -22,12 +22,12 @@ var Popup = function(params) {
 			rome(this);
 		});
 		niceScroller('.niceScroller');
-	}
+	};
 	
 	this.close = function() {
 		$('#shadow').hide();
 		$('.popup').remove();
-	}
+	};
 	
 	this.init();
 }

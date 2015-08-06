@@ -8,17 +8,17 @@ var RoutesPointsPanel = function() {
 		self.parent.init();
 		self.render();
 		map.bindMapClick(function(e){ self.onMapClick(e); });
-	}
+	};
 	
 	this.render = function() {
 		$('.tmpl-panel-routes-points-list .info').html(Tmpl('panel-routes-points-item').render(self));
 		self.fixPanelHeight();
-	}
+	};
 	
 	this.onSearchSelect = function(marker) {
 		self.addObject(marker);
 		self.show();
-	}
+	};
 	
 	this.onMapClick = function(e) {
 		sendApiRequest('getAdress', {params: json_encode(e.latlng)}, function(response){
@@ -31,16 +31,16 @@ var RoutesPointsPanel = function() {
 			self.addObject(marker);
 			self.show();
 		});
-	}
+	};
 	
 	this.addObject = function(marker) {
 		self.objects[marker.id] = marker;
-	}
+	};
 	
 	this.onObjectRemove = function (id) {
 		delete self.objects[id];
 		self.show();
-	}
+	};
 	
 	this.show = function() {
 		self.render();
@@ -65,7 +65,7 @@ var RoutesPointsPanel = function() {
 			map.addLine({id: 'route', latlons: latlons});
 			map.showLine('route');
 		}
-	}
+	};
 	
 	this.fixPanelHeight = function() {
 		var freeH = self.getFreeHeight(['.header', '.tmpl-panel-routes-points-list .search']) - 28;
@@ -80,5 +80,5 @@ var RoutesPointsPanel = function() {
 		
 		freeH = self.getFreeHeight(['.header']) - 28;
 		$('#map-canvas').css('height', freeH + 16 + 'px');
-	}
-}
+	};
+};

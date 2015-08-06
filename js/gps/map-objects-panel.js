@@ -1,6 +1,7 @@
 var map;
 var MapObjectsPanel = function() {
-	var self = this, $self = $('.tmpl-panel-map-object-list');
+	var self = this;
+	$self = $('.tmpl-panel-map-object-list');
 	
 	self.objects = {};
 	self.settings = {};
@@ -11,7 +12,7 @@ var MapObjectsPanel = function() {
 		map.init();
 		self.update();
 		self.initHandlers();
-	}
+	};
 	
 	this.initHandlers = function() {
 		$('.panel input[type=checkbox]', $self).change(function(){
@@ -30,17 +31,16 @@ var MapObjectsPanel = function() {
 			self.filterObjects($(this).val());
 		});
 		
-		$('.handle').click ( function() {
-			if ( !$(this).hasClass('closed') ) {
+		$('.handle').click(function() {
+			if (!$(this).hasClass('closed')) {
 				$('.leftSide').addClass('closed');
 				$(this).addClass('closed').text("»");
-			}
-			else {
+			} else {
 				$('.leftSide').removeClass('closed');
 				$(this).removeClass('closed').text("«");
 			}
 		});
-	}
+	};
 	
 	this.edit = function() {
 		self.dialog = new Popup({
@@ -48,7 +48,7 @@ var MapObjectsPanel = function() {
 			content: Tmpl('popup-add-object').render(self)
 		});
 		self.dialog.open();
-	}
+	};
 	
 	this.update = function() {
 		sendApiRequest('getTopicalityData', null, function(response) {
@@ -61,7 +61,7 @@ var MapObjectsPanel = function() {
 				self.settings = response.data;
 			});
 		});
-	}
+	};
 	
 	this.setObjects = function(data) {
 		self.objects = {};
@@ -71,12 +71,12 @@ var MapObjectsPanel = function() {
 			self.setObjectData(id, data[i]);
 			self.setMapObject(id, data[i].type);
 		}
-	}
+	};
 	
 	this._updatedAgo = function(date) {
 		var now = new Date();
 		return Math.floor((now.getTime() - Date.fromSqlDate(date).getTime()) / Date.HOUR);
-	}
+	};
 	
 	this.setObjectData = function(id, data) {
 		self.objects[id] = data;
@@ -84,14 +84,14 @@ var MapObjectsPanel = function() {
 		self.objects[id].checked = (data.checked) ? data.checked : false;
 		self.objects[id].title = data.name;
 		self.objects[id].updated_ago = (data.topicality) ? self._updatedAgo(data.topicality.replace(/T/, ' ')) : -1;
-	}
+	};
 	
 	this.setMapObject = function(id, type) {
 		if (self.objects[id].checkable) {
 			map.addMarker(self.objects[id], (type) ? 'icon-' + type : type);
 			map.bindMarkerPopup(id, Tmpl('panel-map-object-infowin').render(self.objects[id]));
 		}
-	}
+	};
 	
 	this.sortObjects = function(lDesc) {
 		// convert objects to array to be able to perform array sorting
@@ -118,7 +118,7 @@ var MapObjectsPanel = function() {
 		
 		self.objects = objects;
 		self.show();
-	}
+	};
 	
 	this.filterObjects = function(q) {
 		var visible = [];
@@ -132,7 +132,7 @@ var MapObjectsPanel = function() {
 		self.setObjects(visible);
 		self.show();
 		self.objects = _old_objects;
-	}
+	};
 	
 	this.checkAll = function() {
 		var $e = $('#checkAll', $self);
@@ -145,7 +145,7 @@ var MapObjectsPanel = function() {
 		if (checked) {
 			this.showMap();
 		}
-	}
+	};
 	
 	this.onCheckObject = function(checked, id) {
 		self.objects[id].checked = checked; // save checked state for sorting
@@ -153,7 +153,7 @@ var MapObjectsPanel = function() {
 		if (checked) {
 			self.showObject(id);
 		}
-	}
+	};
 	
 	this.render = function() {
 		$('.info', $self).html('');
@@ -168,7 +168,7 @@ var MapObjectsPanel = function() {
 		$('input[type=checkbox]', $self).styler();
 		
 		self.fixPanelHeight();
-	}
+	};
 	
 	this.getHeight = function(e) {
 		return $(e).height() 
@@ -176,18 +176,16 @@ var MapObjectsPanel = function() {
 			+ parseInt($(e).css('margin-bottom').replace(/px/, ''))
 			+ parseInt($(e).css('padding-top').replace(/px/, ''))
 			+ parseInt($(e).css('padding-bottom').replace(/px/, ''));
-	}
+	};
 	
 	this.getFreeHeight = function(aElements) {
 		var freeH = $(window).height();
-		console.log('window: ' + $(window).height());
 		for(var i = 0; i < aElements.length; i++) {
-			console.log(aElements[i] + ': ' + self.getHeight(aElements[i]));
 			freeH-= self.getHeight(aElements[i]);
 		}
 		freeH-= 20 + 8; // padding for mainContainer
 		return freeH;
-	}
+	};
 	
 	this.fixPanelHeight = function() {
 		var freeH = self.getFreeHeight(['.header', '.tmpl-panel-map-object-list .search', '.tmpl-panel-map-object-list .panel']);
@@ -202,12 +200,12 @@ var MapObjectsPanel = function() {
 		
 		freeH = self.getFreeHeight(['.header']);
 		$('#map-canvas').css('height', freeH + 16 + 'px');
-	}
+	};
 	
 	this.show = function() {
 		self.render();
 		self.showMap();
-	}
+	};
 	
 	this.showMap = function() {
 		if (!$.isEmptyObject(self.objects)) {
@@ -239,11 +237,11 @@ var MapObjectsPanel = function() {
 				map.showAt(self.getObjectLatLng(_id));
 			}
 		}
-	}
+	};
 	
 	this.getObjectLatLng = function(id) {
 		return {lat: self.objects[id].lat, lon: self.objects[id].lon};
-	}
+	};
 	
 	this.getCheckedIds = function() {
 		var ids = [];
@@ -253,20 +251,20 @@ var MapObjectsPanel = function() {
 			}
 		}
 		return ids;
-	}
+	};
 	
 	this.showObject = function(id) {
 		map.showMarker(id);
-	}
+	};
 	
 	this.hideObject = function(id) {
 		map.hideMarker(id);
-	}
+	};
 	
 	this.clearObjects = function() {
 		map.clearMarkers();
 		self.objects = {};
-	}
+	};
 	
 	this.saveObject = function() {
 		self.dialog.close();
@@ -278,13 +276,13 @@ var MapObjectsPanel = function() {
 			});
 			self.dialog.open();
 		});
-	}
+	};
 	
 	this.isFormValid = function() {
 		return $('#addObjectForm [name="name"]').val() && $('#addObjectForm [name="imei"]').val();
-	}
+	};
 	
 	this.updateFormState = function() {
 		$('#addObjectForm .btn').get(0).disabled = !self.isFormValid();
-	}
-}
+	};
+};

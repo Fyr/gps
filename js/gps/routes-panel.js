@@ -21,7 +21,7 @@ var ObjectRoutesPanel = function() {
 			self.setObjects(_old_objects, response.data);
 			self.show();
 		});
-	}
+	};
 	
 	this.setObjects = function(data, routesData) {
 		self.objects = {};
@@ -38,13 +38,13 @@ var ObjectRoutesPanel = function() {
 		for(var id in self.objects) {
 			self.setMapObject(id);
 		}
-	}
+	};
 	
 	this.clearObjects = function() {
 		map.clearMarkers();
 		map.clearLines();
 		self.objects = {};
-	}
+	};
 	
 	this.setRoutes = function(routesData) {
 		for(var i = 0; i < routesData.length; i++) {
@@ -68,7 +68,7 @@ var ObjectRoutesPanel = function() {
 				self.objects[id].latlons = data;
 			}
 		}
-	}
+	};
 	
 	this.setMapObject = function(id) {
 		self.parent.setMapObject(id, self.objects[id].type);
@@ -79,7 +79,7 @@ var ObjectRoutesPanel = function() {
 				self.addRoutePoint(id, j);
 			}
 		}
-	}
+	};
 	
 	this.addRoutePoint = function(id, i, selected) {
 		selected = (selected) ? '-selected' : '';
@@ -98,14 +98,14 @@ var ObjectRoutesPanel = function() {
 			map.addMarker(point, 'dir' + selected + '-' + getAngle(point, nextPoint));
 			map.bindMarkerPopup(point.id, Tmpl('route-' + point.status).render(point));
 		}
-	}
+	};
 	
 	this.showObject = function(id) {
 		self.parent.showObject(id);
 		if (self.objects[id].showRoute) {
 			self.showRoute(id);
 		}
-	}
+	};
 	
 	this.showRoute = function(id) {
 		var routes = self.objects[id].routes;
@@ -114,7 +114,7 @@ var ObjectRoutesPanel = function() {
 		}
 		map.showLine(id);
 		self.objects[id].showRoute = true;
-	}
+	};
 	
 	this.hideRoute = function(id) {
 		var routes = self.objects[id].routes;
@@ -123,7 +123,7 @@ var ObjectRoutesPanel = function() {
 			map.hideMarker(routes[i].id);
 		}
 		self.objects[id].showRoute = false;
-	}
+	};
 	
 	this.toggleRoute = function(e) {
 		var id = $(e).prop('id').replace(/route/, '');
@@ -133,7 +133,7 @@ var ObjectRoutesPanel = function() {
 		} else {
 			self.showRoute(id);
 		}
-	}
+	};
 	
 	this.updateSensorCharts = function(id) {
 		var sensor_ids = [];
@@ -145,12 +145,12 @@ var ObjectRoutesPanel = function() {
 			startRoute: $('#period1').val() ? $('#period1').val() + 'T00:00:00' : '',
 			endRoute: $('#period2').val() ? $('#period2').val() + 'T00:00:00' : '',
 			sensors: [sensor_ids]
-		}
+		};
 		sendApiRequest('getSensorData', 'params=' + JSON.stringify(params), function(response) {
 			self.dialog.close();
 			self.showCharts(id, response.data[0].sensors);
 		});
-	}
+	};
 	
 	this.showCharts = function(id, data) {
 		var xItems = [], series = [], yAxis = [], opposite = false;
@@ -225,7 +225,7 @@ var ObjectRoutesPanel = function() {
 	    self.fixPanelHeight();
 	    setTimeout(function(){ map.refresh(); }, 10);
 		$('#charts-canvas').highcharts(options);
-	}
+	};
 	
 	this.onChartsClick = function(id) {
 		var params = {
@@ -246,7 +246,7 @@ var ObjectRoutesPanel = function() {
 			});
 			self.dialog.open();
 		});
-	}
+	};
 	
 	this.getRoutePoint = function(id, pointId) {
 		for(i = 0; i < self.objects[id].routes.length; i++) {
@@ -254,7 +254,7 @@ var ObjectRoutesPanel = function() {
 				return i;
 			}
 		}
-	}
+	};
 	
 	this.selectPoint = function(id, pointId) {
 		// show selected point after unselected to center on shown marker
@@ -265,7 +265,7 @@ var ObjectRoutesPanel = function() {
 				map.showMarker(pointId);
 			}, 10);
 		}
-	}
+	};
 	
 	this.unselectPoint = function(id, pointId) {
 		if (!$('#route' + id).hasClass('disabled')) {
@@ -273,12 +273,12 @@ var ObjectRoutesPanel = function() {
 			self.addRoutePoint(id, self.getRoutePoint(id, pointId), false);
 			map.showMarker(pointId);
 		}
-	}
+	};
 	
 	this.onCheckObject = function(checked, id) {
 		$('.tmpl-panel-map-object-form .btn').get(0).disabled = !$('.tmpl-panel-map-object-list .info [type=checkbox]:checked').length;
 		self.parent.onCheckObject(checked, id);
-	}
+	};
 	
 	this.fixPanelHeight = function() {
 		var freeH = self.getFreeHeight([
@@ -301,5 +301,5 @@ var ObjectRoutesPanel = function() {
 		}
 		freeH = self.getFreeHeight(divs) + 13;
 		$('#map-canvas').css('height', freeH + 'px');
-	}
-}
+	};
+};

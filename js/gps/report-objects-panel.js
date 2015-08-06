@@ -12,7 +12,7 @@ var ReportObjectsPanel = function() {
 			self.renderReportForm(response.data);
 			self.fixPanelHeight();
 		});
-	}
+	};
 	
 	this.renderReportForm = function(data) {
 		$('#reportForm').append(Tmpl('report-form').render(data));
@@ -20,7 +20,7 @@ var ReportObjectsPanel = function() {
 			rome(this);
 		});
 		$('.styler-select').styler();
-	}
+	};
 	
 	this.submitReportForm = function() {
 		$('#map-canvas').hide();
@@ -35,19 +35,19 @@ var ReportObjectsPanel = function() {
 			self.processData(response.data.data);
 			self.renderReport();
 		});
-	}
+	};
 	
 	this.processData = function(data) {
 		self.data = data;
 		for(var i = 0; i < data.length; i++) {
 			
 		}
-	}
+	};
 	
 	this.renderReport = function() {
 		$('#report-canvas').html(Tmpl('report-table').render(self));
 		$('#report-canvas table').treegrid();
-	}
+	};
 	
 	this.fixPanelHeight = function() {
 		var freeH = self.getFreeHeight(['.header', '.tmpl-panel-map-object-list .search', '.tmpl-panel-map-object-list .panel', '#reportForm']) - 4;
@@ -55,7 +55,6 @@ var ReportObjectsPanel = function() {
 		$(panel).css('height', 'auto');
 		
 		var panelH = self.getHeight(panel); 
-		console.log(panelH, freeH);
 		if (panelH > freeH) {
 			$(panel).css('height', freeH + 'px');
 		}
@@ -67,5 +66,5 @@ var ReportObjectsPanel = function() {
 		freeH = self.getFreeHeight(['.header']);
 		$('#report-canvas').css('height', freeH + 16 + 'px');
 		niceScroller('#report-canvas');
-	}
-}
+	};
+};

@@ -23,6 +23,7 @@ function sendApiRequest(method, data, successFn) {
 			successFn(response); 
 		}
 	});
+	
 }
 
 function getStatusColor(i) {
@@ -30,7 +31,6 @@ function getStatusColor(i) {
 		return int2hex(parseInt(0xFF / 12 * i), 2) + 'FF00';
 	}
 	return 'FF' + int2hex(parseInt(0xFF / 12 * (24 - i)), 2) + '00';
-	// return int2hex(0x00FF00 + (0xFF0000 - 0x00FF00) / 24 * i, 6);
 }
 
 function int2hex(n, length) {
@@ -50,7 +50,7 @@ function setCurrMenu(n, m) {
 					var item3 = item.items[j];
 					items.push({href: 'reports.html?report=' + item3.guid, title: item3.name});
 				}
-				MainMenu[3].submenu.push({href: 'javascript:vois(0)', title: item.name, submenu: items});
+				MainMenu[3].submenu.push({href: 'javascript:void(0)', title: item.name, submenu: items});
 			} else {
 				MainMenu[3].submenu.push({href: 'reports.html?report=' + item.guid, title: item.name});
 			}
