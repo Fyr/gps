@@ -17,11 +17,20 @@
 	</div>
 	<div class="line">
 		<label>Период:</label>
-		c &nbsp;&nbsp;&nbsp;<input type="text" class="rome-datetime" name="start" onchange="objectsPanel.updateEventForm()" style="width: 100px" />
+{%
+	var date = new Date();
+	date.setHours(9);
+	date.setMinutes(0);
+	date.setSeconds(0);
+%}
+		c &nbsp;&nbsp;&nbsp;<input type="text" class="rome-datetime" name="start" value="{%=date.toSqlDateTime().replace(/\:00$/, '')%}" onchange="objectsPanel.updateEventForm()" style="width: 100px" />
 	</div>
 	<div class="line">
 		<label>&nbsp;</label>
-		по <input type="text" class="rome-datetime" name="end" onchange="objectsPanel.updateEventForm()" style="width: 100px" />
+{%
+	date.setHours(18);
+%}
+		по <input type="text" class="rome-datetime" name="end" value="{%=date.toSqlDateTime().replace(/\:00$/, '')%}" onchange="objectsPanel.updateEventForm()" style="width: 100px" />
 	</div>
 	<div class="line">
 		<label>Описание:</label>

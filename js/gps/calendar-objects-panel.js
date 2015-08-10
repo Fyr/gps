@@ -35,7 +35,7 @@ var CalendarObjectsPanel = function() {
 			monitoringObjects: self.getCheckedIds()
 		};
 		sendApiRequest('events', 'params=' + JSON.stringify(params), function(response) {
-			$('#smallCalendar').show();
+			// $('#smallCalendar').show();
 			self.processEvents(response.data);
 			$('#calendar').fullCalendar('refetchEvents');
 		});
@@ -181,4 +181,8 @@ var CalendarObjectsPanel = function() {
 			self.dialog.open();
 		});
 	};
+	
+	this.fixPanelHeight = function() {
+		
+	}
 }
