@@ -297,15 +297,12 @@ var ObjectRoutesPanel = function() {
 			'.tmpl-panel-map-object-list .search', 
 			'.tmpl-panel-map-object-list .panel', 
 			'.tmpl-panel-map-object-form'
-		])-5;
+		])-7;
 		var panel = $('.tmpl-panel-map-object-list .info').get(0);
-		$(panel).css('height', 'auto');
+		// $(panel).css('height', 'auto');
+		$(panel).css('height', freeH + 'px');
+		niceScroller(panel);
 		
-		var panelH = self.getHeight(panel);
-		if (panelH > freeH) {
-			$(panel).css('height', freeH + 'px');
-			$(panel).niceScroll({autohidemode:false, cursorcolor: "#ecdc00", background: "#dddddd", cursorborderradius: "0", cursorwidth: "7px"});
-		}
 		var divs = ['.header'];
 		if ($('#charts-canvas:visible').length) {
 			divs.push('#charts-canvas');

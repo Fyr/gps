@@ -45,7 +45,7 @@ var SearchPanel = function() {
 	
 	this.onSearchSelect = function(marker) {
 		map.clearMarkers();
-		map.addMarker(marker);
+		map.addMarker(marker, 'search');
 		map.showMarker(marker.id);
 	};
 	

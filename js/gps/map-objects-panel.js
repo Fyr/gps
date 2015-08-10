@@ -199,15 +199,13 @@ var MapObjectsPanel = function() {
 	};
 	
 	this.fixPanelHeight = function() {
-		var freeH = self.getFreeHeight(['.header', '.tmpl-panel-map-object-list .search', '.tmpl-panel-map-object-list .panel']);
+		var freeH = self.getFreeHeight(['.header', '.tmpl-panel-map-object-list .search', '.tmpl-panel-map-object-list .panel']) - 2;
 		var panel = $('.tmpl-panel-map-object-list .info').get(0);
 		$(panel).css('height', 'auto');
 		
 		var panelH = self.getHeight(panel); 
-		if (panelH > freeH) {
-			$(panel).css('height', freeH + 'px');
-			niceScroller(panel);
-		}
+		$(panel).css('height', freeH + 'px');
+		niceScroller(panel);
 		
 		freeH = self.getFreeHeight(['.header']);
 		$('#map-canvas').css('height', freeH + 16 + 'px');

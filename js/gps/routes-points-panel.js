@@ -68,15 +68,11 @@ var RoutesPointsPanel = function() {
 	};
 	
 	this.fixPanelHeight = function() {
-		var freeH = self.getFreeHeight(['.header', '.tmpl-panel-routes-points-list .search']) - 28;
+		var freeH = self.getFreeHeight(['.header', '.tmpl-panel-routes-points-list .search']) - 29;
 		var panel = $('.tmpl-panel-routes-points-list .info').get(0);
-		$(panel).css('height', 'auto');
-		
-		var panelH = self.getHeight(panel); 
-		if (panelH > freeH) {
-			$(panel).css('height', freeH + 'px');
-			$(panel).niceScroll({autohidemode:false, cursorcolor: "#ecdc00", background: "#dddddd", cursorborderradius: "0", cursorwidth: "7px"});
-		}
+		// $(panel).css('height', 'auto');
+		$(panel).css('height', freeH + 'px');
+		niceScroller(panel);
 		
 		freeH = self.getFreeHeight(['.header']) - 28;
 		$('#map-canvas').css('height', freeH + 16 + 'px');

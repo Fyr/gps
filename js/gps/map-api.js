@@ -34,7 +34,8 @@ var MapAPI = function(canvas) {
 			'movement-selected': PointSelected,
 			'parking': ParkingPoint,
 			'parking-selected': ParkingPointSelected,
-			'small-point': SmallPoint
+			'small-point': SmallPoint,
+			'search': SearchPoint
 		};
 		
 		var icon;
@@ -46,6 +47,7 @@ var MapAPI = function(canvas) {
 			icon = DirIcon[parseInt(type.replace(/dir-/, ''))];
 		} else {
 			icon = Icons[type || 'default'];
+			console.log(icon);
 		}
 		self.markers[obj.id] = L.marker([obj.lat, obj.lon], {title: obj.title || '', icon: icon});
 	};
@@ -169,6 +171,13 @@ var MapAPI = function(canvas) {
 	};
 };
 
+var SearchPoint = L.icon({
+	iconUrl: 'img/markers/pointer.png',
+	iconSize: [41, 41],
+	iconAnchor: [10, 40],
+	popupAnchor: [4, -38]
+});
+
 var PointIcon = L.Icon.extend({
 	options: {
 		iconSize: [16, 16],
@@ -178,14 +187,7 @@ var PointIcon = L.Icon.extend({
 });
 var Point = new PointIcon({iconUrl: 'img/markers/point.png'});
 var PointSelected = new PointIcon({iconUrl: 'img/markers/point-selected.png'});
-/*
-var Point = L.icon({
-	iconUrl: 'img//markers/point.png',
-	iconSize: [16, 16],
-	iconAnchor: [8, 8],
-	popupAnchor: [0, -5]
-});
-*/
+
 var SmallPoint = L.icon({
 	iconUrl: 'img//markers/small-point.png',
 	iconSize: [8, 8],
