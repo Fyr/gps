@@ -381,7 +381,7 @@ input[type=text]:-ms-input-placeholder { color: #b0b0b0; opacity: 1; }
 
 	.popup .title {  color: #171609; font-size: 14px; font-weight: bold; padding-bottom: 10px; padding-right: 20px;}
 	.popup .line { padding-bottom: 10px;}
-	.popup label { display: inline-block; vertical-align: top; width: 120px}
+	.popup label, #reportForm label { display: inline-block; vertical-align: top; width: 120px}
 	.popup input[type=text], .popup textarea { width: 200px;}
 	.popup textarea { height: 100px;}
 

@@ -3,11 +3,11 @@
 %}
 <form id="editForm">
 	<div class="line">
-		<label>* E-mail:</label>
+		<label>E-mail:</label>
 		<input type="email" name="email" value="{%=(_item && _item.email)%}" onkeyup="mailPanel.updateFormState()" />
 	</div>
 	<div class="line">
-		<label>* Объект:</label>
+		<label>Объект:</label>
 		<select name="monitoringObject">
 {%
 	for(var i = 0; i < o.settings.objects.length; i++) {
@@ -21,7 +21,7 @@
 		</select>
 	</div>
 	<div class="line">
-		<label>* Отчет:</label>
+		<label>Отчет:</label>
 		<select name="report">
 {%
 	for(var i = 0; i < o.settings.reports.length; i++) {
@@ -35,7 +35,7 @@
 		</select>
 	</div>
 	<div class="line">
-		<label>* Период:</label>
+		<label>Период:</label>
 		<select name="period">
 {%
 	for(var i = 0; i < o.settings.period.length; i++) {
@@ -49,7 +49,7 @@
 		</select>
 	</div>
 	<div class="line">
-		<label>* Формат:</label>
+		<label>Формат:</label>
 		<select name="format">
 {%
 	for(var i = 0; i < o.settings.format.length; i++) {

@@ -3,11 +3,11 @@
 %}
 <form id="editForm">
 	<div class="line">
-		<label>* E-mail:</label>
+		<label>E-mail:</label>
 		<input type="email" name="email" value="{%=(_item && _item.email)%}" onkeyup="userPanel.updateFormState()" />
 	</div>
 	<div class="line">
-		<label>* Объект:</label>
+		<label>Объект:</label>
 		<div class="block">
 			<div class="info niceScroller" style="max-height: 200px;">
 {%
@@ -31,7 +31,7 @@
 		</div>
 	</div>
 	<div class="line">
-		<label>* Пароль:</label>
+		<label>Пароль:</label>
 		<input type="password" name="password" value="" />
 	</div>
 	<div class="popup-actions">

@@ -3,7 +3,7 @@
 %}
 <form id="editForm">
 	<div class="line">
-		<label>* Объект:</label>
+		<label>Объект:</label>
 		<select name="monitoringObject">
 {%
 	for(var i = 0; i < o.settings.objects.length; i++) {
@@ -17,7 +17,7 @@
 		</select>
 	</div>
 	<div class="line">
-		<label>* Период действия:</label>
+		<label>Период действия:</label>
 		с&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="rome-datetime" name="start" value="{%=(_item ? _item.start : '')%}" onchange="notifyPanel.updateFormState()" style="width: 114px" />
 	</div>
 	<div class="line">
@@ -25,7 +25,7 @@
 		по <input type="text" class="rome-datetime" name="end" value="{%=(_item ? _item.end : '')%}" onchange="notifyPanel.updateFormState()" style="width: 114px" />
 	</div>
 	<div class="line">
-		<label>* Тип уведомления:</label>
+		<label>Тип уведомления:</label>
 		<select name="notifyType">
 {%
 	for(var i = 0; i < o.settings.notifyType.length; i++) {
@@ -39,7 +39,7 @@
 		</select>
 	</div>
 	<div class="line">
-		<label>* Источник события:</label>
+		<label>Источник события:</label>
 		<select name="eventSource">
 {%
 	for(var i = 0; i < o.settings.eventSource.length; i++) {

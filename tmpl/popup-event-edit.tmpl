@@ -1,6 +1,6 @@
 <form id="eventForm">
 	<div class="line">
-		<label>* Объект:</label>
+		<label>Объект:</label>
 		<select name="monitoringObject">
 {%
 	for(var val in o.objectOptions) {
@@ -12,11 +12,11 @@
 		</select>
 	</div>
 	<div class="line">
-		<label>* Название:</label>
+		<label>Название:</label>
 		<input type="text" name="summary" onkeyup="objectsPanel.updateEventForm()" />
 	</div>
 	<div class="line">
-		<label>* Период:</label>
+		<label>Период:</label>
 		c <input type="text" class="rome-datetime" name="start" onchange="objectsPanel.updateEventForm()" style="width: 75px" />
 		по <input type="text" class="rome-datetime" name="end" onchange="objectsPanel.updateEventForm()" style="width: 75px" />
 	</div>
