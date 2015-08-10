@@ -12,7 +12,7 @@
 	<td>{%=item.eventSource.name%}</td>
 	<td align="right">
 		<a class="fa fa-edit" href="javascript:void(0)" onclick="notifyPanel.edit('{%=item.guid%}')"></a>
-		<a class="fa fa-remove" href="javascript:void(0)" onclick="if (confirm('Удалить эту запись?')) { notifyPanel.remove('{%=item.guid%}'); }"></a>		
+		<a class="fa fa-remove" href="javascript:void(0)" onclick="notifyPanel.remove('{%=item.guid%}')"></a>		
 	</td>
 </tr>
 {%

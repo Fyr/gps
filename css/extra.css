@@ -13,3 +13,5 @@ table.admin { width: 100%; }
 .admin tr:nth-child(even) { background: #efefef; }
 .admin tr:nth-child(even) td { border-left: 1px solid #fff; }
 .admin tr td:first-child { border-left: none; }
+
+.report { width: 99%}
