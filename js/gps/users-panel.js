@@ -14,7 +14,7 @@ var UsersPanel = function() {
 	};
 	
 	this.isFormValid = function() {
-		return true;
+		return $('#editForm [name="email"]').val();
 	};
 	
 	this.fixPanelHeight = function() {
@@ -25,9 +25,13 @@ var UsersPanel = function() {
 		niceScroller(panel);
 	};
 	
+	this.updateFormState = function() {
+		$('#editForm .btn').get(0).disabled = !self.isFormValid();
+	}
+	
 	this.save = function(id) {
 		self.dialog.close();
-		sendApiRequest(id ? 'post.users?guid=' + id : 'post.user', $('#editForm').serialize(), function(){
+		sendApiRequest(id ? 'post.users?guid=' + id : 'post.users', $('#editForm').serialize(), function(){
 			self.afterSave(id);
 		});
 	};

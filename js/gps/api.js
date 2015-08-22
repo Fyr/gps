@@ -95,3 +95,7 @@ function in_array(needle, haystack) {
 function niceScroller(e) {
 	$(e).niceScroll({autohidemode:false, cursorcolor: "#ecdc00", background: "#dddddd", cursorborderradius: "0", cursorwidth: "7px"});
 }
+
+function isMobile() {
+	return $(window).width() < 768;
+}

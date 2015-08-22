@@ -4207,7 +4207,11 @@ function inputCalendar (input, calendarOptions) {
   function position () {
     var bounds = input.getBoundingClientRect();
     var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-    api.container.style.top  = bounds.top + scrollTop + input.offsetHeight + 'px';
+    var top = bounds.top + scrollTop + input.offsetHeight;
+    if ($(window).height() < (top + 206)) {
+        top = top - 206 - input.offsetHeight;
+    }
+    api.container.style.top  = top + 'px';
     api.container.style.left = bounds.left + 'px';
   }
 

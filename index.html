@@ -22,7 +22,6 @@
 		<script type="text/javascript" src="./js/gps/xtmpl.min.js"></script>
 		<script type="text/javascript" src="./js/gps/json_handler.min.js"></script>
 		<script type="text/javascript" src="./js/gps/api.min.js"></script>
-		<script type="text/javascript" src="./js/gps/withoutscroll.min.js"></script>
 		<script type="text/javascript" src="./js/gps/popup.min.js"></script>
 		<script type="text/javascript" src="./js/gps/popup-info.min.js"></script>
 		<script type="text/javascript" src="./js/gps/send-message-popup.min.js"></script>
@@ -31,8 +30,12 @@
 		<script type="text/javascript" src="./js/gps/map-objects-panel.min.js"></script>
 		<script type="text/javascript">
 function fixPanelHeight() {
-	$('.leftSide').css('top', (-$('.yellowBlocks').height()) + 'px');
-	$('.newsBlock .description').height($(window).height() - $('.header').height() - $('.contacts').height() - 50); 
+	if (isMobile()) {
+		$('.newsBlock .description').height(200); 
+	} else {
+		console.log('desktop');
+		$('.newsBlock .description').height( $('.yellowBlocks .item').height() + $('.obzor .rightSide').height() - 44 - 6); 
+	}
 }
 
 var objectsPanel;
@@ -56,7 +59,7 @@ $(function(){
 			
 			sendApiRequest('getNews', null, function(response) {
 				$('.newsBlock .description').html(response.data);
-				reviewScroll();
+				fixPanelHeight();
 				niceScroller('.newsBlock .description');
 			});
 		});
@@ -75,7 +78,7 @@ $(function(){
 		
 		sendApiRequest('favorites', null, function(response) {
 			if (response.data) {
-				$('#favorites').click(function(){
+				$('.favorites').click(function(){
 					var dialog = new Popup({
 						title: 'Избранные функции',
 						content: Tmpl('popup-favorites').render(response.data)
@@ -85,7 +88,7 @@ $(function(){
 			}
 		});
 		
-		$('#techsupport').click(function() {
+		$('.techsupport').click(function() {
 			var dialog = new SendMessagePopup({
 				title: 'Обращение в техническую поддержку', 
 				tpl: 'tmpl-popup-send-message',
@@ -94,7 +97,7 @@ $(function(){
 			dialog.open();
 		});
 		
-		$('#feedback').click(function() {
+		$('.feedback').click(function() {
 			var dialog = new SendMessagePopup({
 				title: 'Отправить отзыв', 
 				tpl: 'tmpl-popup-send-message',
@@ -104,12 +107,12 @@ $(function(){
 		});
 		
 		objectsPanel = new MapObjectsPanel();
-		$('#add-object').click(function(){
+		$('.add-object').click(function(){
 			objectsPanel.edit();
 		});
 		
 		$(window).resize(function() {
-			reviewScroll();
+			fixPanelHeight();
 		});
 	});
 });
@@ -122,17 +125,17 @@ $(function(){
 				<span class="tmpl-menu"></span>
 			</div>
 			<div class="clearfix obzor">
-				<div class="clearfix yellowBlocks">
-					<a href="javascript: void(0)" class="item" id="add-object">
+				<div class="clearfix yellowBlocks mobile">
+					<a href="javascript: void(0)" class="item add-object">
 						<img src="./img/add_object.png" alt="" />
 					</a>
-					<a href="javascript: void(0)" class="item" id="favorites">
+					<a href="javascript: void(0)" class="item favorites">
 						<img src="./img/favorities.png" alt="" />
 					</a>
-					<a href="javascript: void(0)" class="item" id="techsupport">
+					<a href="javascript: void(0)" class="item techsupport">
 						<img src="./img/techsupport.png" alt="" />
 					</a>
-					<a href="javascript: void(0)" class="item" id="feedback">
+					<a href="javascript: void(0)" class="item feedback">
 						<img src="./img/feedback.png" alt="" />
 					</a>
 				</div>
@@ -148,6 +151,20 @@ $(function(){
 					</div>
 				</div>
 				<div class="rightSide">
+					<div class="clearfix yellowBlocks desktop">
+						<a href="javascript: void(0)" class="item add-object">
+							<img src="./img/add_object.png" alt="" />
+						</a>
+						<a href="javascript: void(0)" class="item favorites">
+							<img src="./img/favorities.png" alt="" />
+						</a>
+						<a href="javascript: void(0)" class="item techsupport">
+							<img src="./img/techsupport.png" alt="" />
+						</a>
+						<a href="javascript: void(0)" class="item feedback">
+							<img src="./img/feedback.png" alt="" />
+						</a>
+					</div>
 					<div class="block billingBlock">
 						<div class="title">
 							<span class="icon icon-billing"></span>
