@@ -27,7 +27,7 @@ var UsersPanel = function() {
 	
 	this.updateFormState = function() {
 		$('#editForm .btn').get(0).disabled = !self.isFormValid();
-	}
+	};
 	
 	this.save = function(id) {
 		self.dialog.close();

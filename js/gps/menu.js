@@ -1,5 +1,5 @@
 var MainMenu = [
-	{href: '/', title: locale.menuOverview},
+	{href: 'index.html', title: locale.menuOverview},
 	{href: 'javascript:void(0)', title: locale.menuMap, smclass: 'map', submenu: [
 		{href: 'current-position.html', title: locale.menuCurrentLocation},
 		{href: 'routes.html', title: locale.menuRoutes},

@@ -1,7 +1,7 @@
 function sendApiRequest(method, data, successFn) {
-	// var prodUrl = 'http://1c.softmax.by/sstm/hs/monitoringObjects/';
-	// var baseUrl = (window.location.href.indexOf('1c.softmax.by') > -1) ? prodUrl : './server/';
-	var baseUrl = './server/';
+	var prodUrl = 'http://1c.softmax.by/sstm/hs/monitoringObjects/';
+	var baseUrl = (window.location.href.indexOf('1c.softmax.by') > -1) ? prodUrl : './server/';
+	// var baseUrl = './server/';
 	
 	var methodType = 'GET';
 	if (method.indexOf('.') > -1) {
@@ -98,4 +98,12 @@ function niceScroller(e) {
 
 function isMobile() {
 	return $(window).width() < 768;
+}
+
+function getDate(d) {
+	var a = d.split(':');
+	if (a.length == 2) {
+		d+= ':00';
+	}
+	return d.replace(/\s/, 'T');
 }

@@ -9,8 +9,8 @@ var ObjectRoutesPanel = function() {
 	this.updateRoutes = function() {
 		var params = {
 			monitoringObjects: self.getCheckedIds(),
-			startRoute: $('#period1').val() ? $('#period1').val() + 'T00:00:00' : '',
-			endRoute: $('#period2').val() ? $('#period2').val() + 'T00:00:00' : ''
+			startRoute: $('#period1').val() ? getDate($('#period1').val()) : '',
+			endRoute: $('#period2').val() ? getDate($('#period2').val()) : ''
 		};
 		sendApiRequest('getRoute', 'params=' + JSON.stringify(params), function(response) {
 			var _old_objects = [];
@@ -143,8 +143,8 @@ var ObjectRoutesPanel = function() {
 		});
 		var params = {
 			monitoringObjects: [id],
-			startRoute: $('#period1').val() ? $('#period1').val() + 'T00:00:00' : '',
-			endRoute: $('#period2').val() ? $('#period2').val() + 'T00:00:00' : '',
+			startRoute: $('#period1').val() ? getDate($('#period1').val()) : '',
+			endRoute: $('#period2').val() ? getDate($('#period2').val()) : '',
 			sensors: [sensor_ids]
 		};
 		sendApiRequest('getSensorData', 'params=' + JSON.stringify(params), function(response) {
