@@ -51,14 +51,24 @@ var MapObjectsPanel = function() {
 			self.dialog.open();
 		};
 		if ($.isEmptyObject(self.settings)) {
-			sendApiRequest('getObjectsSettings', null, function(response){
-				self.settings = response.data;
-				
-				editFn();
-			});
+			self.setObjectSettings(editFn);
 		} else {
 			editFn();
 		}
+	};
+	
+	this.setObjectSettings = function(nextFn) {
+		sendApiRequest('users', null, function(response){
+			self.settings = {users: []};
+			for(var i = 0; i < response.data.length; i++) {
+				var row = response.data[i];
+				self.settings.users.push({name: row.name, guid: row.guid}) ;
+			}
+			
+			if (nextFn) {
+				nextFn();
+			}
+		});
 	};
 	
 	this.update = function() {
@@ -68,9 +78,7 @@ var MapObjectsPanel = function() {
 			self.setObjects(response.data);
 			self.show();
 			
-			sendApiRequest('getObjectsSettings', null, function(response){
-				self.settings = response.data;
-			});
+			self.setObjectSettings();
 		});
 	};
 	

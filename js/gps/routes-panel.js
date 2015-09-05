@@ -52,21 +52,26 @@ var ObjectRoutesPanel = function() {
 			var data = routesData[i].points;
 			self.objects[id].routesEnabled = false;
 			if (data && data.length) {
-				data.id = id;
-				for(var j = 0; j < data.length; j++) {
+				// data.id = id;
+				var step = (data.length > 30) ? Math.floor(data.length / 30) : 1;
+				console.log(data.length, step);
+				var points = [];
+				for(var j = 0; j < data.length; j+= step) {
 					var point = data[j];
 					point.id = point.pointId;
 					point.period = point.period.replace(/T/, ' ');
 					if (point.parkingEnd) {
 						point.parkingEnd = point.parkingEnd.replace(/T/, ' ');
 					}
+					points.push(point);
 				}
+				
 				self.objects[id].routesEnabled = true;
 				self.objects[id].chartsEnabled = true;
 				self.objects[id].showRoute = true;
 				self.objects[id].showChart = false;
-				self.objects[id].routes = data;
-				self.objects[id].latlons = data;
+				self.objects[id].routes = points;
+				self.objects[id].latlons = points;
 			}
 		}
 	};
@@ -145,7 +150,7 @@ var ObjectRoutesPanel = function() {
 			monitoringObjects: [id],
 			startRoute: $('#period1').val() ? getDate($('#period1').val()) : '',
 			endRoute: $('#period2').val() ? getDate($('#period2').val()) : '',
-			sensors: [sensor_ids]
+			sensors: sensor_ids
 		};
 		sendApiRequest('getSensorData', 'params=' + JSON.stringify(params), function(response) {
 			self.dialog.close();

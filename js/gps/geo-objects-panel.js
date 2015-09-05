@@ -6,15 +6,30 @@ var GeoObjectsPanel = function() {
 	self.settings = {};
 	
 	this.update = function() {
-		sendApiRequest('getObjectsMap', null, function(response) {
+		sendApiRequest('poi', null, function(response) {
 			if (checkJson(response)) {
 				$('#checkAll', $self).prop('checked', false).trigger('refresh');
 				self.clearObjects();
 				self.setObjects(response.data);
 				self.show();
+				
+				/*
 				sendApiRequest('getGeoobjectsSettings', null, function(response){
 					self.settings = response.data;
 				});
+				*/
+				self.settings = {
+					"types": [
+						{
+							"guid": "circle",
+							"name": "Окружность"
+						},
+						{
+							"guid": "polygon",
+							"name": "Полигон"
+						}
+					]
+				};
 			}
 		});
 	};
@@ -22,7 +37,13 @@ var GeoObjectsPanel = function() {
 	this.setObjects = function(data) {
 		self.objects = {};
 		for(var i = 0; i < data.length; i++) {
-			var id = (data[i].id.indexOf('geo-object-') < 0) ? 'geo-object-' + data[i].id : data[i].id;
+			var id = data[i].guid; // (data[i].id.indexOf('geo-object-') < 0) ? 'geo-object-' + data[i].guid :
+			if (data[i].type == 'Точка') {
+				data[i].type = 'circle';
+			} else if (data[i].type == 'Полигон') {
+				data[i].type = 'polygon';
+			}
+			
 			data[i].checkable = (data[i].type == 'circle' || data[i].type == 'polygon'); // 
 			self.setObjectData(id, data[i]);
 			self.setMapObject(id);

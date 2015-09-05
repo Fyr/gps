@@ -47,7 +47,6 @@ var MapAPI = function(canvas) {
 			icon = DirIcon[parseInt(type.replace(/dir-/, ''))];
 		} else {
 			icon = Icons[type || 'default'];
-			console.log(icon);
 		}
 		self.markers[obj.id] = L.marker([obj.lat, obj.lon], {title: obj.title || '', icon: icon});
 	};

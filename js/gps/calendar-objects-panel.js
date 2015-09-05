@@ -51,8 +51,8 @@ var CalendarObjectsPanel = function() {
 			for(var i = 0; i < data.length; i++) {
 				var event = data[i];
 				event.title = data[i].summary;
-				event.start = data[i].start.replace(/T/, ' ');
-				event.end = data[i].end.replace(/T/, ' ');
+				event.start = data[i].beginOfPeriod.replace(/T/, ' ');
+				event.end = data[i].endOfPeriod.replace(/T/, ' ');
 				self.events[data[i].status].push(event);
 				self.allEvents[data[i].id] = event;
 			}
