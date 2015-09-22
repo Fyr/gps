@@ -25,7 +25,7 @@ var MapObjectsPanel = function() {
 			self.sortObjects(0);
 		});
 		$('.panel .fa-refresh', $self).click(function(){
-			self.update();
+			self.updateStatus();
 		});
 		$('.outerSearch input[type=text]', $self).keyup(function(){
 			self.filterObjects($(this).val());
@@ -79,6 +79,19 @@ var MapObjectsPanel = function() {
 			self.show();
 			
 			self.setObjectSettings();
+		});
+	};
+	
+	this.updateStatus = function() {
+		sendApiRequest('getTopicalityData', null, function(response) {
+			for(var i = 0; i < response.data.length; i++) {
+				var data = response.data[i];
+				var id = data.guid;
+				data.checkable = (data.topicality) && true;
+				data.checked = (self.objects[id].checked) && true;
+				self.setObjectData(id, data);
+			}
+			self.render();
 		});
 	};
 	

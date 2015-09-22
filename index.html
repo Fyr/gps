@@ -56,13 +56,12 @@ $(function(){
 		
 		sendApiRequest('getContacts', null, function(response) {
 			$('.contacts .info').html(response.data);
-			
 			sendApiRequest('getNews', null, function(response) {
 				$('.newsBlock .description').html(response.data);
-				fixPanelHeight();
-				niceScroller('.newsBlock .description');
 			});
 		});
+		fixPanelHeight();
+		niceScroller('.newsBlock .description');
 		
 		sendApiRequest('getFiles', {type: 'instructions'}, function(response) {
 			$('.instructionsBlock .description').html(Tmpl('docs').render(response.data));
