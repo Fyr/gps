@@ -89,6 +89,7 @@ var MapObjectsPanel = function() {
 				var id = data.guid;
 				data.checkable = (data.topicality) && true;
 				data.checked = (self.objects[id].checked) && true;
+				data.opened = (self.objects[id].opened) && true;
 				self.setObjectData(id, data);
 			}
 			self.render();
@@ -187,16 +188,51 @@ var MapObjectsPanel = function() {
 		}
 	};
 	
+	this.onToggleFolder = function(id) {
+		self.objects[id].opened = !self.objects[id].opened;
+		$('#folder_' + id + ' .folderObjects').toggle();
+		$('#folder_' + id + ' .icon-folder').toggleClass('open');
+	};
+	
 	this.render = function() {
 		$('.info', $self).html('');
-		var html = '';
+		var html = '', aGroups = [], aGroupObjects = {}, toOpen = [];
+		
 		for(var i in self.objects) {
-			html+= Tmpl('panel-map-object-item').render(self.objects[i]);
+			if (self.objects[i].isFolder) {
+				aGroups.push(i);
+				aGroupObjects[i] = '';
+			}
+			if (typeof(self.objects[i].opened) == 'undefined') {
+				self.objects[i].opened = false;
+				// toOpen.push(self.objects[i].isFolder);
+			} else if (self.objects[i].opened) {
+				self.objects[i].opened = false;
+				toOpen.push(i);
+			}
 		}
+		
+		for(var i in self.objects) {
+			if (!self.objects[i].isFolder && in_array(self.objects[i].parent, aGroups)) {
+				aGroupObjects[self.objects[i].parent]+= Tmpl('panel-map-object-item').render(self.objects[i]);
+			}
+		}
+		
+		for(var i in self.objects) {
+			if (self.objects[i].isFolder) {
+				html+= Tmpl('panel-map-object-folder').render({id: i, title: self.objects[i].title, objects: aGroupObjects[i]});
+			} else if (!self.objects[i].isFolder && !in_array(self.objects[i].parent, aGroups)) {
+				html+= Tmpl('panel-map-object-item').render(self.objects[i]);
+			}
+		}
+		
 		if (!html) {
 			html = '<div style="text-align: center; margin: 10px 0"> - ' + locale.noObjects + ' -</div>';
 		}
 		$('.info', $self).html(html);
+		for(var i = 0; i < toOpen.length; i++) {
+			self.onToggleFolder(toOpen[i]);
+		}
 		$('input[type=checkbox]', $self).styler();
 		
 		self.fixPanelHeight();

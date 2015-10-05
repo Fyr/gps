@@ -1,78 +1,219 @@
 {
-  "status": "OK",
-  "data": [
-    {
-      "guid": "9991015d-20b2-11e5-909d-00155dbb7703",
-      "imei": "352848024484863",
-      "name": "Витя",
-      "topicality": "2015-07-28T12:04:52",
-      "lat": 53.8890762,
-      "lon": 27.4293156,
-      "address": null,
-      "alert": null,
-      "params": [
-        {
-          "parameter": 66,
-          "data": 12169
-        }
-      ]
-    },
-    {
-      "guid": "bd46f81c-1a81-11e5-9cf6-00155dbb7702",
-      "imei": "352848023078930",
-      "name": "Павел",
-      "topicality": "2015-07-28T03:34:36",
-      "lat": 53.8889198,
-      "lon": 27.4292164,
-      "address": null,
-      "alert": null,
-      "params": [
-        {
-          "parameter": 69,
-          "data": 1
-        },
-        {
-          "parameter": 21,
-          "data": 3
-        },
-        {
-          "parameter": 66,
-          "data": 12490
-        }
-      ]
-    },
-    {
-      "guid": "9991015d-20b2-11e5-909d-00155dbb7704",
-      "imei": "352848024484863",
-      "name": "Витя2",
-      "topicality": "2015-07-28T16:04:52",
-      "lat": 53.8880752,
-      "lon": 27.4293248,
-      "address": null,
-      "alert": null,
-      "params": [
-        {
-          "parameter": 66,
-          "data": 12264
-        }
-      ]
-    },
-    {
-      "guid": "9991015d-20b2-11e5-909d-00155dbb7705",
-      "imei": "352848024484863",
-      "name": "Андроид",
-      "topicality": "2015-07-28T23:00:52",
-      "lat": 53.8870752,
-      "lon": 27.4273248,
-      "address": null,
-      "alert": null,
-      "type": "android",
-      "params": [
-        {
-          "parameter": 66,
-          "data": 12264
-        }
-      ]
-    }
-  ]
+"status": "OK",
+"data": [
+{
+"guid": "0dfafbc3-5606-11e5-931c-00155dbb7703",
+"isFolder": true,
+"parent": "00000000-0000-0000-0000-000000000000",
+"name": "Группа 1",
+"address": null,
+"alert": null,
+"params": [
+{}
+]
+},
+{
+"guid": "693c032f-5608-11e5-931c-00155dbb7703",
+"isFolder": true,
+"parent": "00000000-0000-0000-0000-000000000000",
+"name": "Группа 2",
+"address": null,
+"alert": null,
+"params": [
+{}
+]
+},
+{
+"guid": "551b1fc2-560b-11e5-931c-00155dbb7703",
+"isFolder": false,
+"parent": "00000000-0000-0000-0000-000000000000",
+"imei": "123",
+"name": "new",
+"icon": "",
+"address": null,
+"alert": null,
+"params": [
+{}
+]
+},
+{
+"guid": "60379d22-5ab6-11e5-931c-00155dbb7703",
+"isFolder": false,
+"parent": "00000000-0000-0000-0000-000000000000",
+"imei": "351912066770067",
+"name": "HTC",
+"icon": "",
+"topicality": "2015-09-29T08:14:58",
+"lat": 53.8894783,
+"lon": 27.4295483,
+"address": null,
+"alert": null,
+"params": [
+{
+"parameter": 10001,
+"data": 5
+},
+{
+"parameter": 10002,
+"data": 3
+},
+{
+"parameter": 10003,
+"data": 105
+},
+{
+"parameter": 10004,
+"data": 70
+},
+{
+"parameter": 10005,
+"data": 4
+}
+]
+},
+{
+"guid": "942219ee-5ddc-11e5-931c-00155dbb7703",
+"isFolder": false,
+"parent": "00000000-0000-0000-0000-000000000000",
+"imei": "355056051418435",
+"name": "note2",
+"icon": "",
+"topicality": "2015-09-22T15:00:16",
+"lat": 53.9191858,
+"lon": 27.4882625,
+"address": null,
+"alert": null,
+"params": [
+{
+"parameter": 10001,
+"data": 5
+},
+{
+"parameter": 10002,
+"data": 2
+},
+{
+"parameter": 10003,
+"data": 12
+},
+{
+"parameter": 10004,
+"data": 74
+},
+{
+"parameter": 10005,
+"data": 0
+}
+]
+},
+{
+"guid": "0b3fe981-39d4-11e5-937f-00155dbb7703",
+"isFolder": false,
+"parent": "0dfafbc3-5606-11e5-931c-00155dbb7703",
+"imei": "12896004285570",
+"name": "Ford",
+"icon": "ИконкаГрузовик",
+"topicality": "2015-10-05T14:23:17",
+"lat": 53.86972,
+"lon": 27.538465,
+"address": null,
+"alert": null,
+"params": [
+{
+"parameter": 176,
+"data": 2
+},
+{
+"parameter": 29,
+"data": 12501
+},
+{
+"parameter": 30,
+"data": 4059
+},
+{
+"parameter": 114,
+"data": 339680
+}
+]
+},
+{
+"guid": "8d889b13-39d4-11e5-937f-00155dbb7703",
+"isFolder": false,
+"parent": "693c032f-5608-11e5-931c-00155dbb7703",
+"imei": "352848023078930",
+"name": "Павел",
+"icon": "ИконкаГрузовик",
+"topicality": "2015-10-05T15:33:01",
+"lat": 53.9190216,
+"lon": 27.4878922,
+"address": null,
+"alert": null,
+"params": [
+{
+"parameter": "Питание GPS",
+"data": 1
+},
+{
+"parameter": "Уровень сигнала",
+"data": 3
+},
+{
+"parameter": "Напряжение питания",
+"data": 12403
+},
+{
+"parameter": "Виртуальный одометр",
+"data": 106
+}
+]
+},
+{
+"guid": "7032d07a-41c6-11e5-bf6b-00155dbb7703",
+"isFolder": false,
+"parent": "00000000-0000-0000-0000-000000000000",
+"name": "Объект 1",
+"icon": "ИконкаГрузовик",
+"address": null,
+"alert": null,
+"params": [
+{}
+]
+},
+{
+"guid": "878e6969-4a2e-11e5-bf6b-00155dbb7703",
+"isFolder": false,
+"parent": "00000000-0000-0000-0000-000000000000",
+"imei": "353160044639842",
+"name": "zte",
+"icon": "",
+"topicality": "2015-10-02T12:52:39",
+"lat": 0,
+"lon": 0,
+"address": null,
+"alert": null,
+"params": [
+{
+"parameter": 10001,
+"data": 7
+},
+{
+"parameter": 10002,
+"data": 3
+},
+{
+"parameter": 10003,
+"data": 0
+},
+{
+"parameter": 10004,
+"data": 61
+},
+{
+"parameter": 10005,
+"data": 0
+}
+]
+}
+]
 }

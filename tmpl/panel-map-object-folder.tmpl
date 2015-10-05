@@ -1,0 +1,13 @@
+<div id="folder_{%=o.id%}" class="folder">
+	<div class="item folderItem clearfix">
+		<label>
+			<a href="javascript:void(0)" onclick="objectsPanel.onToggleFolder('{%=o.id%}')">
+				<span class="icon icon-folder"></span>
+				{%=o.title%}
+			</a>
+		</label>
+	</div>
+	<span class="folderObjects" style="display: none">
+		{%#o.objects%}
+	</span>
+</div>
