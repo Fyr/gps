@@ -5,16 +5,34 @@
 		</form>
 	</div>
 	<div class="panel">
-		<input type="checkbox" id="checkAll" />
-		<span class="separator"></span>
-		<a href="javascript: void(0)" class="icon icon-align-alphabet"></a>
-		<a href="javascript: void(0)" class="icon icon-align-alphabet-back"></a>
-		<a href="javascript: void(0)" class="fa fa-refresh"></a>
-		<span class="separator"></span>
-		<a id="addObject" href="javascript: void(0)" class="btn withIcon" onclick="objectsPanel.edit()">
-			<span class="icon icon-plus"></span>
-			<span>Добавить</span>
-		</a>
+		<table width="100%">
+		<tr>
+			<td>
+				<input type="checkbox" id="checkAll" />
+				<span class="separator"></span>
+				<!--a href="javascript: void(0)" class="icon icon-align-alphabet"></a>
+				<a href="javascript: void(0)" class="icon icon-align-alphabet-back"></a-->
+				<a href="javascript: void(0)" class="fa fa-sort-alpha-desc" title="Сортировка по убыванию" style="display: none;"></a>
+				<a href="javascript: void(0)" class="fa fa-sort-alpha-asc" title="Сортировка по возрастанию"></a>
+				
+				<a href="javascript: void(0)" class="fa fa-plus-square-o" title="Развернуть все группы"></a>
+				<a href="javascript: void(0)" class="fa fa-minus-square-o" title="Cвернуть все группы" style="display: none;"></a>
+				
+				<a href="javascript: void(0)" class="fa fa-list" title="Просмотр списком"></a>
+				<a href="javascript: void(0)" class="fa fa-list-alt" title="Просмотр по группам" style="display: none;"></a>
+				
+				<a href="javascript: void(0)" class="fa fa-refresh" title="Обновить состояние обьектов"></a>
+				
+				<!--span class="separator"></span-->
+			</td>
+			<td align="right">
+				<a id="addObject" href="javascript: void(0)" class="btn withIcon" onclick="objectsPanel.edit()">
+					<span class="icon icon-plus"></span>
+					<span>Добавить</span>
+				</a>
+			</td>
+		</tr>
+		</table>
 	</div>
 	<div class="info scroller">
 		Загрузка...

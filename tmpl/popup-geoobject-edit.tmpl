@@ -1,10 +1,10 @@
 <form id="editForm">
 	<div class="line">
-		<label>* Название:</label>
+		<label>Название:</label>
 		<input type="text" name="name" onkeyup="objectsPanel.updateFormState()" />
 	</div>
 		<div class="line">
-		<label>* Тип зоны:</label>
+		<label>Тип зоны:</label>
 		<select class="styler" name="type" onchange="objectsPanel.changeType()">
 {%
 	for(var i = 0; i < o.settings.types.length; i++) {
@@ -17,7 +17,7 @@
 		</select>
 	</div>
 	<div class="line type type-circle">
-		<label>* Радиус:</label>
+		<label>Радиус:</label>
 		<input type="text" class="" name="radius" onchange="objectsPanel.updateFormState()" style="width: 50px" />
 	</div>
 	<span class="type type-circle">

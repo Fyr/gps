@@ -1,49 +1,235 @@
 ﻿{
-  "status": "OK",
-  "data": [
-    {
-      "monitoringObject": "bf4bf56f-257b-11e5-909d-00155dbb7703",
-      "events": [
-        {
-          "id": "bf4bf56f-257b-11e5-909d-00155dbb7703",
-          "location": {
-            "address": "Минск",
-            "lat": 53.8891762,
-            "lon": 27.4291156
-          },
-          "summary": "тема 1",
-          "description": "езжай туда, не знаю куда",
-          "beginOfPeriod": "2015-07-08T17:30:00",
-          "endOfPeriod": "2015-07-08T18:00:00",
-          "status": "Запланирована"
-        },
-        {
-          "id": "bf4bf56f-257b-11e5-909d-00155dbb7704",
-          "location": {
-            "address": "Минск",
-            "lat": 53,
-            "lon": 27
-          },
-          "summary": "тема 2",
-          "description": "Описание события 2",
-          "beginOfPeriod": "2015-07-09T12:30:00",
-          "endOfPeriod": "2015-07-09T13:00:00",
-          "status": "Состоялась"
-        },
-        {
-          "id": "bf4bf56f-257b-11e5-909d-00155dbb7705",
-          "location": {
-            "address": "Минск",
-            "lat": 53,
-            "lon": 27
-          },
-          "summary": "тема 3",
-          "description": "Описание события 3",
-          "beginOfPeriod": "2015-07-03T14:30:00",
-          "endOfPeriod": "2015-07-03T16:00:00",
-          "status": "НеСостоялась"
-        }
-      ]
-    }
-  ]
+"status": "OK",
+"data": [
+{
+"monitoringObject": "8d889b13-39d4-11e5-937f-00155dbb7703",
+"events": [
+{
+"guid": "735821ab-579a-11e5-931c-00155dbb7703",
+"deleted": false,
+"summary": "",
+"description": "",
+"beginOfPeriod": "2015-09-10T12:30:00",
+"endOfPeriod": "2015-09-10T13:00:00",
+"status": 0,
+"location": {
+"address": "",
+"lat": 0,
+"lon": 0
+}
+},
+{
+"guid": "16036040-57a2-11e5-931c-00155dbb7703",
+"deleted": true,
+"summary": "",
+"description": "",
+"beginOfPeriod": "2015-09-10T12:30:00",
+"endOfPeriod": "2015-09-10T13:00:00",
+"status": 0,
+"location": {
+"address": "",
+"lat": 0,
+"lon": 0
+}
+},
+{
+"guid": "68d7f9eb-57aa-11e5-931c-00155dbb7703",
+"deleted": true,
+"summary": "push1",
+"description": "посещение из push",
+"beginOfPeriod": "2015-08-01T09:00:00",
+"endOfPeriod": "2015-08-01T18:00:00",
+"status": 0,
+"location": {
+"address": "Минск",
+"lat": 53,
+"lon": 27
+}
+},
+{
+"guid": "5912be11-5d1f-11e5-931c-00155dbb7703",
+"deleted": false,
+"summary": "qqq",
+"description": "",
+"beginOfPeriod": "2015-09-17T13:00:00",
+"endOfPeriod": "2015-09-17T13:30:00",
+"status": 0,
+"location": {
+"address": "29, улица Янки Купалы, Троицкое предместье, Центральный район, Минск, 220029, Беларусь",
+"lat": 53.908927,
+"lon": 27.558086
+}
+}
+]
+},
+{
+"monitoringObject": "60379d22-5ab6-11e5-931c-00155dbb7703",
+"events": [
+{
+"guid": "dfbb5496-5b88-11e5-931c-00155dbb7703",
+"deleted": false,
+"summary": "xxx",
+"description": "",
+"beginOfPeriod": "2015-09-15T14:04:45",
+"endOfPeriod": "2015-09-15T15:04:45",
+"status": 2,
+"location": {
+"address": "79\nАдрес: ул. Лобанка 79",
+"lat": 53.888761,
+"lon": 27.429862
+}
+},
+{
+"guid": "8c8bbf4e-5ddf-11e5-931c-00155dbb7703",
+"deleted": false,
+"summary": "fgmvx",
+"description": "",
+"beginOfPeriod": "2015-09-18T13:30:29",
+"endOfPeriod": "2015-09-18T14:30:29",
+"status": 2,
+"location": {
+"address": "89\nАдрес: ул. Лобанка 89",
+"lat": 53.886317,
+"lon": 27.429713
+}
+},
+{
+"guid": "9e344a74-5ddf-11e5-931c-00155dbb7703",
+"deleted": false,
+"summary": "xvnbf",
+"description": "",
+"beginOfPeriod": "2015-09-18T13:31:04",
+"endOfPeriod": "2015-09-18T14:31:04",
+"status": 2,
+"location": {
+"address": "38\nАдрес: Сухаревская ул. 38",
+"lat": 53.88898,
+"lon": 27.431912
+}
+},
+{
+"guid": "32ede039-5de0-11e5-931c-00155dbb7703",
+"deleted": true,
+"summary": "q",
+"description": "",
+"beginOfPeriod": "2015-09-18T13:35:05",
+"endOfPeriod": "2015-09-18T14:35:05",
+"status": 0,
+"location": {
+"address": "Уара\nАдрес: Уара",
+"lat": 13.355155,
+"lon": 21.506882
+}
+},
+{
+"guid": "d579e7e2-5e04-11e5-931c-00155dbb7703",
+"deleted": false,
+"summary": "к удалению",
+"description": "",
+"beginOfPeriod": "2015-09-18T13:35:05",
+"endOfPeriod": "2015-09-18T14:35:05",
+"status": 2,
+"location": {
+"address": "Уара\nАдрес: Уара",
+"lat": 13.355155,
+"lon": 21.506882
+}
+}
+]
+},
+{
+"monitoringObject": "942219ee-5ddc-11e5-931c-00155dbb7703",
+"events": [
+{
+"guid": "f6269934-5ddc-11e5-931c-00155dbb7703",
+"deleted": true,
+"summary": "note",
+"description": "",
+"beginOfPeriod": "2015-09-18T13:10:00",
+"endOfPeriod": "2015-09-18T14:10:00",
+"status": 0,
+"location": {
+"address": "38\nАдрес: ул. Шаранговича 38",
+"lat": 53.88454,
+"lon": 27.442541
+}
+},
+{
+"guid": "b42a40b3-62bf-11e5-931c-00155dbb7703",
+"deleted": true,
+"summary": "й1",
+"description": "",
+"beginOfPeriod": "2015-09-24T18:24:53",
+"endOfPeriod": "2015-09-24T19:24:53",
+"status": 0,
+"location": {
+"address": "Třebešice\nАдрес: Třebešice",
+"lat": 49.779516,
+"lon": 14.828517
+}
+},
+{
+"guid": "99bd36cb-62c8-11e5-931c-00155dbb7703",
+"deleted": true,
+"summary": "й2",
+"description": "",
+"beginOfPeriod": "2015-09-24T19:28:46",
+"endOfPeriod": "2015-09-24T20:28:46",
+"status": 0,
+"location": {
+"address": "Assongha\nАдрес: Assongha",
+"lat": 13.239986,
+"lon": 21.621067
+}
+},
+{
+"guid": "e08085b4-62c8-11e5-931c-00155dbb7703",
+"deleted": true,
+"summary": "ц3",
+"description": "",
+"beginOfPeriod": "2015-09-24T19:30:39",
+"endOfPeriod": "2015-09-24T20:30:39",
+"status": 0,
+"location": {
+"address": "Казталовский район\nАдрес: Казталовский район",
+"lat": 50.064212,
+"lon": 47.636697
+}
+}
+]
+},
+{
+"monitoringObject": "0b3fe981-39d4-11e5-937f-00155dbb7703",
+"events": [
+{
+"guid": "3b0f53b7-44c5-11e5-bf6b-00155dbb7703",
+"deleted": false,
+"summary": "тема 3",
+"description": "Витина встреча",
+"beginOfPeriod": "2015-08-01T09:00:00",
+"endOfPeriod": "2015-08-01T18:00:00",
+"status": 2,
+"location": {
+"address": "Минск",
+"lat": 53,
+"lon": 27
+}
+},
+{
+"guid": "b8316196-44e2-11e5-bf6b-00155dbb7703",
+"deleted": false,
+"summary": "velcom",
+"description": "обслуживание",
+"beginOfPeriod": "2015-08-17T09:00:00",
+"endOfPeriod": "2015-08-17T21:00:00",
+"status": 1,
+"location": {
+"address": "Минск",
+"lat": 53.869576,
+"lon": 27.538464
+}
+}
+]
+}
+]
 }

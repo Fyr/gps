@@ -10,7 +10,8 @@ var MapObjectsPanel = function() {
 		self.fixPanelHeight();
 		map = new MapAPI('map-canvas');
 		map.init();
-		self.update();
+		// self.update();
+		self.setObjectSettings(function(){ self.update(); });
 		self.initHandlers();
 	};
 	
@@ -18,11 +19,30 @@ var MapObjectsPanel = function() {
 		$('.panel input[type=checkbox]', $self).change(function(){
 			self.checkAll();
 		});
+		$('.panel .fa-sort-alpha-asc', $self).click(function(){
+			$('.fa-sort-alpha-asc').toggle();
+			$('.fa-sort-alpha-desc').toggle();
+			self.sortObjects(0);
+		});
+		$('.panel .fa-sort-alpha-desc', $self).click(function(){
+			$('.fa-sort-alpha-asc').toggle();
+			$('.fa-sort-alpha-desc').toggle();
+			self.sortObjects(1);
+		});
+		/*
 		$('.panel .icon-align-alphabet-back', $self).click(function(){
 			self.sortObjects(1);
 		});
 		$('.panel .icon-align-alphabet', $self).click(function(){
 			self.sortObjects(0);
+		});
+		*/
+		$('.panel .fa-plus-square-o, .panel .fa-minus-square-o', $self).click(function(){
+			self.onToggleAll();
+		});
+		
+		$('.panel .fa-list-alt, .panel .fa-list', $self).click(function(){
+			self.onToggleView();
 		});
 		$('.panel .fa-refresh', $self).click(function(){
 			self.updateStatus();
@@ -58,13 +78,16 @@ var MapObjectsPanel = function() {
 	};
 	
 	this.setObjectSettings = function(nextFn) {
-		sendApiRequest('users', null, function(response){
-			self.settings = {users: []};
-			for(var i = 0; i < response.data.length; i++) {
-				var row = response.data[i];
+		sendApiRequest('getDataForSelect', null, function(response){
+			self.settings = {users: [], icons: {}};
+			for(var i = 0; i < response.data.users.length; i++) {
+				var row = response.data.users[i];
 				self.settings.users.push({name: row.name, guid: row.guid}) ;
 			}
-			
+			for(var i = 0; i < response.data.monitoringObjectIcons.length; i++) {
+				var row = response.data.monitoringObjectIcons[i];
+				self.settings.icons[row.guid] = row.name;
+			}
 			if (nextFn) {
 				nextFn();
 			}
@@ -77,8 +100,6 @@ var MapObjectsPanel = function() {
 			self.clearObjects();
 			self.setObjects(response.data);
 			self.show();
-			
-			self.setObjectSettings();
 		});
 	};
 	
@@ -102,8 +123,12 @@ var MapObjectsPanel = function() {
 			var id = data[i].guid;
 			data[i].checkable = (data[i].topicality) && true;
 			self.setObjectData(id, data[i]);
-			self.setMapObject(id, data[i].type);
+			self.setMapObject(id, self.getIcon(data[i].icon));
 		}
+	};
+	
+	this.getIcon = function(iconID) {
+		return (self.settings.icons[iconID]) ? self.settings.icons[iconID] : '';
 	};
 	
 	this._updatedAgo = function(date) {
@@ -119,9 +144,9 @@ var MapObjectsPanel = function() {
 		self.objects[id].updated_ago = (data.topicality) ? self._updatedAgo(data.topicality.replace(/T/, ' ')) : -1;
 	};
 	
-	this.setMapObject = function(id, type) {
+	this.setMapObject = function(id, icon) {
 		if (self.objects[id].checkable) {
-			map.addMarker(self.objects[id], (type) ? 'icon-' + type : type);
+			map.addMarker(self.objects[id], (icon) ? 'icon:' + icon : '');
 			map.bindMarkerPopup(id, Tmpl('panel-map-object-infowin').render(self.objects[id]));
 		}
 	};
@@ -188,41 +213,77 @@ var MapObjectsPanel = function() {
 		}
 	};
 	
+	this.toggleFolder = function(id, lExpand) {
+		self.objects[id].opened = lExpand;
+		$('#folder_' + id + ' .icon-folder').removeClass('open');
+		if (lExpand) {
+			$('#folder_' + id + ' .folderObjects').show();
+			$('#folder_' + id + ' .icon-folder').addClass('open');
+		} else {
+			$('#folder_' + id + ' .folderObjects').hide();
+		}
+	};
+	
 	this.onToggleFolder = function(id) {
-		self.objects[id].opened = !self.objects[id].opened;
-		$('#folder_' + id + ' .folderObjects').toggle();
-		$('#folder_' + id + ' .icon-folder').toggleClass('open');
+		self.toggleFolder(id, !self.objects[id].opened);
+	};
+	
+	this.onToggleAll = function() {
+		var lExpand = $('.panel .fa-minus-square-o:hidden').length;
+		$('.panel .fa-plus-square-o').toggle();
+		$('.panel .fa-minus-square-o').toggle();
+		
+		for(var id in self.objects) {
+			if (self.objects[id].isFolder) {
+				self.toggleFolder(id, lExpand);
+			}
+		}
+	};
+	
+	this.onToggleView = function() {
+		$('.panel .fa-list-alt').toggle();
+		$('.panel .fa-list').toggle();
+		self.show();
 	};
 	
 	this.render = function() {
 		$('.info', $self).html('');
 		var html = '', aGroups = [], aGroupObjects = {}, toOpen = [];
+		var lGroupView = $('.panel .fa-list-alt:hidden').length;
 		
-		for(var i in self.objects) {
-			if (self.objects[i].isFolder) {
-				aGroups.push(i);
-				aGroupObjects[i] = '';
+		if (lGroupView) {
+			for(var i in self.objects) {
+				if (self.objects[i].isFolder) {
+					aGroups.push(i);
+					aGroupObjects[i] = '';
+				}
+				if (typeof(self.objects[i].opened) == 'undefined') {
+					self.objects[i].opened = false;
+					// toOpen.push(self.objects[i].isFolder);
+				} else if (self.objects[i].opened) {
+					self.objects[i].opened = false;
+					toOpen.push(i);
+				}
 			}
-			if (typeof(self.objects[i].opened) == 'undefined') {
-				self.objects[i].opened = false;
-				// toOpen.push(self.objects[i].isFolder);
-			} else if (self.objects[i].opened) {
-				self.objects[i].opened = false;
-				toOpen.push(i);
+			
+			for(var i in self.objects) {
+				if (!self.objects[i].isFolder && in_array(self.objects[i].parent, aGroups)) {
+					aGroupObjects[self.objects[i].parent]+= Tmpl('panel-map-object-item').render(self.objects[i]);
+				}
 			}
-		}
-		
-		for(var i in self.objects) {
-			if (!self.objects[i].isFolder && in_array(self.objects[i].parent, aGroups)) {
-				aGroupObjects[self.objects[i].parent]+= Tmpl('panel-map-object-item').render(self.objects[i]);
+			
+			for(var i in self.objects) {
+				if (self.objects[i].isFolder) {
+					html+= Tmpl('panel-map-object-folder').render({id: i, title: self.objects[i].title, objects: aGroupObjects[i]});
+				} else if (!self.objects[i].isFolder && !in_array(self.objects[i].parent, aGroups)) {
+					html+= Tmpl('panel-map-object-item').render(self.objects[i]);
+				}
 			}
-		}
-		
-		for(var i in self.objects) {
-			if (self.objects[i].isFolder) {
-				html+= Tmpl('panel-map-object-folder').render({id: i, title: self.objects[i].title, objects: aGroupObjects[i]});
-			} else if (!self.objects[i].isFolder && !in_array(self.objects[i].parent, aGroups)) {
-				html+= Tmpl('panel-map-object-item').render(self.objects[i]);
+		} else {
+			for(var i in self.objects) {
+				if (!self.objects[i].isFolder) {
+					html+= Tmpl('panel-map-object-item').render(self.objects[i]);
+				}
 			}
 		}
 		

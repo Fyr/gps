@@ -39,8 +39,8 @@ var MapAPI = function(canvas) {
 		};
 		
 		var icon;
-		if (type && type.indexOf('icon-') == 0) {
-			icon = new ObjectIcon({iconUrl: 'img/markers/' + type + '.png'});
+		if (type && type.indexOf('icon:') == 0) {
+			icon = new ObjectIcon({iconUrl: type.replace(/icon\:/, '')});
 		} else if (type && type.indexOf('dir-selected-') == 0) {
 			icon = DirIconSelected[parseInt(type.replace(/dir-selected-/, ''))];
 		} else if (type && type.indexOf('dir-') == 0) {
@@ -210,12 +210,12 @@ var ObjectIcon = L.Icon.extend({
 	}
 });
 
-var StartPoint = new RouteIcon({iconUrl: 'img//markers/start.png'});
-var StartPointSelected = new RouteIcon({iconUrl: 'img//markers/start-selected.png'});
-var FinishPoint = new RouteIcon({iconUrl: 'img//markers/finish.png'});
-var FinishPointSelected = new RouteIcon({iconUrl: 'img//markers/finish-selected.png'});
-var ParkingPoint = new RouteIcon({iconUrl: 'img//markers/parking.png'});
-var ParkingPointSelected = new RouteIcon({iconUrl: 'img//markers/parking-selected.png'});
+var StartPoint = new RouteIcon({iconUrl: 'img/markers/start.png'});
+var StartPointSelected = new RouteIcon({iconUrl: 'img/markers/start-selected.png'});
+var FinishPoint = new RouteIcon({iconUrl: 'img/markers/finish.png'});
+var FinishPointSelected = new RouteIcon({iconUrl: 'img/markers/finish-selected.png'});
+var ParkingPoint = new RouteIcon({iconUrl: 'img/markers/parking.png'});
+var ParkingPointSelected = new RouteIcon({iconUrl: 'img/markers/parking-selected.png'});
 
 var DirIcon = [];
 var DirIconSelected = [];

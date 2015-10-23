@@ -1,9 +1,9 @@
 var CalendarObjectsPanel = function() {
 	var self = this;
 	
-	self.PLANNED = locale.eventPlanned;
-	self.OCCURED = locale.eventOccured;
-	self.FAILED = locale.eventFailed;
+	self.PLANNED = 0;
+	self.OCCURED = 1;
+	self.FAILED = 2;
 	
 	extend(this, MapObjectsPanel);
 	
@@ -50,11 +50,13 @@ var CalendarObjectsPanel = function() {
 			var data = objects[j].events;
 			for(var i = 0; i < data.length; i++) {
 				var event = data[i];
+				event.id = data[i].guid;
 				event.title = data[i].summary;
 				event.start = data[i].beginOfPeriod.replace(/T/, ' ');
 				event.end = data[i].endOfPeriod.replace(/T/, ' ');
+				event.statusName = self.getStatusName(event.status);
 				self.events[data[i].status].push(event);
-				self.allEvents[data[i].id] = event;
+				self.allEvents[event.id] = event;
 			}
 		}
 	};
@@ -70,6 +72,7 @@ var CalendarObjectsPanel = function() {
 	};
 	
 	this.showEvent = function(event_id) {
+		console.log(event_id);
 		var event = self.getEvent(event_id);
 		dialog = new Popup({
 			title: event.title,
@@ -184,5 +187,13 @@ var CalendarObjectsPanel = function() {
 	
 	this.fixPanelHeight = function() {
 		
-	}
+	};
+	
+	this.getStatusName = function(status) {
+		var aNames = {};
+		aNames[self.PLANNED] = locale.eventPlanned;
+		aNames[self.OCCURED] = locale.eventOccured;
+		aNames[self.FAILED] = locale.eventFailed;
+		return aNames[status];
+	};
 }

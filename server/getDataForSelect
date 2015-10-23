@@ -1,0 +1,135 @@
+{
+"status": "OK",
+"data": {
+"models": [
+{
+"guid": "53b7d5da-4a2e-11e5-bf6b-00155dbb7703",
+"name": "Android"
+},
+{
+"guid": "521dc481-fd3d-11e4-a0a3-00155dbb7703",
+"name": "Ruptela PRO-3"
+},
+{
+"guid": "a196948f-1a81-11e5-9cf6-00155dbb7703",
+"name": "Телтоника"
+}
+],
+"protocols": [
+{
+"guid": "a145fa4a-0058-11e5-9d6a-00155dbb7703",
+"name": "Ruptela"
+},
+{
+"guid": "b1ef5356-0058-11e5-9d6a-00155dbb7703",
+"name": "WialonIPS"
+},
+{
+"guid": "b645ffcc-1a81-11e5-9cf6-00155dbb7703",
+"name": "Телтоника"
+}
+],
+"monitoringObjects": [
+{
+"guid": "551b1fc2-560b-11e5-931c-00155dbb7703",
+"name": "new"
+},
+{
+"guid": "60379d22-5ab6-11e5-931c-00155dbb7703",
+"name": "HTC"
+},
+{
+"guid": "942219ee-5ddc-11e5-931c-00155dbb7703",
+"name": "note2"
+},
+{
+"guid": "0b3fe981-39d4-11e5-937f-00155dbb7703",
+"name": "Ford"
+},
+{
+"guid": "8d889b13-39d4-11e5-937f-00155dbb7703",
+"name": "Павел"
+},
+{
+"guid": "878e6969-4a2e-11e5-bf6b-00155dbb7703",
+"name": "zte"
+}
+],
+"monitoringObjectFolders": [
+{
+"guid": "0dfafbc3-5606-11e5-931c-00155dbb7703",
+"name": "Группа 1"
+},
+{
+"guid": "693c032f-5608-11e5-931c-00155dbb7703",
+"name": "Группа 2"
+}
+],
+"users": [
+{
+"guid": "aa00559e-ad84-4494-88fd-f0826edc46f0",
+"name": "<Не указан>"
+},
+{
+"guid": "20a32c97-1fd0-11e5-909d-00155dbb7703",
+"name": "admin"
+},
+{
+"guid": "5e0c0c6b-15a8-11e5-b0e5-00155dbb7703",
+"name": "apiuser"
+},
+{
+"guid": "edbbb624-f564-11e4-a0a3-00155dbb7703",
+"name": "Администратор"
+},
+{
+"guid": "077cc94a-39ca-11e5-937f-00155dbb7703",
+"name": "Дилер Velcom"
+},
+{
+"guid": "f453a6de-39ca-11e5-937f-00155dbb7703",
+"name": "ПУ Velcom"
+},
+{
+"guid": "5feda490-5881-11e5-931c-00155dbb7703",
+"name": "6555677"
+},
+{
+"guid": "b9728818-5881-11e5-931c-00155dbb7703",
+"name": "111"
+},
+{
+"guid": "a390706a-39cc-11e5-937f-00155dbb7703",
+"name": "123456"
+},
+{
+"guid": "a52153a0-39d8-11e5-937f-00155dbb7703",
+"name": "Витя"
+},
+{
+"guid": "6158e611-39d5-11e5-937f-00155dbb7703",
+"name": "Паша"
+}
+],
+"monitoringObjectIcons": [
+{
+"guid": "9d26d3ea-763d-11e5-a679-00155dbb7703",
+"name": "/img/markers/objects/android.png"
+},
+{
+"guid": "d15ebbca-763f-11e5-a679-00155dbb7703",
+"name": "/img/markers/objects/car.png"
+}
+],
+"poiIcons": [
+{
+"guid": "3273a654-763e-11e5-a679-00155dbb7703",
+"name": "/img/markers/poi/azs.png"
+},
+{
+"guid": "c65cd866-763f-11e5-a679-00155dbb7703",
+"name": "/img/markers/poi/shop.png"
+}
+]
+}
+}

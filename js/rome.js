@@ -975,7 +975,7 @@ module.exports = _dereq_('./src/contra.emitter.js');
             this._ordinalParseLenient = new RegExp(this._ordinalParse.source + '|' + /\d{1,2}/.source);
         },
 
-        _months : 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
+        _months : 'Январь_Февраль_Март_Апрель_Май_Июнь_Июль_Август_Сентябрь_Октбрь_Ноябрь_Декабрь'.split('_'),
         months : function (m) {
             return this._months[m.month()];
         },
@@ -1016,17 +1016,17 @@ module.exports = _dereq_('./src/contra.emitter.js');
             }
         },
 
-        _weekdays : 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
+        _weekdays : 'Воскресенье_Понедельник_Вторник_Среда_Четверг_Пятница_Суббота'.split('_'),
         weekdays : function (m) {
             return this._weekdays[m.day()];
         },
 
-        _weekdaysShort : 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
+        _weekdaysShort : 'Вос_Пон_Втр_Срд_Чет_Пят_Суб'.split('_'),
         weekdaysShort : function (m) {
             return this._weekdaysShort[m.day()];
         },
 
-        _weekdaysMin : 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
+        _weekdaysMin : 'Вс_Пн_Вт_Ср_Чт_Пт_Сб'.split('_'),
         weekdaysMin : function (m) {
             return this._weekdaysMin[m.day()];
         },

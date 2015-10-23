@@ -13,23 +13,16 @@ var GeoObjectsPanel = function() {
 				self.setObjects(response.data);
 				self.show();
 				
-				/*
-				sendApiRequest('getGeoobjectsSettings', null, function(response){
-					self.settings = response.data;
-				});
-				*/
-				self.settings = {
-					"types": [
-						{
-							"guid": "circle",
-							"name": "Окружность"
-						},
-						{
-							"guid": "polygon",
-							"name": "Полигон"
-						}
-					]
-				};
+				self.settings.types = [
+					{
+						"guid": "circle",
+						"name": "Окружность"
+					},
+					{
+						"guid": "polygon",
+						"name": "Полигон"
+					}
+				];
 			}
 		});
 	};
