@@ -136,6 +136,13 @@ var GeoObjectsPanel = function() {
 			// theme: 'bootstrap'
 		});
 		
+		$('#iconsSelectBox').ImageSelect({ 
+			height: 16,
+			width: 75,
+			dropdownWidth: 400,
+			borderColor:'#fff200'
+		});
+		
 		$('#editForm [name="radius"]').focus(function(){
 			$(this).removeClass('error');
 			$(this).parent().find('span.note.error').remove();
@@ -218,4 +225,4 @@ var GeoObjectsPanel = function() {
 			self.dialog.open();
 		});
 	};
-}
+};

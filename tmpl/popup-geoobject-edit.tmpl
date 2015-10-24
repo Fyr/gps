@@ -26,11 +26,11 @@
 	</div>
 	<div class="line">
 		<label>Иконка:</label>
-		<select>
+		<select class="noStyler" id="iconsSelectBox" name="iconThumbs">
 {%
 	for(var id in o.settings.iconsPoi) {
 %}
-			<option value="{%=id%}" data-image="{%=o.settings.iconsPoi[id]%}">&nbsp;
+		<option value="{%=id%}">{%=o.settings.iconsPoi[id]%}</option>
 {%
 	}
 %}

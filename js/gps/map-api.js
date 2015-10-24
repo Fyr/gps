@@ -114,7 +114,6 @@ var MapAPI = function(canvas) {
 	
 	this.addCircle = function(obj) {
 		// var i = Object.keys(self.circles).length; // color = self.colors[i];
-		console.log(obj.color);
 		var color = (obj.color) ? obj.color : '#136aec';
 		self.circles[obj.id] = L.circle([obj.lat, obj.lon], obj.radius, {color: color, weight: 1});
 	};
@@ -141,8 +140,9 @@ var MapAPI = function(canvas) {
 	};
 	
 	this.addPolygon = function(obj) {
-		var i = Object.keys(self.polygons).length;
-		self.polygons[obj.id] = L.polygon(obj.latlons, {color: self.colors[i], weight: 1});
+		// var i = Object.keys(self.polygons).length; var color = self.colors[i];
+		var color = (obj.color) ? obj.color : '#136aec';
+		self.polygons[obj.id] = L.polygon(obj.latlons, {color: color, weight: 1});
 	};
 	
 	this.getPolygon = function(id) {

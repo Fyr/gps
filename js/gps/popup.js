@@ -17,7 +17,7 @@ var Popup = function(params) {
 		$('.popup').show();
 		
 		$('input[type=checkbox]').styler();
-		$('select').styler();
+		$('select:not(.noStyler)').styler();
 		$('.rome-datetime').each(function(){
 			rome(this);
 		});
