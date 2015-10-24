@@ -65,6 +65,31 @@ function setCurrMenu(n, m) {
 			label: 'меню',
 			prependTo: '.header'
 		});
+		
+		$('.menu li a').click(function(){
+		
+			if ( $(this).next().is('.subMenuLevel3') ) {
+				$('.header .menu ul.subMenuLevel3').stop().slideUp();
+				$('.header .subMenu li').removeClass('activeOne');
+			} 
+			else {
+				$('.header .menu li ul').stop().slideUp();
+				$('.header .menu li').removeClass('activeOne');
+			}
+		
+            if ( $(this).next().is('ul') ) {
+				$(this).closest('li').addClass('activeOne');
+                $(this).next('ul').stop().slideToggle();
+            }
+        });
+        
+        $(document).on('click touchstart', function(e) {
+			if (!$.contains($('.header .menu').get(0), e.target)  ) {
+				$('.header .menu li ul').stop().slideUp();
+				$('.header .menu li').removeClass('activeOne');
+			}
+		});
+		
 	});
 }
 

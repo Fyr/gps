@@ -17,7 +17,15 @@ var ReportObjectsPanel = function() {
 	this.renderReportForm = function(data) {
 		$('#reportForm').append(Tmpl('report-form').render(data));
 		$('.rome-datetime').each(function(){
-			rome(this);
+			var date = new Date();
+			if (this.name == 'EndOfPeriod') {
+				date.setHours(23);
+				date.setMinutes(59);
+			} else {
+				date.setHours(0);
+				date.setMinutes(0);
+			}
+			rome(this, {initialValue: date});
 		});
 		$('.styler-select').styler();
 	};

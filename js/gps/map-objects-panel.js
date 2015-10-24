@@ -79,14 +79,20 @@ var MapObjectsPanel = function() {
 	
 	this.setObjectSettings = function(nextFn) {
 		sendApiRequest('getDataForSelect', null, function(response){
-			self.settings = {users: [], icons: {}};
+			self.settings = {users: [], iconsAll: {}, iconsPoi: {}, iconsObjects: {}};
 			for(var i = 0; i < response.data.users.length; i++) {
 				var row = response.data.users[i];
 				self.settings.users.push({name: row.name, guid: row.guid}) ;
 			}
 			for(var i = 0; i < response.data.monitoringObjectIcons.length; i++) {
 				var row = response.data.monitoringObjectIcons[i];
-				self.settings.icons[row.guid] = row.name;
+				self.settings.iconsObjects[row.guid] = row.name;
+				self.settings.iconsAll[row.guid] = row.name;
+			}
+			for(var i = 0; i < response.data.poiIcons.length; i++) {
+				var row = response.data.poiIcons[i];
+				self.settings.iconsPoi[row.guid] = row.name;
+				self.settings.iconsAll[row.guid] = row.name;
 			}
 			if (nextFn) {
 				nextFn();
@@ -128,7 +134,7 @@ var MapObjectsPanel = function() {
 	};
 	
 	this.getIcon = function(iconID) {
-		return (self.settings.icons[iconID]) ? self.settings.icons[iconID] : '';
+		return (self.settings.iconsAll[iconID]) ? self.settings.iconsAll[iconID] : '';
 	};
 	
 	this._updatedAgo = function(date) {

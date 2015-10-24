@@ -113,8 +113,10 @@ var MapAPI = function(canvas) {
 	};
 	
 	this.addCircle = function(obj) {
-		var i = Object.keys(self.circles).length;
-		self.circles[obj.id] = L.circle([obj.lat, obj.lon], obj.radius, {color: self.colors[i]});
+		// var i = Object.keys(self.circles).length; // color = self.colors[i];
+		console.log(obj.color);
+		var color = (obj.color) ? obj.color : '#136aec';
+		self.circles[obj.id] = L.circle([obj.lat, obj.lon], obj.radius, {color: color, weight: 1});
 	};
 	
 	this.getCircle = function(id) {
@@ -140,7 +142,7 @@ var MapAPI = function(canvas) {
 	
 	this.addPolygon = function(obj) {
 		var i = Object.keys(self.polygons).length;
-		self.polygons[obj.id] = L.polygon(obj.latlons, {color: self.colors[i]});
+		self.polygons[obj.id] = L.polygon(obj.latlons, {color: self.colors[i], weight: 1});
 	};
 	
 	this.getPolygon = function(id) {

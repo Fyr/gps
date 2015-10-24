@@ -56,6 +56,11 @@ var GeoObjectsPanel = function() {
 		if (self.objects[id].checkable) {
 			if (self.objects[id].type == 'circle') {
 				map.addCircle(self.objects[id]);
+				var icon = self.getIcon(self.objects[id].icon);
+				if (icon) {
+					var obj = self.objects[id];
+					map.addMarker({id: id + '-icon', lat: obj.lat, lon: obj.lon, title: obj.name}, 'icon:' + icon);
+				}
 			} else if (self.objects[id].type == 'polygon') {
 				map.addPolygon(self.objects[id]);
 			}
@@ -73,6 +78,10 @@ var GeoObjectsPanel = function() {
 	this.showObject = function(id) {
 		if (self.objects[id].type == 'circle') {
 			map.showCircle(id);
+			var icon = self.getIcon(self.objects[id].icon);
+			if (icon) {
+				map.showMarker(id + '-icon');
+			}
 		}else if (self.objects[id].type == 'polygon') {
 			map.showPolygon(id);
 		}
@@ -81,6 +90,10 @@ var GeoObjectsPanel = function() {
 	this.hideObject = function(id) {
 		if (self.objects[id].type == 'circle') {
 			map.hideCircle(id);
+			var icon = self.getIcon(self.objects[id].icon);
+			if (icon) {
+				map.hideMarker(id + '-icon');
+			}
 		} else if (self.objects[id].type == 'polygon') {
 			map.hidePolygon(id);
 		}
@@ -104,6 +117,24 @@ var GeoObjectsPanel = function() {
 			content: Tmpl('popup-geoobject-edit').render(self)
 		});
 		self.dialog.open();
+		
+		$('.miniColors').minicolors({
+	    	animationSpeed: 50,
+	    	animationEasing: 'swing',
+			change: null,
+			changeDelay: 0,
+			// control: 'hue',
+			defaultValue: '',
+			hide: null,
+			hideSpeed: 100,
+			inline: false,
+			letterCase: 'lowercase',
+			opacity: false,
+			position: 'bottom left',
+			show: null,
+			showSpeed: 100,
+			// theme: 'bootstrap'
+		});
 		
 		$('#editForm [name="radius"]').focus(function(){
 			$(this).removeClass('error');

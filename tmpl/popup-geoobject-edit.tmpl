@@ -3,7 +3,7 @@
 		<label>Название:</label>
 		<input type="text" name="name" onkeyup="objectsPanel.updateFormState()" />
 	</div>
-		<div class="line">
+	<div class="line">
 		<label>Тип зоны:</label>
 		<select class="styler" name="type" onchange="objectsPanel.changeType()">
 {%
@@ -19,6 +19,22 @@
 	<div class="line type type-circle">
 		<label>Радиус:</label>
 		<input type="text" class="" name="radius" onchange="objectsPanel.updateFormState()" style="width: 50px" />
+	</div>
+	<div class="line">
+		<label>Цвет заливки:</label>
+		<input type="text" class="miniColors" name="color" style="width: 50px" />
+	</div>
+	<div class="line">
+		<label>Иконка:</label>
+		<select>
+{%
+	for(var id in o.settings.iconsPoi) {
+%}
+			<option value="{%=id%}" data-image="{%=o.settings.iconsPoi[id]%}">&nbsp;
+{%
+	}
+%}
+		</select>
 	</div>
 	<span class="type type-circle">
 		Кликните по карте чтобы задать центр геозоны

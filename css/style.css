@@ -66,7 +66,7 @@ ul { list-style: none; margin: 0; padding: 0;}
 	.header .menu { float: right;}
 		.header .menu li { float: left; text-align: center; font-size: 14px; color: #171609; position: relative; }
 		.header .menu li a { color: #171609; display: block; padding: 11px 0 0 0; height: 40px; /*min-width: 75px;*/ min-width: 60px; box-sizing: border-box;}
-		.header .menu li.active a, .header .menu li:hover a { background: #e5e5e5; font-weight: bold; text-shadow: 0px -1px 1px #fff; }
+		.header .menu li.active a, .header .menu li.activeOne a, .header .menu li:hover a { background: #e5e5e5; font-weight: bold; text-shadow: 0px -1px 1px #fff; }
 		.header .menu li:nth-child(3) a { min-width: 134px;}
 		.header .menu li:nth-child(5) a { min-width: 120px; padding-top: 1px;}
 		.header .menu li:nth-child(6) a { min-width: 166px;}
@@ -77,7 +77,8 @@ ul { list-style: none; margin: 0; padding: 0;}
 		.header .subMenu.reports { /*width: 346px;*/ width: 450px; left: -105px}
 		.header .subMenu li { float: left; text-align: center; color: #68696a; font-size: 12px; }
 		.header .subMenu li a { color: #68696a; display: block; padding: 7px 15px 0 15px; height: 30px; min-width: 75px; box-sizing: border-box; text-shadow: none !important; font-weight: normal !important; }
-		.header .subMenu li.active a, .header .subMenu li a:hover { background: #68696a; color: #fff; text-shadow: none; font-weight: normal;  }
+		.header .subMenu li.active > a, .header .subMenu li a:hover { background: #68696a; color: #fff; text-shadow: none; font-weight: normal;  }
+		.header .subMenu li.activeOne > a { background: #68696a;  color: #fff; }
 
 
 		.header .subMenuLevel3 { display: none; background: #e5e5e5; position: absolute; z-index: 100; width: 100%; min-width: 190px; }
@@ -90,8 +91,8 @@ ul { list-style: none; margin: 0; padding: 0;}
 		.header .subMenu li:nth-child(6)  a { min-width: 0;}
 		
 
-		.header .menu li:hover .subMenu { display: block;}
-		.header .menu li:hover .subMenu li:hover .subMenuLevel3  { display: block;}
+		/*.header .menu li:hover .subMenu { display: block;}*/
+		/*.header .menu li:hover .subMenu li:hover .subMenuLevel3  { display: block;}*/
 	
 .block { border: 1px solid #e5e5e5; margin-bottom: 10px;}
 	.block .title { border-bottom: 1px solid #e5e5e5; color: #171609; font-weight: bold; font-size: 14px; padding: 0 0 0 10px; height: 33px; line-height: 33px; }
