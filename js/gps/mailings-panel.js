@@ -37,11 +37,15 @@ var MailingsPanel = function() {
 	
 	this.refresh = function() {
 		sendApiRequest('mailings', null, function(response){
-			for(var i = 0; i < response.data.length; i++) {
-				var data = response.data[i];
-				self.items[data.guid] = data;
+			if (response.data.length && !response.data[0].monitoringObject) {
+				showJsonError('Incorrect API-server response');
+			} else {
+				for(var i = 0; i < response.data.length; i++) {
+					var data = response.data[i];
+					self.items[data.guid] = data;
+				}
+				self.show();
 			}
-			self.show();
 		});
 	};
 	

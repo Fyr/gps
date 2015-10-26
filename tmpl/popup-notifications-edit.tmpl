@@ -18,15 +18,18 @@
 	</div>
 	<div class="line">
 		<label>Период действия:</label>
-		с&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="rome-datetime" name="start" value="{%=(_item ? _item.start : '')%}" onchange="notifyPanel.updateFormState()" style="width: 114px" />
+{%
+	var date = new Date();
+%}
+		с&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="rome-datetime" name="start" value="{%=(_item ? _item.start : date.toSqlDate() + ' 00:00')%}" onchange="notifyPanel.updateFormState()" placeholder="гггг-мм-дд чч:мм" style="width: 114px" />
 	</div>
 	<div class="line">
 		<label></label>
-		по <input type="text" class="rome-datetime" name="end" value="{%=(_item ? _item.end : '')%}" onchange="notifyPanel.updateFormState()" style="width: 114px" />
+		по <input type="text" class="rome-datetime" name="end" value="{%=(_item ? _item.end : date.toSqlDate() + ' 23:59')%}" onchange="notifyPanel.updateFormState()" style="width: 114px" />
 	</div>
 	<div class="line">
 		<label>Тип уведомления:</label>
-		<select name="notifyType">
+		<select name="notifyType" onchange="$('.notifyType').hide(); $('.notifyType-' + $(this).val()).show();">
 {%
 	for(var i = 0; i < o.settings.notifyType.length; i++) {
 		var item = o.settings.notifyType[i];
@@ -37,6 +40,14 @@
 	}
 %}
 		</select>
+	</div>
+	<div class="line notifyType notifyType-1" {%if (!(!_item || _item.notifyType.guid == 1)) { %} style="display: none" {% } %}>
+		<label>Email:</label>
+		<input type="text" name="email" value="" />
+	</div>
+	<div class="line notifyType notifyType-2" {%if (!(_item && _item.notifyType.guid == 2)) { %} style="display: none" {% } %}>
+		<label>Тел.:</label>
+		<input type="text" name="phone" value="" />
 	</div>
 	<div class="line">
 		<label>Источник события:</label>

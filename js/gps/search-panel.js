@@ -21,14 +21,14 @@ var SearchPanel = function() {
 			minChars: 3,
 			delay: 500,
 			source: function(q, callGetItems){
-				sendApiRequest('getLocation', {adress: q}, function(response){
+				sendApiRequest('getLocation', {q: q, format: 'json'}, function(response){
 					var suggestions = [];
 					for (var i = 0; i < response.data.length; i++) { 
 						var marker = response.data[i];
 						marker.id = self.genMarkerId();
-						marker.title = marker.adress;
-						marker.lat = response.data[i].location.lat;
-						marker.lon = response.data[i].location.lon;
+						marker.title = marker.display_name;
+						marker.lat = response.data[i].lat;
+						marker.lon = response.data[i].lon;
 						suggestions.push(marker);
 					} 
 					callGetItems(suggestions);

@@ -21,6 +21,9 @@ var RoutesPointsPanel = function() {
 	};
 	
 	this.onMapClick = function(e) {
+		if (!e.latlng.lon) {
+			e.latlng.lon = e.latlng.lng;
+		}
 		sendApiRequest('getAdress', {params: json_encode(e.latlng)}, function(response){
 			var marker = {
 				id: self.genMarkerId(),

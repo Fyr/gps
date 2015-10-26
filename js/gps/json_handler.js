@@ -14,7 +14,8 @@ function checkJson(response) {
             if (response.status == 'OK') {
                 return true;
             } else {
-                showJsonError((response.status == 'ERROR' && response.errMsg) ? response.errMsg : 'Incorrect API-server response');
+            	var errMsg = response.errMsg || response.message;
+                showJsonError((response.status.toUpperCase == 'ERROR' && errMsg) ? response.errMsg : 'Incorrect API-server response');
             }
         } else {
             showJsonError('Incorrect API-server response');

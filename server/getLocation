@@ -1,33 +1,43 @@
-﻿{
-  "status": "OK",
-  "data": [
-    {
-      "adress": "Магазин Беларусачка",
-      "location": {
-          "lat": 53.88796424535638,
-          "lon": 27.43133783340454
-      }
-    },
-    {
-      "adress": "Магазин Рублевский",
-      "location": {
-          "lat": 53.88815394128542,
-          "lon": 27.42305517196655
-      }
-    },
-    {
-      "adress": "Гипермаркет Maximus/Preston",
-      "location": {                          	
-          "lat": 53.88687663874608,
-          "lon": 27.42809772491455
-      }
-    },
-    {
-      "adress": "Супермаркет Гиппо",
-      "location": {
-          "lat": 53.88715486638655,
-          "lon": 27.422819137573242
-      }
-    }
-  ]
+{
+"status": "OK",
+"data": [
+{
+"place_id": "129228",
+"licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright",
+"osm_type": "node",
+"osm_id": "320718908",
+"boundingbox": [
+"53.9089469909668",
+"53.9089508056641",
+"27.4897136688232",
+"27.4897155761719"
+],
+"lat": "53.9089481",
+"lon": "27.4897141",
+"display_name": "Сердича, улица Притыцкого, Медвежино, Фрунзенский район, Минск, 722052, Беларусь",
+"class": "highway",
+"type": "bus_stop",
+"importance": 0.001,
+"icon": "http://geocoder.softmax.by/nominatim/images/mapicons/transport_bus_stop2.p.20.png"
+},
+{
+"place_id": "129229",
+"licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright",
+"osm_type": "node",
+"osm_id": "320718909",
+"boundingbox": [
+"53.9089469909668",
+"53.9089508056641",
+"27.4897136688232",
+"27.4897155761719"
+],
+"lat": "53.9289481",
+"lon": "27.4697141",
+"display_name": "Не Сердича, улица Притыцкого, Медвежино, Фрунзенский район, Минск, 722052, Беларусь",
+"class": "highway",
+"type": "bus_stop",
+"importance": 0.001,
+"icon": "http://geocoder.softmax.by/nominatim/images/mapicons/transport_bus_stop2.p.20.png"
+}
+]
 }
