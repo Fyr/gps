@@ -118,31 +118,6 @@ var GeoObjectsPanel = function() {
 		});
 		self.dialog.open();
 		
-		$('.miniColors').minicolors({
-	    	animationSpeed: 50,
-	    	animationEasing: 'swing',
-			change: null,
-			changeDelay: 0,
-			// control: 'hue',
-			defaultValue: '',
-			hide: null,
-			hideSpeed: 100,
-			inline: false,
-			letterCase: 'lowercase',
-			opacity: false,
-			position: 'bottom left',
-			show: null,
-			showSpeed: 100,
-			// theme: 'bootstrap'
-		});
-		
-		$('#iconsSelectBox').ImageSelect({ 
-			height: 16,
-			width: 75,
-			dropdownWidth: 400,
-			borderColor:'#fff200'
-		});
-		
 		$('#editForm [name="radius"]').focus(function(){
 			$(this).removeClass('error');
 			$(this).parent().find('span.note.error').remove();

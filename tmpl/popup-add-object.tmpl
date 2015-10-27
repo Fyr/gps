@@ -8,6 +8,18 @@
 		<input type="text" name="imei" onkeyup="objectsPanel.updateFormState()" />
 	</div>
 	<div class="line">
+		<label>Иконка:</label>
+		<select class="noStyler iconsSelect" name="icon">
+{%
+	for(var id in o.settings.iconsObjects) {
+%}
+		<option value="{%=id%}">{%=o.settings.iconsObjects[id]%}</option>
+{%
+	}
+%}
+		</select>
+	</div>
+	<div class="line">
 		<label>Объект доступен для следующих пользователей:</label>
 		<div class="block">
 			<div class="info niceScroller" style="max-height: 200px;">
