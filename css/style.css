@@ -191,7 +191,9 @@ ul { list-style: none; margin: 0; padding: 0;}
 	width: 13px;
 	height: 10px;
 	margin: 2px 0 0 1px;
-	background: url('../img/sprite.png') no-repeat -89px -270px;
+	background-image: url('../img/sprite.png');
+	background-repeat: no-repeat;
+	background-position: -89px -270px;
 }
 
 .jq-checkbox.focused {

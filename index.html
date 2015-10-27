@@ -63,7 +63,7 @@ $(function(){
 		fixPanelHeight();
 		niceScroller('.newsBlock .description');
 		
-		sendApiRequest('getFiles', {type: 'instructions'}, function(response) {
+		sendApiRequest('getFiles', {type: 'help'}, function(response) {
 			$('.instructionsBlock .description').html(Tmpl('docs').render(response.data));
 		});
 		
@@ -130,9 +130,9 @@ $(function(){
 					<a href="javascript: void(0)" class="item add-object">
 						<img src="./img/add_object.png" alt="" />
 					</a>
-					<a href="javascript: void(0)" class="item favorites">
+					<!--a href="javascript: void(0)" class="item favorites">
 						<img src="./img/favorities.png" alt="" />
-					</a>
+					</a-->
 					<a href="javascript: void(0)" class="item techsupport">
 						<img src="./img/techsupport.png" alt="" />
 					</a>
@@ -156,9 +156,9 @@ $(function(){
 						<a href="javascript: void(0)" class="item add-object">
 							<img src="./img/add_object.png" alt="" />
 						</a>
-						<a href="javascript: void(0)" class="item favorites">
+						<!--a href="javascript: void(0)" class="item favorites">
 							<img src="./img/favorities.png" alt="" />
-						</a>
+						</a-->
 						<a href="javascript: void(0)" class="item techsupport">
 							<img src="./img/techsupport.png" alt="" />
 						</a>

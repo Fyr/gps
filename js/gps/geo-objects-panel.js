@@ -159,9 +159,8 @@ var GeoObjectsPanel = function() {
 						.addClass('error')
 						.parent().append('<span class="note error">' + locale.radiusRequired + '</span>');
 				}
-				
-				$('#eventForm [name="location[lat]"]').val(e.latlng.lat);
-				$('#eventForm [name="location[lon]"]').val(e.latlng.lng);
+				$('#editForm [name="location[lat]"]').val(e.latlng.lat);
+				$('#editForm [name="location[lon]"]').val(e.latlng.lng);
 				self.miniMap.clearCircles();
 				self.miniMap.addCircle({id: 'edit-circle', lat: e.latlng.lat, lon: e.latlng.lng, radius: radius});
 				self.miniMap.showCircle('edit-circle');
