@@ -95,12 +95,6 @@ var CalendarObjectsPanel = function() {
 	};
 	
 	this.edit = function() {
-		var id = Object.keys(self.objects)[0];
-		var ids = self.getCheckedIds();
-		if (ids.length) {
-			id = ids[0];
-		}
-		
 		dialog = new Popup({
 			title: locale.createEvent,
 			content: Tmpl('popup-event-edit').render({objectOptions: self.getObjectOptions()})
@@ -109,7 +103,7 @@ var CalendarObjectsPanel = function() {
 		
 		var miniMap = new MapAPI('minimap-canvas');
 		miniMap.init();
-		miniMap.showAt(self.objects[id]);
+		miniMap.showAt(self.getInitialLocation());
 		miniMap.bindMapClick(function(e){
 			$('#eventForm [name="location[lat]"]').val(e.latlng.lat);
 			$('#eventForm [name="location[lon]"]').val(e.latlng.lng);
@@ -131,9 +125,9 @@ var CalendarObjectsPanel = function() {
 					for (var i = 0; i < response.data.length; i++) { 
 						var marker = response.data[i];
 						marker.id = self.genMarkerId();
-						marker.title = marker.adress;
-						marker.lat = response.data[i].location.lat;
-						marker.lon = response.data[i].location.lon;
+						marker.title = marker.display_name;
+						marker.lat = response.data[i].lat;
+						marker.lon = response.data[i].lon;
 						suggestions.push(marker);
 					} 
 					callGetItems(suggestions);

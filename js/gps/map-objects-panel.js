@@ -139,7 +139,7 @@ var MapObjectsPanel = function() {
 	
 	this._updatedAgo = function(date) {
 		var now = new Date();
-		return Math.floor((now.getTime() - Date.fromSqlDate(date).getTime()) / Date.HOUR);
+		return Math.floor((now.getTime() - date.getTime()) / Date.HOUR);
 	};
 	
 	this.setObjectData = function(id, data) {
@@ -147,7 +147,15 @@ var MapObjectsPanel = function() {
 		self.objects[id].id = id;
 		self.objects[id].checked = (data.checked) ? data.checked : false;
 		self.objects[id].title = data.name;
-		self.objects[id].updated_ago = (data.topicality) ? self._updatedAgo(data.topicality.replace(/T/, ' ')) : -1;
+		
+		if (data.topicality) {
+			var date = Date.fromSqlDate(data.topicality.replace(/T/, ' '));
+			self.objects[id].updated_ago = self._updatedAgo(date);
+			self.objects[id].updated_date = date.fullDate('rus') + ' ' + date.hoursMinutes('rus');
+		} else {
+			self.objects[id].updated_ago = -1;
+			self.objects[id].updated_date = '-';
+		}
 	};
 	
 	this.setMapObject = function(id, icon) {
@@ -417,5 +425,17 @@ var MapObjectsPanel = function() {
 	
 	this.updateFormState = function() {
 		$('#addObjectForm .btn').get(0).disabled = !self.isFormValid();
+	};
+	
+	this.getInitialLocation = function() {
+		var id = Object.keys(self.objects)[0];
+		var ids = self.getCheckedIds();
+		if (ids.length) {
+			id = ids[0];
+		}
+		if (self.objects[id].lat && self.objects[id].lon) {
+			return {lat: self.objects[id].lat, lon: self.objects[id].lon};
+		}
+		return {lat: 0, lon: 0}; // default location
 	};
 };

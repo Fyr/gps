@@ -188,8 +188,6 @@
 "name": "zte",
 "icon": "00000000-0000-0000-0000-000000000000",
 "topicality": "2015-10-21T12:00:23",
-"lat": 0,
-"lon": 0,
 "address": null,
 "alert": null,
 "params": [

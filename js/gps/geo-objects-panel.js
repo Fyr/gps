@@ -106,12 +106,6 @@ var GeoObjectsPanel = function() {
 	};
 	
 	this.edit = function() {
-		var id = Object.keys(self.objects)[0];
-		var ids = self.getCheckedIds();
-		if (ids.length) {
-			id = ids[0];
-		}
-		
 		self.dialog = new Popup({
 			title: locale.addObject,
 			content: Tmpl('popup-geoobject-edit').render(self)
@@ -125,7 +119,7 @@ var GeoObjectsPanel = function() {
 		
 		var miniMap = new MapAPI('minimap-canvas');
 		miniMap.init();
-		miniMap.showAt(self.objects[id]);
+		miniMap.showAt(self.getInitialLocation());
 		miniMap.bindMapClick(function(e){
 			var radius = $('[name="radius"]').val();
 			if ($('#editForm [name="type"]').val() == 'circle') {
