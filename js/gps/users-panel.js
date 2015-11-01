@@ -14,7 +14,11 @@ var UsersPanel = function() {
 	};
 	
 	this.isFormValid = function() {
-		return $('#editForm [name="email"]').val();
+		var $email = $('#editForm [name="email"]');
+		if (!isEmailValid($email.val())) {
+			self.dialog.showFieldError($email, locale.errEmail);
+		}
+		return !$('#editForm .error').length; 
 	};
 	
 	this.fixPanelHeight = function() {
@@ -25,15 +29,13 @@ var UsersPanel = function() {
 		niceScroller(panel);
 	};
 	
-	this.updateFormState = function() {
-		$('#editForm .btn').get(0).disabled = !self.isFormValid();
-	};
-	
 	this.save = function(id) {
-		self.dialog.close();
-		sendApiRequest(id ? 'post.users?guid=' + id : 'post.users', $('#editForm').serialize(), function(){
-			self.afterSave(id);
-		});
+		if (self.isFormValid()) {
+			self.dialog.close();
+			sendApiRequest(id ? 'post.users?guid=' + id : 'post.users', $('#editForm').serialize(), function(){
+				self.afterSave(id);
+			});
+		}
 	};
 	
 	this.refresh = function() {

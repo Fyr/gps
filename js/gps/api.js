@@ -132,3 +132,8 @@ function getDate(d) {
 	}
 	return d.replace(/\s/, 'T');
 }
+
+function isEmailValid(email) {
+	var re = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	return re.test(email);
+}

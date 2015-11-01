@@ -29,10 +29,12 @@ var MailingsPanel = function() {
 	};
 	
 	this.save = function(id) {
-		self.dialog.close();
-		sendApiRequest(id ? 'post.mailings?guid=' + id : 'post.mailings', $('#editForm').serialize(), function(){
-			self.afterSave(id);
-		});
+		if (self.isFormValid()) {
+			self.dialog.close();
+			sendApiRequest(id ? 'post.mailings?guid=' + id : 'post.mailings', $('#editForm').serialize(), function(){
+				self.afterSave(id);
+			});
+		}
 	};
 	
 	this.refresh = function() {

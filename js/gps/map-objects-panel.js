@@ -62,21 +62,6 @@ var MapObjectsPanel = function() {
 		});
 	};
 	
-	this.edit = function() {
-		var editFn = function() {
-			self.dialog = new Popup({
-				title: locale.addObject,
-				content: Tmpl('popup-add-object').render(self)
-			});
-			self.dialog.open();
-		};
-		if ($.isEmptyObject(self.settings)) {
-			self.setObjectSettings(editFn);
-		} else {
-			editFn();
-		}
-	};
-	
 	this.setObjectSettings = function(nextFn) {
 		sendApiRequest('getDataForSelect', null, function(response){
 			self.settings = {users: [], iconsAll: {}, iconsPoi: {}, iconsObjects: {}};
@@ -407,24 +392,50 @@ var MapObjectsPanel = function() {
 		self.objects = {};
 	};
 	
-	this.saveObject = function() {
-		self.dialog.close();
-		var params = $('#addObjectForm').serialize();
-		sendApiRequest('post.monitoringObjects', params, function(){
-			self.dialog = new PopupInfo({
-				title: locale.addObject, 
-				text: locale.objectCreated
+	this.edit = function() {
+		var editFn = function() {
+			self.dialog = new Popup({
+				title: locale.addObject,
+				content: Tmpl('popup-edit-object').render(self)
 			});
 			self.dialog.open();
-		});
+			
+			$('#editForm input[type=text]').focus(function(){
+				self.dialog.hideFieldError($(this));
+			});
+		};
+		if ($.isEmptyObject(self.settings)) {
+			self.setObjectSettings(editFn);
+		} else {
+			editFn();
+		}
+	};
+	
+	this.saveObject = function() {
+		if (self.isFormValid()) {
+			self.dialog.close();
+			var params = $('#editForm').serialize();
+			sendApiRequest('post.monitoringObjects', params, function(){
+				self.dialog = new PopupInfo({
+					title: locale.addObject, 
+					text: locale.objectCreated
+				});
+				self.dialog.open();
+			});
+		}
 	};
 	
 	this.isFormValid = function() {
-		return $('#addObjectForm [name="name"]').val() && $('#addObjectForm [name="imei"]').val();
-	};
-	
-	this.updateFormState = function() {
-		$('#addObjectForm .btn').get(0).disabled = !self.isFormValid();
+		var $name = $('#editForm input[name="name"]');
+		if (!$name.val()) {
+			self.dialog.showFieldError($name, locale.errBlankField);
+		}
+		
+		var $imei = $('#editForm input[name="imei"]');
+		if (!$imei.val()) {
+			self.dialog.showFieldError($imei, locale.errBlankField);
+		}
+		return !$('#editForm .error').length;
 	};
 	
 	this.getInitialLocation = function() {

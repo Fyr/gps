@@ -17,15 +17,14 @@ var AdminTablePanel = function() {
 			content: Tmpl(self.tplEdit).render(self)
 		});
 		self.dialog.open();
-		self.updateFormState();
+		
+		$('#editForm input[type=text]').focus(function(){
+			self.dialog.hideFieldError($(this));
+		});
 	};
 	
 	this.isFormValid = function() {
 		return true;
-	};
-	
-	this.updateFormState = function() {
-		$('#editForm .btn').get(0).disabled = !self.isFormValid();
 	};
 	
 	this.getHeight = function(e) {

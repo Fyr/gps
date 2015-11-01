@@ -72,7 +72,6 @@ var CalendarObjectsPanel = function() {
 	};
 	
 	this.showEvent = function(event_id) {
-		console.log(event_id);
 		var event = self.getEvent(event_id);
 		dialog = new Popup({
 			title: event.title,
@@ -110,7 +109,6 @@ var CalendarObjectsPanel = function() {
 			miniMap.clearMarkers();
 			miniMap.addMarker({id: id + '-eventForm', lat: e.latlng.lat, lon: e.latlng.lng});
 			miniMap.showMarker(id + '-eventForm');
-			self.updateEventForm();
 		});
 		
 		self.miniMap = miniMap;
@@ -159,8 +157,6 @@ var CalendarObjectsPanel = function() {
 		self.miniMap.showMarker(marker.id);
 		$('#eventForm [name="location[lat]"]').val(marker.lat);
 		$('#eventForm [name="location[lon]"]').val(marker.lon);
-		
-		self.updateEventForm();
 	};
 	
 	this.isFormValid = function() {
@@ -175,7 +171,7 @@ var CalendarObjectsPanel = function() {
 		}
 		
 		var $end = $('#eventForm [name="end"]');
-		if (!$end) {
+		if (!$end.val()) {
 			self.dialog.showFieldError($end, locale.errBlankField);
 		}
 		
@@ -184,10 +180,6 @@ var CalendarObjectsPanel = function() {
 		}
 		
 		return !$('#eventForm .error').length;
-	};
-	
-	this.updateEventForm = function() {
-		// $('#eventForm .btn').get(0).disabled = !self.isFormValid();
 	};
 	
 	this.saveEvent = function() {

@@ -57,5 +57,17 @@ var Popup = function(params) {
 		$('.popup').remove();
 	};
 	
+	this.showFieldError = function($e, errMsg) {
+		self.hideFieldError($e);
+		
+		$e.addClass('error');
+		$e.parent().append('<span class="note error">' + errMsg + '</span>');
+	};
+	
+	this.hideFieldError = function($e) {
+		$e.removeClass('error');
+		$e.parent().find('span.note.error').remove();
+	};
+	
 	this.init();
 }

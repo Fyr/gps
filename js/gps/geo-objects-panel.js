@@ -112,40 +112,39 @@ var GeoObjectsPanel = function() {
 		});
 		self.dialog.open();
 		
-		$('#editForm [name="radius"]').focus(function(){
-			$(this).removeClass('error');
-			$(this).parent().find('span.note.error').remove();
+		$('#editForm [type=text]').focus(function(){
+			self.dialog.hideFieldError($(this));
 		});
 		
 		var miniMap = new MapAPI('minimap-canvas');
 		miniMap.init();
 		miniMap.showAt(self.getInitialLocation());
 		miniMap.bindMapClick(function(e){
-			var radius = $('[name="radius"]').val();
-			if ($('#editForm [name="type"]').val() == 'circle') {
-				if (!radius && !$('#editForm [name="radius"]').hasClass('error')) {
-					$('#editForm [name="radius"]')
-						.addClass('error')
-						.parent().append('<span class="note error">' + locale.radiusRequired + '</span>');
+			var $radius = $('#editForm [name="radius"]');
+			if ($('#editForm select[name="type"]').val() == 'circle') {
+				if (!$radius.val() && !$radius.hasClass('error')) {
+					self.dialog.showFieldError($radius, locale.radiusRequired);
+				} else {
+					self.dialog.hideFieldError($('span.type'));
 				}
 				$('#editForm [name="location[lat]"]').val(e.latlng.lat);
 				$('#editForm [name="location[lon]"]').val(e.latlng.lng);
 				self.miniMap.clearCircles();
-				self.miniMap.addCircle({id: 'edit-circle', lat: e.latlng.lat, lon: e.latlng.lng, radius: radius});
+				self.miniMap.addCircle({id: 'edit-circle', lat: e.latlng.lat, lon: e.latlng.lng, radius: $radius.val()});
 				self.miniMap.showCircle('edit-circle');
 				/*
 				miniMap.addMarker({id: id + '-eventForm', lat: e.latlng.lat, lon: e.latlng.lng});
 				miniMap.showMarker(id + '-eventForm');
 				*/
-				self.updateFormState();
-			} else if ($('#editForm [name="type"]').val() == 'polygon') {
+			} else if ($('#editForm select[name="type"]').val() == 'polygon') {
+				self.dialog.hideFieldError($('span.type'));
 				self.addMiniMapPoint(e.latlng);
 			}
+			
 		});
 		self.miniMap = miniMap;
 		self.miniMapPoints = [];
 		self.changeType();
-		self.updateFormState();
 	};
 	
 	this.addMiniMapPoint = function(point) {
@@ -165,11 +164,18 @@ var GeoObjectsPanel = function() {
 	};
 	
 	this.isFormValid = function() {
-		return $('#editForm [name="name"]').val();
-	};
-	
-	this.updateFormState = function() {
-		$('#editForm .btn').get(0).disabled = !self.isFormValid();
+		var $name = $('#editForm input[name="name"]');
+		if (!$name.val()) {
+			self.dialog.showFieldError($name, locale.errBlankField);
+		}
+		
+		if ($('#editForm select[name="type"]').val() == 'circle') {
+			if (!($('#editForm [name="location[lat]"]').val() && $('#editForm [name="location[lon]"]').val())) {
+				self.dialog.showFieldError($('span.type'), locale.errNoLocation);
+			}
+		}
+		
+		return !$('#editForm .error').length;
 	};
 	
 	this.changeType = function() {
@@ -183,14 +189,16 @@ var GeoObjectsPanel = function() {
 	};
 	
 	this.save = function() {
-		var data = $('#editForm').serialize();
-		self.dialog.close();
-		sendApiRequest('post.objectsMap', data, function(){
-			self.dialog = new PopupInfo({
-				title: locale.createEvent, 
-				text: locale.geoObjectCreated
+		if (self.isFormValid()) {
+			var data = $('#editForm').serialize();
+			self.dialog.close();
+			sendApiRequest('post.objectsMap', data, function(){
+				self.dialog = new PopupInfo({
+					title: locale.createEvent, 
+					text: locale.geoObjectCreated
+				});
+				self.dialog.open();
 			});
-			self.dialog.open();
-		});
+		}
 	};
 };

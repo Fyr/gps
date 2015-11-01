@@ -4,7 +4,7 @@
 <form id="editForm">
 	<div class="line">
 		<label>E-mail:</label>
-		<input type="email" name="email" value="{%=(_item && _item.email)%}" onkeyup="userPanel.updateFormState()" />
+		<input type="text" name="email" value="{%=(_item && _item.email)%}" />
 	</div>
 	<div class="line">
 		<label>Объект:</label>
@@ -39,6 +39,6 @@
 		<input type="password" name="password_confirm" value="" />
 	</div>
 	<div class="popup-actions">
-		<button type="button" class="btn" disabled="disabled" onclick="userPanel.save('{%=o.id%}')">Сохранить</button>
+		<button type="button" class="btn" onclick="userPanel.save('{%=o.id%}')">Сохранить</button>
 	</div>
 </form>

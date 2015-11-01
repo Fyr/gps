@@ -1,11 +1,11 @@
-<form id="addObjectForm">
+<form id="editForm">
 	<div class="line">
 		<label>Наименование обьекта:</label>
-		<input type="text" name="name" onkeyup="objectsPanel.updateFormState()" />
+		<input type="text" name="name" />
 	</div>
 	<div class="line">
 		<label>IMEI:</label>
-		<input type="text" name="imei" onkeyup="objectsPanel.updateFormState()" />
+		<input type="text" name="imei" />
 	</div>
 	<div class="line">
 		<label>Иконка:</label>
@@ -38,6 +38,6 @@
 		</div>
 	</div>
 	<div class="popup-actions">
-		<button type="button" class="btn" disabled="disabled" onclick="objectsPanel.saveObject()">Сохранить</button>
+		<button type="button" class="btn" onclick="objectsPanel.saveObject()">Сохранить</button>
 	</div>
 </form>
