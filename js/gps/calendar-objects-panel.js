@@ -115,6 +115,11 @@ var CalendarObjectsPanel = function() {
 		
 		self.miniMap = miniMap;
 		
+		// extra handlers for popup inputs
+		$('#eventForm input[type=text]').focus(function(){
+			self.dialog.hideFieldError($(this));
+		});
+		
 		self.dialog = dialog;
 		$('#q').autoComplete({
 			minChars: 3,
@@ -159,24 +164,44 @@ var CalendarObjectsPanel = function() {
 	};
 	
 	this.isFormValid = function() {
-		return $('#eventForm [name="summary"]').val() && $('#eventForm [name="start"]').val() && $('#eventForm [name="end"]').val() 
-			&& $('#eventForm [name="location[lat]"]').val() && $('#eventForm [name="location[lon]"]').val()
+		var $summary = $('#eventForm [name="summary"]');
+		if (!$summary.val()) {
+			self.dialog.showFieldError($summary, locale.errBlankField);
+		}
+		
+		var $start = $('#eventForm [name="start"]');
+		if (!$start.val()) {
+			self.dialog.showFieldError($start, locale.errBlankField);
+		}
+		
+		var $end = $('#eventForm [name="end"]');
+		if (!$end) {
+			self.dialog.showFieldError($end, locale.errBlankField);
+		}
+		
+		if (!($('#eventForm [name="location[lat]"]').val() && $('#eventForm [name="location[lon]"]').val())) {
+			self.dialog.showFieldError($('#q'), locale.errNoLocation);
+		}
+		
+		return !$('#eventForm .error').length;
 	};
 	
 	this.updateEventForm = function() {
-		$('#eventForm .btn').get(0).disabled = !self.isFormValid();
+		// $('#eventForm .btn').get(0).disabled = !self.isFormValid();
 	};
 	
 	this.saveEvent = function() {
-		var data = $('#eventForm').serialize();
-		self.dialog.close();
-		sendApiRequest('post.events', data, function(){
-			self.dialog = new PopupInfo({
-				title: locale.createEvent, 
-				text: locale.eventCreated
+		if (self.isFormValid()) {
+			var data = $('#eventForm').serialize();
+			self.dialog.close();
+			sendApiRequest('post.events', data, function(){
+				self.dialog = new PopupInfo({
+					title: locale.createEvent, 
+					text: locale.eventCreated
+				});
+				self.dialog.open();
 			});
-			self.dialog.open();
-		});
+		}
 	};
 	
 	this.fixPanelHeight = function() {

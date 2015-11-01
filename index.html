@@ -54,17 +54,19 @@ $(function(){
 	Tmpl().loadModules(aModules, function(){ 
 		setCurrMenu(1);
 		
+		fixPanelHeight();
+		
 		sendApiRequest('getContacts', null, function(response) {
 			$('.contacts .info').html(response.data);
 			sendApiRequest('getNews', null, function(response) {
 				$('.newsBlock .description').html(response.data);
+				niceScroller('.newsBlock .description');
 			});
 		});
-		fixPanelHeight();
-		niceScroller('.newsBlock .description');
 		
 		sendApiRequest('getFiles', {type: 'help'}, function(response) {
 			$('.instructionsBlock .description').html(Tmpl('docs').render(response.data));
+			niceScroller('.instructionsBlock .description');
 		});
 		
 		sendApiRequest('getBilling', null, function(response) {
@@ -74,6 +76,7 @@ $(function(){
 		sendApiRequest('getFiles', {type: 'docs'}, function(response) {
 			if (response.data) {
 				$('.docsBlock .description').html(Tmpl('docs').render(response.data));
+				niceScroller('.docsBlock .description');
 			}
 		});
 		
@@ -146,7 +149,7 @@ $(function(){
 							<span class="icon icon-news"></span>
 							<span class="name">Новости</span>
 						</div>
-						<div class="description scroller">
+						<div class="description niceScroller">
 							Загрузка...
 						</div>
 					</div>
@@ -171,7 +174,7 @@ $(function(){
 							<span class="icon icon-billing"></span>
 							<span class="name">Биллинг</span>
 						</div>
-						<div class="description">
+						<div class="description niceScroller">
 							Загрузка...
 						</div>
 					</div>
@@ -180,7 +183,7 @@ $(function(){
 							<span class="icon icon-instructions"></span>
 							<span class="name">Инструкции</span>
 						</div>
-						<div class="description scroller" style="height: 40px;">
+						<div class="description niceScroller" style="height: 40px;">
 							Загрузка...
 						</div>
 					</div>
@@ -189,7 +192,7 @@ $(function(){
 							<span class="icon icon-documents"></span>
 							<span class="name">Документы</span>
 						</div>
-						<div class="description scroller" style="height: 40px;">
+						<div class="description niceScroller" style="height: 40px;">
 							Загрузка...
 						</div>
 					</div>
