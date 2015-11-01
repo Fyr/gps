@@ -220,9 +220,9 @@
 "deleted": false,
 "summary": "velcom",
 "description": "обслуживание",
-"beginOfPeriod": "2015-08-17T09:00:00",
-"endOfPeriod": "2015-08-17T21:00:00",
-"status": 1,
+"beginOfPeriod": "2015-12-17T09:00:00",
+"endOfPeriod": "2015-12-17T21:00:00",
+"status": 0,
 "location": {
 "address": "Минск",
 "lat": 53.869576,

@@ -81,7 +81,7 @@ var CalendarObjectsPanel = function() {
 		
 		var miniMap = new MapAPI('minimap-canvas');
 		miniMap.init();
-		miniMap.addMarker({id: event.id, lat: event.location.lat, lon: event.location.lon, title: event.title});
+		miniMap.addMarker({id: event.id, lat: event.location.lat, lon: event.location.lon, title: event.summary});
 		miniMap.showMarker(event.id);
 	};
 	
@@ -93,16 +93,22 @@ var CalendarObjectsPanel = function() {
 		return options;
 	};
 	
-	this.edit = function() {
+	this.edit = function(id) {
+		var event = self.getEvent(id);
 		dialog = new Popup({
 			title: locale.createEvent,
-			content: Tmpl('popup-event-edit').render({objectOptions: self.getObjectOptions()})
+			content: Tmpl('popup-event-edit').render({objectOptions: self.getObjectOptions(), event: event})
 		});
 		dialog.open();
 		
 		var miniMap = new MapAPI('minimap-canvas');
 		miniMap.init();
-		miniMap.showAt(self.getInitialLocation());
+		if (event) {
+			miniMap.addMarker({id: event.id, lat: event.location.lat, lon: event.location.lon, title: event.summary});
+			miniMap.showMarker(event.id);
+		} else {
+			miniMap.showAt(self.getInitialLocation());
+		}
 		miniMap.bindMapClick(function(e){
 			$('#eventForm [name="location[lat]"]').val(e.latlng.lat);
 			$('#eventForm [name="location[lon]"]').val(e.latlng.lng);
@@ -206,5 +212,14 @@ var CalendarObjectsPanel = function() {
 		aNames[self.OCCURED] = locale.eventOccured;
 		aNames[self.FAILED] = locale.eventFailed;
 		return aNames[status];
+	};
+	
+	this.onClickEvent = function(id) {
+		var event = self.getEvent(id);
+		if (event.status == self.PLANNED) {
+			self.edit(id);
+		} else {
+			self.showEvent(id);
+		}
 	};
 }

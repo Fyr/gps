@@ -13,7 +13,7 @@
 	</div>
 	<div class="line">
 		<label>Название:</label>
-		<input type="text" name="summary" />
+		<input type="text" name="summary" value="{%=(o.event ? o.event.summary : '')%}" />
 	</div>
 	<div class="line">
 		<label>Период:</label>
@@ -23,18 +23,18 @@
 	date.setMinutes(0);
 	date.setSeconds(0);
 %}
-		c &nbsp;&nbsp;&nbsp;<input type="text" class="rome-datetime" name="start" value="{%=date.toSqlDateTime().replace(/\:00$/, '')%}" style="width: 100px" />
+		c &nbsp;&nbsp;&nbsp;<input type="text" class="rome-datetime" name="start" value="{%=(o.event ? o.event.start : date.toSqlDateTime()).replace(/\:00$/, '')%}" style="width: 100px" />
 	</div>
 	<div class="line">
 		<label>&nbsp;</label>
 {%
 	date.setHours(18);
 %}
-		по <input type="text" class="rome-datetime" name="end" value="{%=date.toSqlDateTime().replace(/\:00$/, '')%}" style="width: 100px" />
+		по <input type="text" class="rome-datetime" name="end" value="{%=(o.event ? o.event.end : date.toSqlDateTime()).replace(/\:00$/, '')%}" style="width: 100px" />
 	</div>
 	<div class="line">
 		<label>Описание:</label>
-		<textarea name="message" style="height: 50px"></textarea>
+		<textarea name="description" style="height: 50px">{%=(o.event ? o.event.description : '')%}</textarea>
 	</div>
 	Кликните по карте или введите адрес чтобы задать местоположение события
 	<span>
