@@ -1,1 +1,1 @@
-{"status": "OK", "data": [{"name":"name1","url":"url1"},{"name":"name2","url":"url2"}]}
+{"status": "OK", "data": [{"name":"name1","guid":"url1"},{"name":"name2","guid":"url2"},{"name":"name3","guid":"url3"}]}

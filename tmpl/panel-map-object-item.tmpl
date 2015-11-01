@@ -16,7 +16,7 @@
 		var color = getStatusColor((o.updated_ago >= 24) ? 24 : o.updated_ago);
 		if (o.updated_ago >= 24) {
 %}
-		<a href="javascript:void(0)" title="Какой-то текст о предупреждении"><span class="icon icon-attention"></span></a>
+		<a href="javascript:void(0)" title="{%=o.alert%}"><span class="icon icon-attention"></span></a>
 {%
 		}
 %}

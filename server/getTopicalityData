@@ -148,7 +148,7 @@
 "lat": 53.9190331,
 "lon": 27.4879169,
 "address": null,
-"alert": null,
+"alert": "Текст предупреждения",
 "params": [
 {
 "parameter": "Питание GPS",
