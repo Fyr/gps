@@ -192,7 +192,7 @@ var GeoObjectsPanel = function() {
 		if (self.isFormValid()) {
 			var data = $('#editForm').serialize();
 			self.dialog.close();
-			sendApiRequest('post.objectsMap', data, function(){
+			sendApiRequest('post.poi', data, function(){
 				self.dialog = new PopupInfo({
 					title: locale.createEvent, 
 					text: locale.geoObjectCreated

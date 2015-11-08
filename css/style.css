@@ -102,7 +102,7 @@ ul { list-style: none; margin: 0; padding: 0;}
 		.block .description .value { font-size: 13px; margin-left: 10px;}
 		.block .description p { margin: 0 0 10px 0;}
 
-	.block .info { padding: 0 10px 0 13px; margin: 10px 4px 7px 0;}
+	.block .info { padding: 0 10px 0 17px; margin: 10px 4px 7px 0;}
 		.block .info .item { padding: 5px 0 0 0;}
 		/*.block .info .item:first-child { padding-top: 0;}*/
 		.block .info label { font-size: 13px; margin-top: 3px; display: inline-block; max-width: 165px; }
@@ -115,15 +115,17 @@ ul { list-style: none; margin: 0; padding: 0;}
 			.block .info .icon.icon-routes.disabled { opacity: 0.5; }
 			.block .info .icon-folder { margin-right: 7px; margin-left: 1px; position: relative; top: -1px; }
 			.block .info .icon-folder.open { top: 0;}
-			.block .info .item .fa { font-size: 20px; margin-left: 2px; vertical-align: middle;}
+			.block .info .item .fa { font-size: 14px; vertical-align: middle;}
 
 			.block .info .folder .item { margin-left: 27px;  }
-			.block .info .folder .folderItem { margin-left: 0; }
+			.block .info .folder .folderItem { margin-left: 0; position: relative; }
 			.block .info .folder label { max-width: 138px;}
 			.block .info .folder .folderItem label { max-width: none; }
+			.block .info .folder .folderItem .fa { position: absolute; left: -15px; top: 10px; cursor: pointer;}
 
 
-	.block .panel { border-bottom: 1px solid #e5e5e5; padding: 9px 14px 9px 13px;}
+
+	.block .panel { border-bottom: 1px solid #e5e5e5; padding: 9px 14px 9px 17px;}
 	.block .panel .separator { display: inline-block; vertical-align: middle; border-left: 1px solid #b0b0b0; height: 20px; margin: 0 3px; }
 	.block .panel .jq-checkbox { margin-right: 3px;}
 	.block .panel .btn { min-width: 120px;}

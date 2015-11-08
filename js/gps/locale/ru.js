@@ -11,6 +11,8 @@ var locale = {
 	menuReports: 'Отчеты',
 	menuNotifications: 'Рассылки&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />и уведомления',
 	menuAdministration: 'Администрирование',
+	menuUsers: 'Пользователи',
+	menuObjects: 'Объекты мониторинга',
 	
 	addObject: 'Добавление обьекта',
 	objectCreated: 'Объект успешно добавлен. Как только от объекта поступят первые данные, то его иконка актуальности изменит цвет на зеленый. Впоследствии она всегда будет отображать время в часах с последнего приема данных.',
@@ -39,5 +41,10 @@ var locale = {
 	
 	errBlankField: 'Поле должно быть заполнено',
 	errNoLocation: 'Не задано положение на карте',
-	errEmail: 'Некорректный email-адрес'
+	errEmail: 'Некорректный email-адрес',
+	
+	layersStandart: 'Standart',
+	layersTransport: 'Transport',
+	layersCycle: 'Cycle',
+	layersHumanitarian: 'Humanitarian'
 };

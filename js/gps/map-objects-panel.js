@@ -153,21 +153,26 @@ var MapObjectsPanel = function() {
 	this.sortObjects = function(lDesc) {
 		// convert objects to array to be able to perform array sorting
 		var aTitles = [];
+		var objects = {};
 		for(var id in self.objects) {
-			aTitles.push({
-				id: id,
-				title: self.objects[id].title,
-				item: self.objects[id],
-				toString: function() {
-					return this.title;
-				}
-			});
+			if (self.objects[id].isFolder) {
+				objects[id] = self.objects[id];
+			} else {
+				aTitles.push({
+					id: id,
+					title: self.objects[id].title,
+					item: self.objects[id],
+					toString: function() {
+						return this.title;
+					}
+				});
+			}
 		}
 		aTitles.sort();
 		if (lDesc) {
 			aTitles.reverse();
 		}
-		var objects = {};
+		
 		for(var i = 0; i < aTitles.length; i++) {
 			var id = aTitles[i].id;
 			objects[id] = aTitles[i].item;
@@ -212,12 +217,19 @@ var MapObjectsPanel = function() {
 		}
 	};
 	
+	this.onCheckFolder = function(checked, id) {
+		self.objects[id].checked = checked; // save checked state for sorting
+		$('#folder_' + id + ' .folderObjects .item input[type=checkbox]', $self).each(function(){
+			$(this).prop('checked', checked).trigger('refresh');
+			$(this).change(); // call indirectly onchange for this checkbox
+		});
+	};
+	
 	this.toggleFolder = function(id, lExpand) {
 		self.objects[id].opened = lExpand;
-		$('#folder_' + id + ' .icon-folder').removeClass('open');
+		$('#folder_' + id + ' .folderItem .fa').toggle();
 		if (lExpand) {
 			$('#folder_' + id + ' .folderObjects').show();
-			$('#folder_' + id + ' .icon-folder').addClass('open');
 		} else {
 			$('#folder_' + id + ' .folderObjects').hide();
 		}
@@ -273,7 +285,7 @@ var MapObjectsPanel = function() {
 			
 			for(var i in self.objects) {
 				if (self.objects[i].isFolder) {
-					html+= Tmpl('panel-map-object-folder').render({id: i, title: self.objects[i].title, objects: aGroupObjects[i]});
+					html+= Tmpl('panel-map-object-folder').render({id: i, title: self.objects[i].title, objects: aGroupObjects[i], checked: self.objects[i].checked});
 				} else if (!self.objects[i].isFolder && !in_array(self.objects[i].parent, aGroups)) {
 					html+= Tmpl('panel-map-object-item').render(self.objects[i]);
 				}
@@ -337,7 +349,7 @@ var MapObjectsPanel = function() {
 		if (!$.isEmptyObject(self.objects)) {
 			// show all checked markers
 			for(var id in self.objects) {
-				if (self.objects[id].checked) {
+				if (!self.objects[id].isFolder && self.objects[id].checked) {
 					self.showObject(id);
 				}
 			}
@@ -346,14 +358,14 @@ var MapObjectsPanel = function() {
 			// var id = Object.keys(self.objects)[0];
 			var _id = null;
 			for(var id in self.objects) {
-				if (self.objects[id].checked) {
+				if (!self.objects[id].isFolder && self.objects[id].checked) {
 					_id = id;
 					break;
 				}
 			}
 			if (!_id) {
 				for(var id in self.objects) {
-					if (self.objects[id].checkable) {
+					if (!self.objects[id].isFolder && self.objects[id].checkable) {
 						_id = id;
 						break;
 					}

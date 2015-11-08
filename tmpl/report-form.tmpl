@@ -6,7 +6,7 @@
 		var e = o.settings[i];
 		if (e.elem == 'input' && e.attrs.type == 'datetime') {
 			include('reportform-datetime', e.attrs);
-		} else if (e.elem == 'select') {
+		} else if (e.elem == 'input' && e.attrs.type == 'select') {
 			include('reportform-select', e.attrs);
 		}
 	}

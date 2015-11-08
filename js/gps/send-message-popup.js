@@ -48,7 +48,7 @@ var SendMessagePopup = function(params) {
 		self.container = $('.popup').get(0);
 		
 		var $email = $('input[name=email]', self.container);
-		if (!isEmailValid($email.val()) {
+		if (!isEmailValid($email.val())) {
 			self.dialog.showFieldError($email, locale.errEmail);
 		}
 		

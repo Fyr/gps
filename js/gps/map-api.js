@@ -11,8 +11,19 @@ var MapAPI = function(canvas) {
 	
 	this.init = function() {
 		self.canvas = canvas;
-		self.mapL = L.map(canvas).setView([0, 0], 16);
-		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(self.mapL);
+		// self.mapL = L.map(canvas).setView([0, 0], 16);
+		// L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(self.mapL);
+		var layers = {};
+		layers[locale.layersStandart] = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {id: 'mapbox.standart'});
+		layers[locale.layersTransport] = L.tileLayer('http://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png', {id: 'mapbox.transport'});
+		layers[locale.layersCycle] = L.tileLayer('http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png', {id: 'mapbox.cycle'});
+		layers[locale.layersHumanitarian] = L.tileLayer('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {id: 'mapbox.humanitarian'});
+		self.mapL = L.map(canvas, {
+			center: [0, 0],
+			zoom: 16,
+			layers: layers[Object.keys(layers)[0]]
+		});
+		L.control.layers(layers).addTo(self.mapL);
 	};
 	
 	this.getMarker = function(id) {

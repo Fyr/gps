@@ -5,14 +5,14 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1.0, initial-scale=1.0, minimum-scale=1.0">
 		<title>Velcom</title>
-		<link href="./css/style.css" rel="stylesheet">
-		<link href="./css/extra.css" rel="stylesheet">
 		<link href="./css/rome.css" rel="stylesheet">
 		<link href="./css/leaflet.css" rel="stylesheet">
 		<link href="./css/fullcalendar.css" rel="stylesheet">
 		<link href="./css/fonts.css" rel="stylesheet">
 		<link href="./css/jquery.auto-complete.css" rel="stylesheet">
 		<link href="./css/slicknav.css" rel="stylesheet">
+		<link href="./css/style.css" rel="stylesheet">
+		<link href="./css/extra.css" rel="stylesheet">
 		
 		<script type="text/javascript" src="./js/jquery-1.10.2.min.js"></script>
 		<script type="text/javascript" src="./js/jquery.nicescroll.min.js" ></script>
@@ -32,9 +32,9 @@
 		<script type="text/javascript" src="./js/gps/xdate.min.js"></script>
 		<script type="text/javascript" src="./js/gps/json_handler.min.js"></script>
 		<script type="text/javascript" src="./js/gps/api.min.js"></script>
-		<script type="text/javascript" src="./js/gps/map-objects-panel.min.js"></script>
-		<script type="text/javascript" src="./js/gps/calendar-objects-panel.min.js"></script>
-		<script type="text/javascript" src="./js/gps/popup.min.js"></script>
+		<script type="text/javascript" src="./js/gps/map-objects-panel.js"></script>
+		<script type="text/javascript" src="./js/gps/calendar-objects-panel.js"></script>
+		<script type="text/javascript" src="./js/gps/popup.js"></script>
 		<script type="text/javascript" src="./js/gps/popup-info.min.js"></script>
 		<script type="text/javascript" src="./js/gps/locale/ru.js"></script>
 		<script type="text/javascript" src="./js/gps/menu.min.js"></script>
@@ -105,7 +105,7 @@ $(function(){
 				}
 			},
 			eventClick: function(calEvent, jsEvent, view) {
-				objectsPanel.showEvent(calEvent.id);
+				objectsPanel.onClickEvent(calEvent.id);
 			}
 		});
 		
