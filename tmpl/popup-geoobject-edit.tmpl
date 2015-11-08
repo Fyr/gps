@@ -5,12 +5,13 @@
 	</div>
 	<div class="line">
 		<label>Тип зоны:</label>
-		<select class="styler" name="type" onchange="objectsPanel.changeType()">
+		<input type="hidden" name="type" value="" />
+		<select class="styler" name="_type" onchange="objectsPanel.changeType()">
 {%
-	for(var i = 0; i < o.settings.types.length; i++) {
-		var item = o.settings.types[i];
+	for(var i in o.settings.types) {
+		var title = o.settings.types[i];
 %}
-			<option value="{%=item.guid%}">{%=item.name%}</option>
+			<option value="{%=i%}">{%=title%}</option>
 {%
 	}
 %}
@@ -46,8 +47,8 @@
 		</span>
 	</span>
 	<div id="minimap-canvas" style="margin: 5px 0 10px 0; height: 200px;"></div>
-	<input type="hidden" name="location[lat]" value="" />
-	<input type="hidden" name="location[lon]" value="" />
+	<input type="hidden" name="lat" value="" />
+	<input type="hidden" name="lon" value="" />
 	<div class="popup-actions">
 		<button type="button" class="btn" onclick="objectsPanel.save()">Сохранить</button>
 	</div>

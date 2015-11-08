@@ -13,16 +13,10 @@ var GeoObjectsPanel = function() {
 				self.setObjects(response.data);
 				self.show();
 				
-				self.settings.types = [
-					{
-						"guid": "circle",
-						"name": "Окружность"
-					},
-					{
-						"guid": "polygon",
-						"name": "Полигон"
-					}
-				];
+				self.settings.types = {
+					"circle": "Точка",
+					"polygon": "Полигон"
+				};
 			}
 		});
 	};
@@ -121,14 +115,14 @@ var GeoObjectsPanel = function() {
 		miniMap.showAt(self.getInitialLocation());
 		miniMap.bindMapClick(function(e){
 			var $radius = $('#editForm [name="radius"]');
-			if ($('#editForm select[name="type"]').val() == 'circle') {
+			if ($('#editForm select[name="_type"]').val() == 'circle') {
 				if (!$radius.val() && !$radius.hasClass('error')) {
 					self.dialog.showFieldError($radius, locale.radiusRequired);
 				} else {
 					self.dialog.hideFieldError($('span.type'));
 				}
-				$('#editForm [name="location[lat]"]').val(e.latlng.lat);
-				$('#editForm [name="location[lon]"]').val(e.latlng.lng);
+				$('#editForm [name="lat"]').val(e.latlng.lat);
+				$('#editForm [name="lon"]').val(e.latlng.lng);
 				self.miniMap.clearCircles();
 				self.miniMap.addCircle({id: 'edit-circle', lat: e.latlng.lat, lon: e.latlng.lng, radius: $radius.val()});
 				self.miniMap.showCircle('edit-circle');
@@ -136,7 +130,7 @@ var GeoObjectsPanel = function() {
 				miniMap.addMarker({id: id + '-eventForm', lat: e.latlng.lat, lon: e.latlng.lng});
 				miniMap.showMarker(id + '-eventForm');
 				*/
-			} else if ($('#editForm select[name="type"]').val() == 'polygon') {
+			} else if ($('#editForm select[name="_type"]').val() == 'polygon') {
 				self.dialog.hideFieldError($('span.type'));
 				self.addMiniMapPoint(e.latlng);
 			}
@@ -169,8 +163,8 @@ var GeoObjectsPanel = function() {
 			self.dialog.showFieldError($name, locale.errBlankField);
 		}
 		
-		if ($('#editForm select[name="type"]').val() == 'circle') {
-			if (!($('#editForm [name="location[lat]"]').val() && $('#editForm [name="location[lon]"]').val())) {
+		if ($('#editForm select[name="_type"]').val() == 'circle') {
+			if (!($('#editForm [name="lat"]').val() && $('#editForm [name="lon"]').val())) {
 				self.dialog.showFieldError($('span.type'), locale.errNoLocation);
 			}
 		}
@@ -179,7 +173,8 @@ var GeoObjectsPanel = function() {
 	};
 	
 	this.changeType = function() {
-		var type = $('[name="type"]').val();
+		var type = $('[name="_type"]').val();
+		$('#editForm [name="type"]').val(self.settings.types[type]);
 		$('.type').hide();
 		$('.type-' + type).show();
 		
