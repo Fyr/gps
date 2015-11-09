@@ -1,11 +1,14 @@
+{%
+	var _item = (o.id) ? o.objects[o.id] : null;
+%}
 <form id="editForm">
 	<div class="line">
 		<label>Название:</label>
-		<input type="text" name="name" />
+		<input type="text" name="name" value="{%=(_item && _item.name)%}"/>
 	</div>
 	<div class="line">
 		<label>Тип зоны:</label>
-		<input type="hidden" name="type" value="" />
+		<input type="hidden" name="type" value="{%=(_item && _item.type)%}" />
 		<select class="styler" name="_type" onchange="objectsPanel.changeType()">
 {%
 	for(var i in o.settings.types) {
@@ -19,11 +22,11 @@
 	</div>
 	<div class="line type type-circle">
 		<label>Радиус:</label>
-		<input type="text" class="" name="radius" style="width: 50px" />
+		<input type="text" class="" name="radius" value="{%=(_item && _item.radius)%}" style="width: 50px" />
 	</div>
 	<div class="line">
 		<label>Цвет заливки:</label>
-		<input type="text" class="miniColors" name="color" style="width: 50px" />
+		<input type="text" class="miniColors" name="color" value="{%=(_item && _item.color)%}" style="width: 50px" />
 	</div>
 	<div class="line">
 		<label>Иконка:</label>

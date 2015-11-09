@@ -13,7 +13,7 @@ var MainMenu = [
 	{href: 'javascript:void(0)', title: locale.menuReports, smclass: 'reports'},
 	{href: 'notifications.html', title: locale.menuNotifications},
 	{href: 'javascript:void(0)', title: locale.menuAdministration, smclass: 'admin', submenu: [
-		{href: 'users.html', title: locale.menuUsers}
-		// {href: 'objects.html', title: locale.menuObjects}
+		{href: 'users.html', title: locale.menuUsers},
+		{href: 'admin-geoobjects.html', title: locale.menuGeoObjects}
 	]}
 ];

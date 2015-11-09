@@ -6,9 +6,9 @@
 		<meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1.0, initial-scale=1.0, minimum-scale=1.0">
 		<title>Velcom</title>
 		<link href="./css/rome.css" rel="stylesheet">
-		<link href="./css/leaflet.css" rel="stylesheet">
 		<link href="./css/fonts.css" rel="stylesheet">
 		<link href="./css/slicknav.css" rel="stylesheet">
+		<link href="./css/leaflet.css" rel="stylesheet">
 		<link href="./css/jquery.minicolors.css" rel="stylesheet">
 		<link href="./css/imageselect.css" rel="stylesheet">
 		<link href="./css/style.css" rel="stylesheet">
@@ -18,45 +18,42 @@
 		<script type="text/javascript" src="./js/jquery.nicescroll.min.js" ></script>
 		<script type="text/javascript" src="./js/jquery.formstyler.min.js"></script>
 		<script type="text/javascript" src="./js/jquery.slicknav.min.js"></script>
-		<script type="text/javascript" src="./js/jquery.minicolors.min.js "></script>
+		<script type="text/javascript" src="./js/jquery.minicolors.min.js"></script>
+		<script type="text/javascript" src="./js/imageselect.js"></script>
+		<script type="text/javascript" src="./js/jquery.auto-complete.min.js"></script>
 		<script type="text/javascript" src="./js/rome.js"></script>
 		<script type="text/javascript" src="./js/tmpl.min.js"></script>
-		<script type="text/javascript" src="./js/imageselect.js"></script>
 		<script type="text/javascript">document.addEventListener("touchstart", function() {},false);</script>
 		
 		<script type="text/javascript" src="./js/gps/xtmpl.min.js"></script>
 		<script type="text/javascript" src="./js/gps/xdate.min.js"></script>
 		<script type="text/javascript" src="./js/gps/json_handler.min.js"></script>
 		<script type="text/javascript" src="./js/gps/api.min.js"></script>
-		<script type="text/javascript" src="./js/gps/map-objects-panel.min.js"></script>
+		<script type="text/javascript" src="./js/gps/admin-table-panel.min.js"></script>
 		<script type="text/javascript" src="./js/gps/geo-objects-model.min.js"></script>
-		<script type="text/javascript" src="./js/gps/geo-objects-panel.min.js"></script>
+		<script type="text/javascript" src="./js/gps/admin-geoobjects-panel.min.js"></script>
 		<script type="text/javascript" src="./js/gps/popup.min.js"></script>
 		<script type="text/javascript" src="./js/gps/popup-info.min.js"></script>
 		<script type="text/javascript" src="./js/gps/locale/ru.js"></script>
 		<script type="text/javascript" src="./js/gps/menu.min.js"></script>
 		<script type="text/javascript" src="./js/leaflet.js"></script>
 		<script type="text/javascript" src="./js/gps/map-api.min.js"></script>
-<style type="text/css">
-.fa-refresh, .fa-plus-square-o, .fa-minus-square-o, .fa-list-alt, .fa-list {display: none;}
-</style>		
+		
 		<script type="text/javascript">
 var objectsPanel;
 
 $(function(){
-	aModules = [
+	var aModules = [
 		'menu', 
-		'panel-map-object-list', 
-		'panel-map-object-item', 
-		'panel-map-object-infowin', 
-		'popup', 
-		'popup-info', 
-		'popup-geoobject-edit'
+		'popup',
+		'popup-info',
+		'panel-geoobjects-list',
+		'popup-geoobject-edit',
 	];
 	Tmpl().loadModules(aModules, function(){ 
-		setCurrMenu(2, 3);
+		setCurrMenu(6);
 		
-		objectsPanel = new GeoObjectsPanel();
+		objectsPanel = new AdminGeoobjectsPanel();
 		objectsPanel.init();
 		
 		$(window).resize(function() {
@@ -64,7 +61,6 @@ $(function(){
 		});
 	});
 });
-
 </script>
 	</head>
 	<body>
@@ -74,12 +70,12 @@ $(function(){
 				<span class="tmpl-menu"></span>
 			</div>
 			<div class="maket clearfix">
-				<a href="javascript:void(0)" class="handle">«</a>
-				<div class="leftSide">
-					<div class="block tmpl-panel-map-object-list"></div>
-				</div>
-				<div class="rightSide">
-					<div id="map-canvas" class="mapContainer" style="border: 1px solid #e5e5e5; height: 400px;"></div>
+				<div id="users">
+					<div class="tableHeader clearfix">
+						<button type="button" class="btn" onclick="userPanel.edit()" style="float: right; margin-bottom: 10px;">Создать</button>
+						<span style="font-size: 1.2em; font-weight: bold;">Обьекты и геозоны</span>
+					</div>
+					<div class="block tmpl-panel-geoobjects-list"></div>
 				</div>
 			</div>
 			<div id="shadow"></div>

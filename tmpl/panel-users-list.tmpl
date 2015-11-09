@@ -9,11 +9,13 @@
 	<td>{%=item.email%}</td>
 	<td>
 {%
-	for(var i = 0; i < item.monitoringObjects.length; i++) {
-		var _obj = item.monitoringObjects[i];
+	if (item.monitoringObjects) {
+		for(var i = 0; i < item.monitoringObjects.length; i++) {
+			var _obj = item.monitoringObjects[i];
 %}
 		{%=_obj.name%}<br />
 {%
+		}
 	}
 %}
 	</td>

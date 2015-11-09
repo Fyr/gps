@@ -12,19 +12,21 @@
 			<div class="info niceScroller" style="max-height: 200px;">
 {%
 	var usersObjects = [];
-	if (_item) {
+	if (_item && _item.monitoringObjects) {
 		for(var j = 0; j < _item.monitoringObjects.length; j++) {
 			usersObjects.push(_item.monitoringObjects[j].guid);
 		}
 	}
-	for(var i = 0; i < o.settings.objects.length; i++) {
-		var item = o.settings.objects[i];
-		var checked = in_array(item.guid, usersObjects) ? 'checked="checked"' : '';
+	if (o.settings.objects) {
+		for(var i = 0; i < o.settings.objects.length; i++) {
+			var item = o.settings.objects[i];
+			var checked = in_array(item.guid, usersObjects) ? 'checked="checked"' : '';
 %}
 			<div class="item">
 				<input type="checkbox" name="monitoringObject[]" value="{%=item.guid%}" {%=checked%}>{%=item.name%}</option><br />
 			</div>
 {%
+		}
 	}
 %}
 			</div>

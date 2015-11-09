@@ -69,4 +69,5 @@ var AdminTablePanel = function() {
 	this.show = function() {
 		$('.tmpl-' + self.tplList).html(Tmpl(self.tplList).render(self));
 	};
+	
 };

@@ -20,3 +20,7 @@ table.admin { width: 100%; }
 .leaflet-control-layers-toggle {
 	background-image: url("../img/layers.png");
 }
+
+.leaflet-control-layers {
+	background: #fff200;
+}
