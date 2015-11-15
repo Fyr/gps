@@ -31,14 +31,6 @@ var AdminGeoobjectsPanel = function() {
 		});
 	};
 	
-	this.isFormValid = function() {
-		var $email = $('#editForm [name="email"]');
-		if (!isEmailValid($email.val())) {
-			self.dialog.showFieldError($email, locale.errEmail);
-		}
-		return !$('#editForm .error').length; 
-	};
-	
 	this.fixPanelHeight = function() {
 		var panel = $('.tmpl-panel-geoobjects-list').get(0);
 		

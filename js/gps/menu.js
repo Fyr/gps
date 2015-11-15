@@ -14,6 +14,7 @@ var MainMenu = [
 	{href: 'notifications.html', title: locale.menuNotifications},
 	{href: 'javascript:void(0)', title: locale.menuAdministration, smclass: 'admin', submenu: [
 		{href: 'users.html', title: locale.menuUsers},
+		{href: 'admin-mapobjects.html', title: locale.menuObjects},
 		{href: 'admin-geoobjects.html', title: locale.menuGeoObjects}
 	]}
 ];

@@ -1,10 +1,13 @@
 var map;
 var MapObjectsPanel = function() {
 	var self = this;
+	
 	$self = $('.tmpl-panel-map-object-list');
 	
 	self.objects = {};
 	self.settings = {};
+	
+	extend(this, MapObjectsModel);
 	
 	this.init = function() {
 		self.fixPanelHeight();
@@ -62,29 +65,6 @@ var MapObjectsPanel = function() {
 		});
 	};
 	
-	this.setObjectSettings = function(nextFn) {
-		sendApiRequest('getDataForSelect', null, function(response){
-			self.settings = {users: [], iconsAll: {}, iconsPoi: {}, iconsObjects: {}};
-			for(var i = 0; i < response.data.users.length; i++) {
-				var row = response.data.users[i];
-				self.settings.users.push({name: row.name, guid: row.guid}) ;
-			}
-			for(var i = 0; i < response.data.monitoringObjectIcons.length; i++) {
-				var row = response.data.monitoringObjectIcons[i];
-				self.settings.iconsObjects[row.guid] = row.name;
-				self.settings.iconsAll[row.guid] = row.name;
-			}
-			for(var i = 0; i < response.data.poiIcons.length; i++) {
-				var row = response.data.poiIcons[i];
-				self.settings.iconsPoi[row.guid] = row.name;
-				self.settings.iconsAll[row.guid] = row.name;
-			}
-			if (nextFn) {
-				nextFn();
-			}
-		});
-	};
-	
 	this.update = function() {
 		sendApiRequest('getTopicalityData', null, function(response) {
 			$('#checkAll', $self).prop('checked', false).trigger('refresh');
@@ -99,7 +79,7 @@ var MapObjectsPanel = function() {
 			for(var i = 0; i < response.data.length; i++) {
 				var data = response.data[i];
 				var id = data.guid;
-				data.checkable = (data.topicality) && true;
+				data.checkable = true && data.topicality && data.lat && data.lon;
 				data.checked = (self.objects[id].checked) && true;
 				data.opened = (self.objects[id].opened) && true;
 				self.setObjectData(id, data);
@@ -112,7 +92,7 @@ var MapObjectsPanel = function() {
 		self.objects = {};
 		for(var i = 0; i < data.length; i++) {
 			var id = data[i].guid;
-			data[i].checkable = (data[i].topicality) && true;
+			// data[i].checkable = (data[i].topicality) && true;
 			self.setObjectData(id, data[i]);
 			self.setMapObject(id, self.getIcon(data[i].icon));
 		}
@@ -120,27 +100,6 @@ var MapObjectsPanel = function() {
 	
 	this.getIcon = function(iconID) {
 		return (self.settings.iconsAll[iconID]) ? self.settings.iconsAll[iconID] : '';
-	};
-	
-	this._updatedAgo = function(date) {
-		var now = new Date();
-		return Math.floor((now.getTime() - date.getTime()) / Date.HOUR);
-	};
-	
-	this.setObjectData = function(id, data) {
-		self.objects[id] = data;
-		self.objects[id].id = id;
-		self.objects[id].checked = (data.checked) ? data.checked : false;
-		self.objects[id].title = data.name;
-		
-		if (data.topicality) {
-			var date = Date.fromSqlDate(data.topicality.replace(/T/, ' '));
-			self.objects[id].updated_ago = self._updatedAgo(date);
-			self.objects[id].updated_date = date.fullDate('rus') + ' ' + date.hoursMinutes('rus');
-		} else {
-			self.objects[id].updated_ago = -1;
-			self.objects[id].updated_date = '-';
-		}
 	};
 	
 	this.setMapObject = function(id, icon) {
@@ -202,19 +161,33 @@ var MapObjectsPanel = function() {
 		// $('.item input[type=checkbox]', $self).prop('checked', checked).trigger('refresh');
 		$('.item input[type=checkbox]', $self).each(function(){
 			$(this).prop('checked', checked).trigger('refresh');
-			$(this).change(); // call indirectly onchange for this checkbox
+			var id = this.id.replace(/check/, '');
+			
+			// $(this).change(); // call indirectly onchange for this checkbox
+			
+			self.objects[id].checked = checked; // save checked state for sorting
+			if (!self.objects[id].isFolder) {
+				self.hideObject(id);
+				if (checked) {
+					self.showObject(id);
+				}
+			}
 		});
-		if (checked) {
-			this.showMap();
-		}
+		setTimeout(function(){
+			self.showMap();
+		}, 50);
+		
 	};
 	
 	this.onCheckObject = function(checked, id) {
 		self.objects[id].checked = checked; // save checked state for sorting
-		self.hideObject(id);
-		if (checked) {
-			self.showObject(id);
+		if (!self.objects[id].isFolder) {
+			self.hideObject(id);
+			if (checked) {
+				self.showObject(id);
+			}
 		}
+		self.showMap();
 	};
 	
 	this.onCheckFolder = function(checked, id) {
@@ -346,34 +319,41 @@ var MapObjectsPanel = function() {
 	};
 	
 	this.showMap = function() {
+		var points = [];
 		if (!$.isEmptyObject(self.objects)) {
 			// show all checked markers
+			var lChecked = false;
 			for(var id in self.objects) {
 				if (!self.objects[id].isFolder && self.objects[id].checked) {
-					self.showObject(id);
-				}
-			}
-			
-			// show map for 1st marker (hidden or checked)
-			// var id = Object.keys(self.objects)[0];
-			var _id = null;
-			for(var id in self.objects) {
-				if (!self.objects[id].isFolder && self.objects[id].checked) {
-					_id = id;
-					break;
-				}
-			}
-			if (!_id) {
-				for(var id in self.objects) {
-					if (!self.objects[id].isFolder && self.objects[id].checkable) {
-						_id = id;
-						break;
+					if (self.objects[id].lat && self.objects[id].lon) {
+						lChecked = true;
+						points.push({lat: self.objects[id].lat, lon: self.objects[id].lon});
+						// points.push([self.objects[id].lat, self.objects[id].lon]);
 					}
 				}
 			}
-			if (_id) {
-				map.showAt(self.getObjectLatLng(_id));
+			if (!lChecked) {
+				for(var id in self.objects) {
+					if (!self.objects[id].isFolder && self.objects[id].lat && self.objects[id].lon) {
+						points.push({lat: self.objects[id].lat, lon: self.objects[id].lon});
+						// points.push([self.objects[id].lat, self.objects[id].lon]);
+					}
+				}
 			}
+		}
+		if (points.length) {
+			/*
+			var minLat = points[0].lat, maxLat = points[0].lat, minLon = points[0].lon, maxLon = points[0].lon;
+			for(var i = 0; i < points.length; i++) {
+				minLat = Math.min(minLat, points[i].lat);
+				maxLat = Math.max(maxLat, points[i].lat);
+				minLon = Math.min(minLon, points[i].lon);
+				maxLon = Math.max(maxLon, points[i].lon);
+			}
+			*/
+			var bounds = L.latLngBounds(points);
+			// var bounds = [[minLat, minLon], [maxLat, maxLon]];
+			setTimeout(function(){ map.mapL.fitBounds(bounds); }, 500);
 		}
 	};
 	
@@ -402,52 +382,6 @@ var MapObjectsPanel = function() {
 	this.clearObjects = function() {
 		map.clearMarkers();
 		self.objects = {};
-	};
-	
-	this.edit = function() {
-		var editFn = function() {
-			self.dialog = new Popup({
-				title: locale.addObject,
-				content: Tmpl('popup-edit-object').render(self)
-			});
-			self.dialog.open();
-			
-			$('#editForm input[type=text]').focus(function(){
-				self.dialog.hideFieldError($(this));
-			});
-		};
-		if ($.isEmptyObject(self.settings)) {
-			self.setObjectSettings(editFn);
-		} else {
-			editFn();
-		}
-	};
-	
-	this.saveObject = function() {
-		if (self.isFormValid()) {
-			self.dialog.close();
-			var params = $('#editForm').serialize();
-			sendApiRequest('post.monitoringObjects', params, function(){
-				self.dialog = new PopupInfo({
-					title: locale.addObject, 
-					text: locale.objectCreated
-				});
-				self.dialog.open();
-			});
-		}
-	};
-	
-	this.isFormValid = function() {
-		var $name = $('#editForm input[name="name"]');
-		if (!$name.val()) {
-			self.dialog.showFieldError($name, locale.errBlankField);
-		}
-		
-		var $imei = $('#editForm input[name="imei"]');
-		if (!$imei.val()) {
-			self.dialog.showFieldError($imei, locale.errBlankField);
-		}
-		return !$('#editForm .error').length;
 	};
 	
 	this.getInitialLocation = function() {

@@ -53,10 +53,8 @@ var ObjectRoutesPanel = function() {
 			self.objects[id].routesEnabled = false;
 			if (data && data.length) {
 				// data.id = id;
-				var step = (data.length > 30) ? Math.floor(data.length / 30) : 1;
-				console.log(data.length, step);
 				var points = [];
-				for(var j = 0; j < data.length; j+= step) {
+				for(var j = 0; j < data.length; j++) {
 					var point = data[j];
 					point.id = point.pointId;
 					point.period = point.period.replace(/T/, ' ');
@@ -78,9 +76,11 @@ var ObjectRoutesPanel = function() {
 	
 	this.setMapObject = function(id) {
 		self.parent.setMapObject(id, self.objects[id].type);
+		// var step = (data.length > 30) ? Math.floor(data.length / 30) : 1;
 		
 		if (self.objects[id].checkable && self.objects[id].routesEnabled) {
 			map.addLine(self.objects[id]);
+			self.pointsCount = 0;
 			for(var j = 0; j < self.objects[id].routes.length; j++) {
 				self.addRoutePoint(id, j);
 			}
@@ -100,6 +100,7 @@ var ObjectRoutesPanel = function() {
 			map.addMarker(point, point.status + selected);
 			map.bindMarkerPopup(point.id, Tmpl('route-' + point.status).render(point));
 		} else {
+			// var step = (data.length > 30) ? Math.floor(data.length / 30) : 1;
 			var nextPoint = self.objects[id].routes[i + 1];
 			map.addMarker(point, 'dir' + selected + '-' + getAngle(point, nextPoint));
 			map.bindMarkerPopup(point.id, Tmpl('route-' + point.status).render(point));

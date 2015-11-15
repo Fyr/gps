@@ -1,11 +1,14 @@
+{%
+	var _item = (o.id) ? o.objects[o.id] : null;
+%}
 <form id="editForm">
 	<div class="line">
 		<label>Наименование обьекта:</label>
-		<input type="text" name="name" />
+		<input type="text" name="name" value="{%=(_item && _item.name)%}" />
 	</div>
 	<div class="line">
 		<label>IMEI:</label>
-		<input type="text" name="imei" />
+		<input type="text" name="imei" value="{%=(_item && _item.imei)%}" />
 	</div>
 	<div class="line">
 		<label>Иконка:</label>
@@ -38,6 +41,6 @@
 		</div>
 	</div>
 	<div class="popup-actions">
-		<button type="button" class="btn" onclick="objectsPanel.saveObject()">Сохранить</button>
+		<button type="button" class="btn" onclick="objectsPanel.save()">Сохранить</button>
 	</div>
 </form>

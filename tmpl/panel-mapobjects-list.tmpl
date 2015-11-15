@@ -1,0 +1,27 @@
+<table class="admin" cellspacing="0" border="0">
+{%
+	if (!$.isEmptyObject(o.objects)) {
+		for(var id in o.objects) {
+			var item = o.objects[id];
+%}
+<tr>
+	<td>{%=item.name%}</td>
+	<td>{%=item.imei%}</td>
+	<td align="right">
+		<a class="fa fa-edit" href="javascript:void(0)" onclick="objectsPanel.edit('{%=item.guid%}')"></a>
+		<a class="fa fa-remove" href="javascript:void(0)" onclick="objectsPanel.remove('{%=item.guid%}')"></a>		
+	</td>
+</tr>
+{%
+		}
+	} else {
+%}
+<tr>
+	<td colspan="3" style="text-align: center; padding: 10px 0;">
+		 - {%=locale.noObjects%} - 
+	</td>
+</tr>
+{%
+	}
+%}
+</table>

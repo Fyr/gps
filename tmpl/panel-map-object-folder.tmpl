@@ -3,7 +3,7 @@
 		<span class="fa fa-plus-square-o" onclick="objectsPanel.onToggleFolder('{%=o.id%}')"></span>
 		<span class="fa fa-minus-square-o" onclick="objectsPanel.onToggleFolder('{%=o.id%}')" style="display: none"></span>
 		<label>
-			<input type="checkbox" onchange="objectsPanel.onCheckFolder(this.checked, '{%=o.id%}')" {% if (o.checked) { %}checked="checked" {% } %} />
+			<input type="checkbox" id="check{%=o.id%}" onchange="objectsPanel.onCheckFolder(this.checked, '{%=o.id%}')" {% if (o.checked) { %}checked="checked" {% } %} />
 			{%=o.title%}
 		</label>
 	</div>
