@@ -21,3 +21,4 @@ table.admin { width: 100%; }
 	background-image: url("../img/layers.png");
 	background-color: #fff200;
 }
+#progress { font-weight: bold; text-align: center; width: 98%; position: absolute; top: 54px; }

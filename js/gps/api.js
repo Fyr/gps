@@ -8,12 +8,15 @@ function sendApiRequest(method, data, successFn) {
 		methodType = method.split('.')[0];
 		method = method.split('.')[1];
 	}
+	$('#progress').show();
+	
 	$.ajax({
 		url: baseUrl + method,
 		data: data,
 		dataType: 'json',
 		method: methodType,
 		success: function(response) {
+			$('#progress').hide();
 			if (typeof(response) == 'string') {
 				response = JSON.parse(response);
 			}
@@ -40,6 +43,7 @@ function int2hex(n, length) {
 }
 
 function setCurrMenu(n, m) {
+	$('.header').append('<div id="progress" style="display: none;">Подождите, выполняется запрос...</div>');
 	sendApiRequest('getReports', null, function(response){
 		MainMenu[3].submenu = [];
 		for(var i = 0; i < response.data.length; i++) {

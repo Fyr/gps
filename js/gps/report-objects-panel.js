@@ -39,7 +39,7 @@ var ReportObjectsPanel = function() {
 		sendApiRequest('getReport', {guid: self.reportId, format: 'json', params: JSON.stringify(params)}, function(response){
 			$('#report-canvas').show();
 			self.columns = response.data.columns;
-			self.group = response.data.group || [];
+			self.groups = response.data.groups || [];
 			self.processData(response.data.data);
 			self.renderReport();
 		});
@@ -47,9 +47,6 @@ var ReportObjectsPanel = function() {
 	
 	this.processData = function(data) {
 		self.data = data;
-		for(var i = 0; i < data.length; i++) {
-			
-		}
 	};
 	
 	this.renderReport = function() {

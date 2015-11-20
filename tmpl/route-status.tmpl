@@ -1,0 +1,53 @@
+<!-- Template: route-start -->
+<b>Старт</b><br/>
+{%
+	var date = Date.fromSqlDate(o.period);
+%}
+Начало маршрута: {%=date.fullDate('rus')%} {%=date.hoursMinutes('rus')%}
+<!-- end -->
+
+<!-- Template: route-finish -->
+<b>Финиш</b><br/>
+{%
+	var date = Date.fromSqlDate(o.period);
+%}
+Конец маршрута: {%=date.fullDate('rus')%} {%=date.hoursMinutes('rus')%}
+<!-- end -->
+
+<!-- Template: route-parking -->
+<b>Стоянка</b><br/>
+{%
+	var date = Date.fromSqlDate(o.period);
+	var date2 = Date.fromSqlDate(o.parkingEnd);
+%}
+{%=date.fullDate('rus')%} {%=date.hoursMinutes('rus')%} - {%=date2.fullDate('rus')%} {%=date2.hoursMinutes('rus')%}
+<!-- end -->
+
+<!-- Template: route-movement -->
+<b>Движение</b><br/>
+{%
+	var date = Date.fromSqlDate(o.period);
+%}
+{%=date.fullDate('rus')%} {%=date.hoursMinutes('rus')%}
+<br />
+<br />
+<div id="point_{%=o.pointId%}">
+	<a href="javascript:void(0)" onclick="objectsPanel.showPointData({%=o.pointId%})">Показать значения датчиков</a>
+</div>
+<!-- end -->
+
+<!-- Template: route-sensors -->
+{%
+	if (o.params) {
+		for(var i = 0; i < o.params.length; i++) {
+%}
+{%=o.params[i].parametr%}: {%=o.params[i].data%}<br/>
+{%
+		}
+	} else {
+%}
+- нет данных -
+{%
+	}
+%}
+<!-- end -->

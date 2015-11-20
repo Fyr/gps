@@ -76,12 +76,14 @@ var ObjectRoutesPanel = function() {
 	
 	this.setMapObject = function(id) {
 		self.parent.setMapObject(id, self.objects[id].type);
-		// var step = (data.length > 30) ? Math.floor(data.length / 30) : 1;
-		
 		if (self.objects[id].checkable && self.objects[id].routesEnabled) {
 			map.addLine(self.objects[id]);
-			self.pointsCount = 0;
-			for(var j = 0; j < self.objects[id].routes.length; j++) {
+			
+			var routes = self.objects[id].routes;
+			self.pointsStep = (routes.length > 50) ? Math.floor(routes.length / 50) : 1;
+			self.pointsCount = self.pointsStep;
+			self.objects[id].routeMarkers = [];
+			for(var j = 0; j < routes.length; j++) {
 				self.addRoutePoint(id, j);
 			}
 		}
@@ -93,17 +95,25 @@ var ObjectRoutesPanel = function() {
 		if (i == 0) {
 			map.addMarker(point, 'start' + selected);
 			map.bindMarkerPopup(point.id, Tmpl('route-start').render(point));
+			self.objects[id].routeMarkers.push(i);
 		} else if (i == (self.objects[id].routes.length - 1)) {
 			map.addMarker(point, 'finish' + selected);
 			map.bindMarkerPopup(point.id, Tmpl('route-finish').render(point));
+			self.objects[id].routeMarkers.push(i);
 		} else if (in_array(point.status, ['parking'])) {
 			map.addMarker(point, point.status + selected);
 			map.bindMarkerPopup(point.id, Tmpl('route-' + point.status).render(point));
+			self.objects[id].routeMarkers.push(i);
 		} else {
-			// var step = (data.length > 30) ? Math.floor(data.length / 30) : 1;
-			var nextPoint = self.objects[id].routes[i + 1];
-			map.addMarker(point, 'dir' + selected + '-' + getAngle(point, nextPoint));
-			map.bindMarkerPopup(point.id, Tmpl('route-' + point.status).render(point));
+			if (self.pointsCount >= self.pointsStep) {
+				var nextPoint = self.objects[id].routes[i + 1];
+				map.addMarker(point, 'dir' + selected + '-' + getAngle(point, nextPoint));
+				map.bindMarkerPopup(point.id, Tmpl('route-' + point.status).render(point));
+				self.pointsCount = 1;
+				self.objects[id].routeMarkers.push(i);
+			} else {
+				self.pointsCount++;
+			}
 		}
 	};
 	
@@ -117,7 +127,9 @@ var ObjectRoutesPanel = function() {
 	this.showRoute = function(id) {
 		var routes = self.objects[id].routes;
 		for(var i = 0; i < routes.length; i++) {
-			map.showMarker(routes[i].id);
+			if (in_array(i, self.objects[id].routeMarkers)) {
+				map.showMarker(routes[i].id);
+			}
 		}
 		map.showLine(id);
 		self.objects[id].showRoute = true;
@@ -127,7 +139,9 @@ var ObjectRoutesPanel = function() {
 		var routes = self.objects[id].routes;
 		map.hideLine(id);
 		for(var i = 0; i < routes.length; i++) {
-			map.hideMarker(routes[i].id);
+			if (in_array(i, self.objects[id].routeMarkers)) {
+				map.hideMarker(routes[i].id);
+			}
 		}
 		self.objects[id].showRoute = false;
 	};
@@ -316,5 +330,11 @@ var ObjectRoutesPanel = function() {
 		freeH = self.getFreeHeight(divs) + 13;
 		$('#map-canvas').css('height', freeH + 'px');
 		setTimeout(function(){ map.refresh(); }, 10);
+	};
+	
+	this.showPointData = function(pointId) {
+		sendApiRequest('getPointData', 'pointId=' + pointId, function(response){
+			$('#point_' + pointId).html(Tmpl('route-sensors').render(response.data));
+		});
 	};
 };
