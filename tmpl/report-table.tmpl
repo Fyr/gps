@@ -3,7 +3,7 @@
 {%
 	include('report-header', o);
 	objectsPanel.rowID = 0;
-	o.nestLevel = 0;
+	o.nestLevel = 1;
 %}
 <tbody>
 {%
@@ -36,26 +36,22 @@
 %}
 	<tr class="treegrid-{%=objectsPanel.rowID%}{% if (o.parentID) { %} treegrid-parent-{%=o.parentID%}{% } %}">
 {%
-		/*
-		var cols = [], colspan = [];
-		if (o.nestLevel) {
-			colspan.push(o.nestLevel + 1);
+		var colspan = 0;
+		if (o.nestLevel <= o.groups.length) {
+			colspan = o.nestLevel;
+			do {
+				colspan++;
+				col = o.columns[colspan];
+			} while (colspan < o.columns.length && row[col.key] === null);
+			console.log(objectsPanel.rowID, o.nestLevel, colspan);
 		}
-		for(var j = o.nestLevel; j < o.columns.length; j++) {
-			var col = o.columns[j];
-			var pos = colspan.length - 1;
-			if (row[col.key] === null) {
-				colspan[pos]++;
-			} else {
-				cols.push(col);
-				colspan.push(1);
-			}
+		if (colspan) {
+			var col = o.columns[o.nestLevel - 1];
+%}
+		<td colspan="{%=colspan%}">{%=row[col.key]%}</td>
+{%
 		}
-		console.log(row, colspan);
-		for(var j = 0; j < cols.length; j++) {
-			var col = cols[j];
-		*/
-		for(var j = 0; j < o.columns.length; j++) {
+		for(var j = colspan; j < o.columns.length; j++) {
 			var col = o.columns[j];
 %}
 		<td>{%=row[col.key]%}</td>
@@ -65,9 +61,8 @@
 	</tr>
 {%
 		if (row.data) {
-			include('report-row', {columns: o.columns, data: row.data, parentID: objectsPanel.rowID, nestLevel: o.nestLevel + 1});
+			include('report-row', {columns: o.columns, groups: o.groups, data: row.data, parentID: objectsPanel.rowID, nestLevel: o.nestLevel + 1});
 		}
 	}
 %}
-
 <!-- end -->
