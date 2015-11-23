@@ -66,7 +66,7 @@ var ObjectRoutesPanel = function() {
 				
 				self.objects[id].routesEnabled = true;
 				self.objects[id].chartsEnabled = true;
-				self.objects[id].showRoute = true;
+				self.objects[id].showRoute = false;
 				self.objects[id].showChart = false;
 				self.objects[id].routes = points;
 				self.objects[id].latlons = points;
@@ -125,14 +125,18 @@ var ObjectRoutesPanel = function() {
 	};
 	
 	this.showRoute = function(id) {
-		var routes = self.objects[id].routes;
+		var routes = self.objects[id].routes, points = [];
 		for(var i = 0; i < routes.length; i++) {
+			points.push({lat: routes[i].lat, lon: routes[i].lon});
 			if (in_array(i, self.objects[id].routeMarkers)) {
 				map.showMarker(routes[i].id);
 			}
 		}
 		map.showLine(id);
+
+		var bounds = L.latLngBounds(points);
 		self.objects[id].showRoute = true;
+		setTimeout(function(){ map.mapL.fitBounds(bounds); }, 500);
 	};
 	
 	this.hideRoute = function(id) {
