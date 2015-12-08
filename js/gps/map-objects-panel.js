@@ -167,15 +167,17 @@ var MapObjectsPanel = function() {
 			
 			self.objects[id].checked = checked; // save checked state for sorting
 			if (!self.objects[id].isFolder) {
-				self.hideObject(id);
+				self.hideObject(id, false);
 				if (checked) {
-					self.showObject(id);
+					console.log('showObject(' + id + ', false)');
+					self.showObject(id, false);
 				}
 			}
 		});
-		setTimeout(function(){
-			self.showMap();
-		}, 50);
+		self.showMap();
+		//setTimeout(function(){
+
+		//}, 500);
 		
 	};
 	
@@ -342,17 +344,7 @@ var MapObjectsPanel = function() {
 			}
 		}
 		if (points.length) {
-			/*
-			var minLat = points[0].lat, maxLat = points[0].lat, minLon = points[0].lon, maxLon = points[0].lon;
-			for(var i = 0; i < points.length; i++) {
-				minLat = Math.min(minLat, points[i].lat);
-				maxLat = Math.max(maxLat, points[i].lat);
-				minLon = Math.min(minLon, points[i].lon);
-				maxLon = Math.max(maxLon, points[i].lon);
-			}
-			*/
 			var bounds = L.latLngBounds(points);
-			// var bounds = [[minLat, minLon], [maxLat, maxLon]];
 			setTimeout(function(){ map.mapL.fitBounds(bounds); }, 500);
 		}
 	};
@@ -371,11 +363,11 @@ var MapObjectsPanel = function() {
 		return ids;
 	};
 	
-	this.showObject = function(id) {
+	this.showObject = function(id, lShowMap) {
 		map.showMarker(id);
 	};
 	
-	this.hideObject = function(id) {
+	this.hideObject = function(id, lShowMap) {
 		map.hideMarker(id);
 	};
 	

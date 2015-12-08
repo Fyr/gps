@@ -5,6 +5,7 @@ var ObjectRoutesPanel = function() {
 
 	self.routes = {};
 	self.sensors = {};
+	self.lRedraw = true;
 	
 	this.updateRoutes = function() {
 		var params = {
@@ -19,8 +20,20 @@ var ObjectRoutesPanel = function() {
 			}
 			self.clearObjects();
 			self.setObjects(_old_objects, response.data);
-			self.show();
+			self.render();
+			for(var id in self.objects) {
+				if (!self.objects[id].isFolder && self.objects[id].checked) {
+					self.showObject(id, false);
+				}
+			}
+			self.showMap();
 		});
+	};
+
+	this.clearObjects = function() {
+		map.clearMarkers();
+		map.clearLines();
+		self.objects = {};
 	};
 	
 	this.setObjects = function(data, routesData) {
@@ -38,12 +51,6 @@ var ObjectRoutesPanel = function() {
 		for(var id in self.objects) {
 			self.setMapObject(id);
 		}
-	};
-	
-	this.clearObjects = function() {
-		map.clearMarkers();
-		map.clearLines();
-		self.objects = {};
 	};
 	
 	this.setRoutes = function(routesData) {
@@ -66,7 +73,7 @@ var ObjectRoutesPanel = function() {
 				
 				self.objects[id].routesEnabled = true;
 				self.objects[id].chartsEnabled = true;
-				self.objects[id].showRoute = false;
+				self.objects[id].showRoute = true;
 				self.objects[id].showChart = false;
 				self.objects[id].routes = points;
 				self.objects[id].latlons = points;
@@ -117,37 +124,62 @@ var ObjectRoutesPanel = function() {
 		}
 	};
 	
-	this.showObject = function(id) {
-		self.parent.showObject(id);
+	this.showObject = function(id, lShowMap) {
+		lShowMap = (typeof(lShowMap) == 'undefined') ? true : lShowMap;
+		self.parent.showObject(id, false);
 		if (self.objects[id].showRoute) {
-			self.showRoute(id);
+			self.showRoute(id, false);
+		}
+		if (lShowMap) {
+			self.showMap();
 		}
 	};
-	
-	this.showRoute = function(id) {
-		var routes = self.objects[id].routes, points = [];
-		for(var i = 0; i < routes.length; i++) {
-			points.push({lat: routes[i].lat, lon: routes[i].lon});
-			if (in_array(i, self.objects[id].routeMarkers)) {
-				map.showMarker(routes[i].id);
-			}
-		}
-		map.showLine(id);
 
-		var bounds = L.latLngBounds(points);
-		self.objects[id].showRoute = true;
-		setTimeout(function(){ map.mapL.fitBounds(bounds); }, 500);
+	this.hideObject = function(id, lShowMap) {
+		lShowMap = (typeof(lShowMap) == 'undefined') ? true : lShowMap;
+		self.parent.hideObject(id, false);
+		if (self.objects[id].showRoute) {
+			self.hideRoute(id, false);
+		}
+		if (lShowMap) {
+			self.showMap();
+		}
 	};
 	
-	this.hideRoute = function(id) {
-		var routes = self.objects[id].routes;
-		map.hideLine(id);
-		for(var i = 0; i < routes.length; i++) {
-			if (in_array(i, self.objects[id].routeMarkers)) {
-				map.hideMarker(routes[i].id);
+	this.showRoute = function(id, lShowMap) {
+		if (self.objects[id].routesEnabled) {
+			lShowMap = (typeof(lShowMap) == 'undefined') ? true : lShowMap;
+			var routes = self.objects[id].routes, points = [];
+			for (var i = 0; i < routes.length; i++) {
+				points.push({lat: routes[i].lat, lon: routes[i].lon});
+				if (in_array(i, self.objects[id].routeMarkers)) {
+					map.showMarker(routes[i].id);
+				}
+			}
+			map.showLine(id);
+			self.objects[id].showRoute = true;
+
+			if (lShowMap) {
+				self.showMap();
 			}
 		}
-		self.objects[id].showRoute = false;
+	};
+	
+	this.hideRoute = function(id, lShowMap) {
+		if (self.objects[id].routesEnabled) {
+			var routes = self.objects[id].routes;
+			map.hideLine(id);
+			for (var i = 0; i < routes.length; i++) {
+				if (in_array(i, self.objects[id].routeMarkers)) {
+					map.hideMarker(routes[i].id);
+				}
+			}
+			self.objects[id].showRoute = false;
+
+			if (lShowMap) {
+				self.showMap();
+			}
+		}
 	};
 	
 	this.toggleRoute = function(e) {
@@ -309,10 +341,15 @@ var ObjectRoutesPanel = function() {
 			map.showMarker(pointId);
 		}
 	};
-	
-	this.onCheckObject = function(checked, id) {
+
+	this.checkAll = function() {
+		self.parent.checkAll();
 		$('.tmpl-panel-map-object-form .btn').get(0).disabled = !$('.tmpl-panel-map-object-list .info [type=checkbox]:checked').length;
+	};
+
+	this.onCheckObject = function(checked, id) {
 		self.parent.onCheckObject(checked, id);
+		$('.tmpl-panel-map-object-form .btn').get(0).disabled = !$('.tmpl-panel-map-object-list .info [type=checkbox]:checked').length;
 	};
 	
 	this.fixPanelHeight = function() {
@@ -341,4 +378,43 @@ var ObjectRoutesPanel = function() {
 			$('#point_' + pointId).html(Tmpl('route-sensors').render(response.data));
 		});
 	};
+
+	this.showMap = function() {
+		var points = [];
+		console.log('showMap');
+		if (!$.isEmptyObject(self.objects)) {
+			// show all checked markers
+			var lChecked = false;
+			for(var id in self.objects) {
+				if (!self.objects[id].isFolder) {
+					if (self.objects[id].checked && self.objects[id].lat && self.objects[id].lon) {
+						lChecked = true;
+						points.push({lat: self.objects[id].lat, lon: self.objects[id].lon});
+					}
+					/*
+					var routes = self.objects[id].routes;
+					if (routes) {
+						for (var i = 0; i < routes.length; i++) {
+							points.push({lat: routes[i].lat, lon: routes[i].lon});
+						}
+					}
+					*/
+				}
+			}
+			if (!lChecked) {
+				for(var id in self.objects) {
+					if (!self.objects[id].isFolder && self.objects[id].lat && self.objects[id].lon) {
+						points.push({lat: self.objects[id].lat, lon: self.objects[id].lon});
+						// points.push([self.objects[id].lat, self.objects[id].lon]);
+					}
+				}
+			}
+		}
+
+		if (points.length) {
+			var bounds = L.latLngBounds(points);
+			setTimeout(function(){ map.mapL.fitBounds(bounds); }, 500);
+		}
+	};
+
 };
