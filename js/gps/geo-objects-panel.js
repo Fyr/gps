@@ -70,19 +70,19 @@ var GeoObjectsPanel = function() {
 		return {lat: self.objects[id].lat, lon: self.objects[id].lon};
 	};
 	
-	this.showObject = function(id) {
+	this.showObject = function(id, lShowMap) {
 		if (self.objects[id].type == 'circle') {
-			map.showCircle(id);
 			var icon = self.getIcon(self.objects[id].icon);
 			if (icon) {
 				map.showMarker(id + '-icon');
 			}
+			map.showCircle(id);
 		}else if (self.objects[id].type == 'polygon') {
 			map.showPolygon(id);
 		}
 	};
 	
-	this.hideObject = function(id) {
+	this.hideObject = function(id, lShowMap) {
 		if (self.objects[id].type == 'circle') {
 			map.hideCircle(id);
 			var icon = self.getIcon(self.objects[id].icon);
@@ -99,5 +99,50 @@ var GeoObjectsPanel = function() {
 		map.clearPolygons();
 		self.objects = {};
 	};
-	
+
+	this.pushPoints = function(id, points) {
+		if (self.objects[id].type == 'circle') {
+			if (self.objects[id].lat && self.objects[id].lon && self.objects[id].radius) {
+				 points.push({
+					 lat: self.objects[id].lat - self.objects[id].radius / 10000,
+					 lon: self.objects[id].lon - self.objects[id].radius / 10000
+				 });
+				 points.push({
+					 lat: self.objects[id].lat + self.objects[id].radius / 10000,
+					 lon: self.objects[id].lon + self.objects[id].radius / 10000
+				 });
+			}
+		} else if (self.objects[id].type == 'polygon' && self.objects[id].points) {
+			for(var i = 0; i < self.objects[id].points.length; i++) {
+				if (self.objects[id].points[i].lat && self.objects[id].points[i].lon) {
+					points.push({lat: self.objects[id].points[i].lat, lon: self.objects[id].points[i].lon});
+				}
+			}
+
+		}
+	};
+
+	this.showMap = function() {
+		var points = [];
+		if (!$.isEmptyObject(self.objects)) {
+			// show all checked markers
+			var lChecked = false;
+			for(var id in self.objects) {
+				if (!self.objects[id].isFolder && self.objects[id].checked) {
+					lChecked = true;
+					self.pushPoints(id, points);
+				}
+			}
+			if (!lChecked) {
+				for(var id in self.objects) {
+					self.pushPoints(id, points);
+				}
+			}
+		}
+
+		if (points.length) {
+			var bounds = L.latLngBounds(points);
+			setTimeout(function(){ map.mapL.fitBounds(bounds); }, 500);
+		}
+	};
 };
