@@ -75,7 +75,6 @@ ul { list-style: none; margin: 0; padding: 0;}
 		.header .subMenu.map { width: 540px;}
 		.header .subMenu.planning { width: 480px;}
 		.header .subMenu.reports { /*width: 346px;*/ width: 450px; left: -105px}
-		.header .subMenu.admin { width: 473px; left: -307px; }
 		.header .subMenu li { float: left; text-align: center; color: #68696a; font-size: 12px; }
 		.header .subMenu li a { color: #68696a; display: block; padding: 7px 15px 0 15px; height: 30px; min-width: 75px; box-sizing: border-box; text-shadow: none !important; font-weight: normal !important; }
 		.header .subMenu li.active > a, .header .subMenu li a:hover { background: #68696a; color: #fff; text-shadow: none; font-weight: normal;  }
@@ -498,3 +497,15 @@ only screen and (                min-resolution: 2dppx) {
 
 
 .fc-toolbar { width: 100%; }
+
+.auth { max-width: 400px; margin: 0 auto;  }
+	.auth .title { text-align: left; }
+	.auth .description { margin-left: 11px; margin-right: 11px; padding-right: 0; }
+	.auth .description label {  display: inline-block; min-width: 80px; text-align: left; vertical-align: middle; padding-right: 10px; }
+	.auth .description input { box-sizing: border-box;  width: 200px; display: inline-block; vertical-align: middle; }
+	.auth .description .btn { margin-top: 10px;}
+	.auth .description .item {  padding-top: 10px;  margin: 0 auto; /*width: 300px;*/ text-align: center;  }
+	.auth .description .linkTo { float: right; margin-right: 0}
+	.auth .description .bottom {  }
+	.auth .description .remember { max-width: 294px}
+	.auth .description .remember label { float: left; min-width: 0; padding-right: 0;}

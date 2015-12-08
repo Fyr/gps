@@ -19,6 +19,10 @@ table.admin { width: 100%; }
 /* leaflet fixes */
 .leaflet-control-layers-toggle {
 	background-image: url("../img/layers.png");
-	background-color: #fff200;
 }
-#progress { font-weight: bold; text-align: center; width: 98%; position: absolute; top: 54px; }
+
+
+.leaflet-control-layers { background-color: #fff200;}
+.leaflet-control-layers-expanded { background-color: #fff;}
+
+.popup .leaflet-control-layers label, #reportForm .leaflet-control-layers label { display: block; }
