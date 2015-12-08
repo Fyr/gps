@@ -13,7 +13,7 @@
 {%
 	for(var i in o.settings.types) {
 		var title = o.settings.types[i];
-		var selected = (_item.type == i) ? 'selected="selected"' : '';
+		var selected = (_item && _item.type == i) ? 'selected="selected"' : '';
 %}
 			<option value="{%=i%}" {%=selected%}>{%=title%}</option>
 {%
@@ -34,7 +34,7 @@
 		<select class="noStyler iconsSelect" name="icon">
 {%
 	for(var id in o.settings.iconsPoi) {
-		var selected = (_item.icon == id) ? 'selected="selected"' : '';
+		var selected = (_item && _item.icon == id) ? 'selected="selected"' : '';
 %}
 		<option value="{%=id%}" {%=selected%}>{%=o.settings.iconsPoi[id]%}</option>
 {%
