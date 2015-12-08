@@ -52,12 +52,14 @@ var AdminGeoobjectsPanel = function() {
 		sendApiRequest('poi', null, function(response){
 			for(var i = 0; i < response.data.length; i++) {
 				var data = response.data[i];
+				data.id = data.guid;
 				if (data.type == 'Точка') {
 					data.type = 'circle';
 				} else if (data.type == 'Полигон') {
 					data.type = 'polygon';
 				}
-				self.objects[data.guid] = data;
+				data.latlons = data.points || [];
+				self.objects[data.id] = data;
 			}
 			self.show();
 		});

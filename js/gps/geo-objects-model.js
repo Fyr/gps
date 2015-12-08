@@ -8,26 +8,44 @@ var GeoObjectsModel = function() {
 			content: Tmpl('popup-geoobject-edit').render(self)
 		});
 		self.dialog.open();
-		
+
+		self.miniMap = new MapAPI('minimap-canvas');
+		var miniMap = self.miniMap;
+		miniMap.init();
+
+		self.changeType();
+
 		$('#editForm [type=text]').focus(function(){
 			self.dialog.hideFieldError($(this));
 		});
-		
-		var miniMap = new MapAPI('minimap-canvas');
-		miniMap.init();
+
 		if (id) {
 			if (self.objects[id].type == 'circle') {
-				miniMap.addCircle(self.objects[id]);
+				var obj = self.objects[id];
+				miniMap.addCircle({id: 'edit-circle', lat: obj.lat, lon: obj.lon, radius: obj.radius});
+				miniMap.showCircle('edit-circle');
 				var icon = self.getIcon(self.objects[id].icon);
 				if (icon) {
 					var obj = self.objects[id];
-					miniMap.addMarker({id: id + '-icon', lat: obj.lat, lon: obj.lon, title: obj.name}, 'icon:' + icon);
+					miniMap.addMarker({id: 'edit-icon', lat: obj.lat, lon: obj.lon, title: obj.name}, 'icon:' + icon);
+					miniMap.showMarker('edit-icon');
 				}
 			} else if (self.objects[id].type == 'polygon') {
 				miniMap.addPolygon(self.objects[id]);
+				miniMap.showPolygon(id);
 			}
 		}
-		miniMap.showAt(self.getInitialLocation(id));
+		// miniMap.showAt(self.getInitialLocation(id));
+		var points = [];
+		for(var id in self.objects) {
+			self.pushPoints(id, points);
+		}
+		if (points.length) {
+			var bounds = L.latLngBounds(points);
+			// miniMap.mapL.fitBounds(bounds);
+			setTimeout(function(){ miniMap.mapL.fitBounds(bounds); }, 50);
+		}
+
 		miniMap.bindMapClick(function(e){
 			var $radius = $('#editForm [name="radius"]');
 			if ($('#editForm select[name="_type"]').val() == 'circle') {
@@ -36,24 +54,34 @@ var GeoObjectsModel = function() {
 				} else {
 					self.dialog.hideFieldError($('span.type'));
 				}
-				$('#editForm [name="lat"]').val(e.latlng.lat);
-				$('#editForm [name="lon"]').val(e.latlng.lng);
-				self.miniMap.clearCircles();
-				self.miniMap.addCircle({id: 'edit-circle', lat: e.latlng.lat, lon: e.latlng.lng, radius: $radius.val()});
-				self.miniMap.showCircle('edit-circle');
-				/*
-				miniMap.addMarker({id: id + '-eventForm', lat: e.latlng.lat, lon: e.latlng.lng});
-				miniMap.showMarker(id + '-eventForm');
-				*/
+				if ($radius.val()) {
+					$('#editForm [name="lat"]').val(e.latlng.lat);
+					$('#editForm [name="lon"]').val(e.latlng.lng);
+					self.miniMap.clearCircles();
+					self.miniMap.addCircle({
+						id: 'edit-circle',
+						lat: e.latlng.lat,
+						lon: e.latlng.lng,
+						radius: $radius.val(),
+						color: $('[name="color"]').val()
+					});
+					self.miniMap.showCircle('edit-circle');
+
+					self.miniMap.clearMarkers();
+					var icon = self.getIcon($('[name="icon"]').val());
+					self.miniMap.addMarker({
+						id: 'edit-icon',
+						lat: e.latlng.lat,
+						lon: e.latlng.lng,
+						title: $('[name="name"]').val()
+					}, 'icon:' + icon);
+					self.miniMap.showMarker('edit-icon');
+				}
 			} else if ($('#editForm select[name="_type"]').val() == 'polygon') {
 				self.dialog.hideFieldError($('span.type'));
 				self.addMiniMapPoint(e.latlng);
 			}
-			
 		});
-		self.miniMap = miniMap;
-		self.miniMapPoints = [];
-		self.changeType();
 	};
 	
 	this.addMiniMapPoint = function(point) {
@@ -93,14 +121,15 @@ var GeoObjectsModel = function() {
 		$('.type').hide();
 		$('.type-' + type).show();
 		
-		self.miniMap.clearCircles();
 		self.miniMapPoints = [];
+		self.miniMap.clearMarkers();
+		self.miniMap.clearCircles();
 		self.miniMap.clearPolygons();
 	};
 	
 	this.save = function() {
 		if (self.isFormValid()) {
-			var data = $('#editForm').serialize();
+			// var data = $('#editForm').serialize();
 			self.dialog.close();
 			sendApiRequest('post.poi', data, function(){
 				self.dialog = new PopupInfo({
@@ -111,5 +140,49 @@ var GeoObjectsModel = function() {
 			});
 		}
 	};
-	
+
+	this.pushPoints = function(id, points) {
+		if (self.objects[id].type == 'circle') {
+			if (self.objects[id].lat && self.objects[id].lon && self.objects[id].radius) {
+				points.push({
+					lat: self.objects[id].lat - self.objects[id].radius / 10000,
+					lon: self.objects[id].lon - self.objects[id].radius / 10000
+				});
+				points.push({
+					lat: self.objects[id].lat + self.objects[id].radius / 10000,
+					lon: self.objects[id].lon + self.objects[id].radius / 10000
+				});
+			}
+		} else if (self.objects[id].type == 'polygon' && self.objects[id].points) {
+			for(var i = 0; i < self.objects[id].points.length; i++) {
+				if (self.objects[id].points[i].lat && self.objects[id].points[i].lon) {
+					points.push({lat: self.objects[id].points[i].lat, lon: self.objects[id].points[i].lon});
+				}
+			}
+		}
+	};
+
+	this.showObject = function(id, lShowMap) {
+		if (self.objects[id].type == 'circle') {
+			var icon = self.getIcon(self.objects[id].icon);
+			if (icon) {
+				map.showMarker(id + '-icon');
+			}
+			map.showCircle(id);
+		} else if (self.objects[id].type == 'polygon') {
+			map.showPolygon(id);
+		}
+	};
+
+	this.hideObject = function(id, lShowMap) {
+		if (self.objects[id].type == 'circle') {
+			map.hideCircle(id);
+			var icon = self.getIcon(self.objects[id].icon);
+			if (icon) {
+				map.hideMarker(id + '-icon');
+			}
+		} else if (self.objects[id].type == 'polygon') {
+			map.hidePolygon(id);
+		}
+	};
 };

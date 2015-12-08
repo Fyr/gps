@@ -77,11 +77,11 @@ var GeoObjectsPanel = function() {
 				map.showMarker(id + '-icon');
 			}
 			map.showCircle(id);
-		}else if (self.objects[id].type == 'polygon') {
+		} else if (self.objects[id].type == 'polygon') {
 			map.showPolygon(id);
 		}
 	};
-	
+
 	this.hideObject = function(id, lShowMap) {
 		if (self.objects[id].type == 'circle') {
 			map.hideCircle(id);
@@ -93,33 +93,11 @@ var GeoObjectsPanel = function() {
 			map.hidePolygon(id);
 		}
 	};
-	
+
 	this.clearObjects = function() {
 		map.clearCircles();
 		map.clearPolygons();
 		self.objects = {};
-	};
-
-	this.pushPoints = function(id, points) {
-		if (self.objects[id].type == 'circle') {
-			if (self.objects[id].lat && self.objects[id].lon && self.objects[id].radius) {
-				 points.push({
-					 lat: self.objects[id].lat - self.objects[id].radius / 10000,
-					 lon: self.objects[id].lon - self.objects[id].radius / 10000
-				 });
-				 points.push({
-					 lat: self.objects[id].lat + self.objects[id].radius / 10000,
-					 lon: self.objects[id].lon + self.objects[id].radius / 10000
-				 });
-			}
-		} else if (self.objects[id].type == 'polygon' && self.objects[id].points) {
-			for(var i = 0; i < self.objects[id].points.length; i++) {
-				if (self.objects[id].points[i].lat && self.objects[id].points[i].lon) {
-					points.push({lat: self.objects[id].points[i].lat, lon: self.objects[id].points[i].lon});
-				}
-			}
-
-		}
 	};
 
 	this.showMap = function() {
