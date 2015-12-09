@@ -88,7 +88,9 @@ var CalendarObjectsPanel = function() {
 	this.getObjectOptions = function() {
 		var options = {};
 		for(var id in self.objects) {
-			options[id] = self.objects[id].title;
+			if (!self.objects[id].isFolder) {
+				options[id] = self.objects[id].title;
+			}
 		}
 		return options;
 	};
@@ -96,7 +98,7 @@ var CalendarObjectsPanel = function() {
 	this.edit = function(id) {
 		var event = self.getEvent(id);
 		dialog = new Popup({
-			title: locale.createEvent,
+			title: (id) ? locale.recordEdit : locale.recordCreate,
 			content: Tmpl('popup-event-edit').render({objectOptions: self.getObjectOptions(), event: event})
 		});
 		dialog.open();

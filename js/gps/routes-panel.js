@@ -217,7 +217,7 @@ var ObjectRoutesPanel = function() {
 			var _date = '', _showDate = '';
 			for(var n = 0; n < data[j].points.length; n++) {
 				var _data = data[j].points[n];
-				var dt = Date.fromSqlDate(_data.period.replace(/T/, ''));
+				var dt = Date.fromSqlDate(_data.period.replace(/T/, ' '));
 				
 				xItems.push((_date !== dt.fullDate('rus') ? dt.fullDate('rus') : '') + ' ' + dt.hoursMinutes('rus'));
 				s_data.push(_data.data);
