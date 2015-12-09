@@ -18,6 +18,10 @@ var MapAPI = function(canvas) {
 		layers[locale.layersTransport] = L.tileLayer('http://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png', {id: 'mapbox.transport'});
 		layers[locale.layersCycle] = L.tileLayer('http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png', {id: 'mapbox.cycle'});
 		layers[locale.layersHumanitarian] = L.tileLayer('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {id: 'mapbox.humanitarian'});
+		layers['Google'] = new L.Google();
+		layers['Google Terrain'] = new L.Google('TERRAIN');
+		layers['Google'] = new L.Google();
+		layers['Yandex'] = new L.Yandex();
 		self.mapL = L.map(canvas, {
 			center: [0, 0],
 			zoom: 16,

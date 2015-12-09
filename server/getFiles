@@ -1,1 +1,20 @@
-{"status": "OK", "data": [{"name":"name1","guid":"url1"},{"name":"name2","guid":"url2"},{"name":"name3","guid":"url3"}]}
+{
+	"status": "OK",
+	"data": [
+		{
+			"name": "PDF файл",
+			"guid": "4b71b64d-7e2a-11e5-9f90-00155dbb7703",
+			"type": "help"
+		},
+		{
+			"name": "Порядок оказания услуги",
+			"guid": "09a636f1-9d86-11e5-b23b-00155dbb7703",
+			"type": "doc"
+		},
+		{
+			"name": "Мобильное приложение",
+			"guid": "1919ee6e-9d90-11e5-b23b-00155dbb7703",
+			"type": "doc"
+		}
+	]
+}

@@ -65,22 +65,23 @@ $(function(){
 			});
 		});
 		
-		sendApiRequest('getFiles', {type: 'help'}, function(response) {
-			$('.instructionsBlock .description').html(Tmpl('docs').render(response.data));
+		sendApiRequest('getFiles', null, function(response) {
+			var data = {help: [], doc: []};
+			for(var i = 0; i < response.data.length; i++) {
+				var row = response.data[i];
+				data[row.type].push(row);
+			}
+			$('.instructionsBlock .description').html(Tmpl('docs').render(data.help));
 			niceScroller('.instructionsBlock .description');
+
+			$('.docsBlock .description').html(Tmpl('docs').render(data.doc));
+			niceScroller('.docsBlock .description');
 		});
 		
 		sendApiRequest('getBilling', null, function(response) {
 			$('.billingBlock .description').html(response.data);
 		});
-		
-		sendApiRequest('getFiles', {type: 'docs'}, function(response) {
-			if (response.data) {
-				$('.docsBlock .description').html(Tmpl('docs').render(response.data));
-				niceScroller('.docsBlock .description');
-			}
-		});
-		
+
 		sendApiRequest('favorites', null, function(response) {
 			if (response.data) {
 				$('.favorites').click(function(){
