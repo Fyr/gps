@@ -100,8 +100,8 @@ var MapAPI = function(canvas) {
 	};
 	
 	this.addLine = function(obj) {
-		var i = Object.keys(self.lines).length;
-		self.lines[obj.id] = L.polyline(obj.latlons, {color: self.colors[i], weight: 3});
+		// var i = Object.keys(self.lines).length;
+		self.lines[obj.id] = L.polyline(obj.latlons, {color: '#000', weight: 3});
 	};
 	
 	this.getLine = function(id) {
