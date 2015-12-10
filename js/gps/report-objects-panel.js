@@ -32,7 +32,7 @@ var ReportObjectsPanel = function() {
 	
 	this.submitReportForm = function() {
 		$('#map-canvas').hide();
-		var params = {};
+		var params = {monitoringObject: self.getCheckedIds()};
 		$('#reportForm input, #reportForm select').each(function(){
 			params[this.name] = this.value;
 		});
