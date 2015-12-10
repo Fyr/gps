@@ -54,7 +54,8 @@
 	<div id="minimap-canvas" style="margin: 5px 0 10px 0; height: 200px;"></div>
 	<input type="hidden" name="lat" value="" />
 	<input type="hidden" name="lon" value="" />
+	<input type="hidden" name="parent" value="00000000-0000-0000-0000-000000000000" />
 	<div class="popup-actions">
-		<button type="button" class="btn" onclick="objectsPanel.save()">Сохранить</button>
+		<button type="button" class="btn" onclick="objectsPanel.save('{%=o.id%}')">Сохранить</button>
 	</div>
 </form>

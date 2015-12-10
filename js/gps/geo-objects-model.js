@@ -127,14 +127,14 @@ var GeoObjectsModel = function() {
 		self.miniMap.clearPolygons();
 	};
 	
-	this.save = function() {
+	this.save = function(id) {
 		if (self.isFormValid()) {
-			// var data = $('#editForm').serialize();
+			var data = json_encode($('#editForm').serializeObject());
 			self.dialog.close();
-			sendApiRequest('post.poi', data, function(){
+			sendApiRequest(id ? 'put.poi?guid=' + id : 'post.poi', data, function(){
 				self.dialog = new PopupInfo({
-					title: locale.addObject, 
-					text: locale.geoObjectCreated
+					title: id ? locale.recordEdit : locale.addObject,
+					text: id ? locale.recordSaved : locale.geoObjectCreated
 				});
 				self.dialog.open();
 			});
