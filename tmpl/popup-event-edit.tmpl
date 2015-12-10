@@ -4,8 +4,9 @@
 		<select name="monitoringObject">
 {%
 	for(var val in o.objectOptions) {
+		var selected = (o.event && o.event.monitoringObject == val) ? 'selected="selected"' : '';
 %}
-			<option value="{%=val%}">{%=o.objectOptions[val]%}</option>
+			<option value="{%=val%}" {%=selected%}>{%=o.objectOptions[val]%}</option>
 {%
 	}
 %}
@@ -23,27 +24,38 @@
 	date.setMinutes(0);
 	date.setSeconds(0);
 %}
-		c &nbsp;&nbsp;&nbsp;<input type="text" class="rome-datetime" name="start" value="{%=(o.event ? o.event.start : date.toSqlDateTime()).replace(/\:00$/, '')%}" style="width: 100px" />
+		c &nbsp;&nbsp;&nbsp;<input type="text" class="rome-datetime" name="beginOfPeriod" value="{%=(o.event ? o.event.start : date.toSqlDateTime()).replace(/\:00$/, '')%}" style="width: 100px" />
 	</div>
 	<div class="line">
 		<label>&nbsp;</label>
 {%
 	date.setHours(18);
 %}
-		по <input type="text" class="rome-datetime" name="end" value="{%=(o.event ? o.event.end : date.toSqlDateTime()).replace(/\:00$/, '')%}" style="width: 100px" />
+		по <input type="text" class="rome-datetime" name="endOfPeriod" value="{%=(o.event ? o.event.end : date.toSqlDateTime()).replace(/\:00$/, '')%}" style="width: 100px" />
 	</div>
 	<div class="line">
 		<label>Описание:</label>
 		<textarea name="description" style="height: 50px">{%=(o.event ? o.event.description : '')%}</textarea>
+	</div>
+	<div class="line">
+		<label>Адрес:</label>
+		<textarea name="location[address]" style="height: 50px">{%=(o.event ? o.event.location.address : '')%}</textarea>
 	</div>
 	Кликните по карте или введите адрес чтобы задать местоположение события
 	<span>
 		<input type="text" id="q" style="width: 350px">
 	</span>
 	<div id="minimap-canvas" style="margin: 5px 0 10px 0; height: 200px;"></div>
-	<input type="hidden" name="location[lat]" value="" />
-	<input type="hidden" name="location[lon]" value="" />
+	<input type="hidden" name="location[lat]" value="{%=(o.event ? o.event.location.lat : 0)%}" />
+	<input type="hidden" name="location[lon]" value="{%=(o.event ? o.event.location.lon : 0)%}" />
 	<div class="popup-actions">
-		<button type="button" class="btn" onclick="objectsPanel.saveEvent()">Сохранить</button>
+		<button type="button" class="btn" onclick="objectsPanel.saveEvent('{%=(o.event ? o.event.guid : null)%}')">Сохранить</button>
+{%
+	if (o.event) {
+%}
+		<button type="button" class="btn" onclick="objectsPanel.removeEvent('{%=(o.event ? o.event.guid : null)%}')">Удалить</button>
+{%
+	}
+%}
 	</div>
 </form>

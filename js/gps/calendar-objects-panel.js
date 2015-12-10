@@ -51,9 +51,12 @@ var CalendarObjectsPanel = function() {
 			for(var i = 0; i < data.length; i++) {
 				var event = data[i];
 				event.id = data[i].guid;
+				event.monitoringObject = objects[j].monitoringObject;
 				event.title = data[i].summary;
 				event.start = data[i].beginOfPeriod.replace(/T/, ' ');
 				event.end = data[i].endOfPeriod.replace(/T/, ' ');
+				event.beginOfPeriod = data[i].beginOfPeriod.replace(/T/, ' ');
+				event.endOfPeriod = data[i].endOfPeriod.replace(/T/, ' ');
 				event.statusName = self.getStatusName(event.status);
 				self.events[data[i].status].push(event);
 				self.allEvents[event.id] = event;
@@ -111,6 +114,7 @@ var CalendarObjectsPanel = function() {
 		} else {
 			miniMap.showAt(self.getInitialLocation());
 		}
+
 		miniMap.bindMapClick(function(e){
 			$('#eventForm [name="location[lat]"]').val(e.latlng.lat);
 			$('#eventForm [name="location[lon]"]').val(e.latlng.lng);
@@ -118,7 +122,7 @@ var CalendarObjectsPanel = function() {
 			miniMap.addMarker({id: id + '-eventForm', lat: e.latlng.lat, lon: e.latlng.lng});
 			miniMap.showMarker(id + '-eventForm');
 		});
-		
+
 		self.miniMap = miniMap;
 		
 		// extra handlers for popup inputs
@@ -131,7 +135,7 @@ var CalendarObjectsPanel = function() {
 			minChars: 3,
 			delay: 500,
 			source: function(q, callGetItems){
-				sendApiRequest('getLocation', {adress: q}, function(response){
+				sendApiRequest('getLocation', {q: q, format: 'json'}, function(response){
 					var suggestions = [];
 					for (var i = 0; i < response.data.length; i++) { 
 						var marker = response.data[i];
@@ -173,12 +177,12 @@ var CalendarObjectsPanel = function() {
 			self.dialog.showFieldError($summary, locale.errBlankField);
 		}
 		
-		var $start = $('#eventForm [name="start"]');
+		var $start = $('#eventForm [name="beginOfPeriod"]');
 		if (!$start.val()) {
 			self.dialog.showFieldError($start, locale.errBlankField);
 		}
 		
-		var $end = $('#eventForm [name="end"]');
+		var $end = $('#eventForm [name="endOfPeriod"]');
 		if (!$end.val()) {
 			self.dialog.showFieldError($end, locale.errBlankField);
 		}
@@ -190,20 +194,34 @@ var CalendarObjectsPanel = function() {
 		return !$('#eventForm .error').length;
 	};
 	
-	this.saveEvent = function() {
+	this.saveEvent = function(id) {
 		if (self.isFormValid()) {
-			var data = $('#eventForm').serialize();
+			$('#eventForm .rome-datetime').each(function(){
+				$(this).val($(this).val().replace(/\s/, 'T'));
+			});
+			var data =json_encode($('#eventForm').serializeObject());
 			self.dialog.close();
-			sendApiRequest('post.events', data, function(){
+			sendApiRequest((id) ? 'put.events?guid=' + id : 'post.events', data, function(){
 				self.dialog = new PopupInfo({
-					title: locale.createEvent, 
-					text: locale.eventCreated
+					title: id ? locale.recordEdit : locale.createEvent,
+					text: id ? locale.recordSaved : locale.eventCreated,
 				});
 				self.dialog.open();
 			});
 		}
 	};
-	
+
+	this.removeEvent = function(id) {
+		self.dialog.close();
+		sendApiRequest('delete.events?guid=' + id, null, function(){
+			self.dialog = new PopupInfo({
+				title: locale.recordDelete,
+				text:locale.recordRemoved,
+			});
+			self.dialog.open();
+		});
+	};
+
 	this.fixPanelHeight = function() {
 		
 	};

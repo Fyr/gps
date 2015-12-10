@@ -32,8 +32,9 @@ var locale = {
 	mailingSaved: 'Рассылка успешно сохранена',
 	recordCreate: 'Новая запись',
 	recordEdit: 'Редактировать запись',
-	recordDelete: 'Редактировать запись',
 	recordSaved: 'Запись успешно сохранена',
+	recordDelete: 'Удалить запись',
+	recordRemoved: 'Запись удалена',
 	
 	radiusRequired: 'Вы должны задать радиус зоны',
 	geoObjectCreated: 'Геозона успешно создана',

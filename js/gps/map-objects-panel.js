@@ -385,6 +385,6 @@ var MapObjectsPanel = function() {
 		if (self.objects[id].lat && self.objects[id].lon) {
 			return {lat: self.objects[id].lat, lon: self.objects[id].lon};
 		}
-		return {lat: 0, lon: 0}; // default location
+		return {lat: 53.902482, lon: 27.561553}; // default location
 	};
 };
