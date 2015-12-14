@@ -3,7 +3,7 @@ var MapObjectsModel = function() {
 	
 	this.setObjectSettings = function(nextFn) {
 		sendApiRequest('getDataForSelect', null, function(response){
-			self.settings = {users: [], iconsAll: {}, iconsPoi: {}, iconsObjects: {}};
+			self.settings = {users: [], iconsAll: {}, iconsPoi: {}, iconsObjects: {}, protocols: {}, models: {}};
 			for(var i = 0; i < response.data.users.length; i++) {
 				var row = response.data.users[i];
 				self.settings.users.push({name: row.name, guid: row.guid}) ;
@@ -18,6 +18,15 @@ var MapObjectsModel = function() {
 				self.settings.iconsPoi[row.guid] = row.name;
 				self.settings.iconsAll[row.guid] = row.name;
 			}
+			for(var i = 0; i < response.data.protocols.length; i++) {
+				var row = response.data.protocols[i];
+				self.settings.protocols[row.guid] = row.name;
+			}
+			for(var i = 0; i < response.data.models.length; i++) {
+				var row = response.data.models[i];
+				self.settings.models[row.guid] = row.name;
+			}
+
 			if (nextFn) {
 				nextFn();
 			}
@@ -67,14 +76,16 @@ var MapObjectsModel = function() {
 		}
 	};
 	
-	this.save = function() {
+	this.save = function(id) {
 		if (self.isFormValid()) {
+			var data = $('#editForm').serializeObject();
+			data.isFolder = false;
+			data = json_encode(data);
 			self.dialog.close();
-			var params = $('#editForm').serialize();
-			sendApiRequest('post.monitoringObjects', params, function(){
+			sendApiRequest((id) ? 'put.monitoringObjects?guid=' + id : 'post.monitoringObjects', data, function(){
 				self.dialog = new PopupInfo({
-					title: locale.addObject, 
-					text: locale.objectCreated
+					title: id ? locale.recordEdit : locale.addObject,
+					text: id ? locale.recordSaved : locale.objectCreated,
 				});
 				self.dialog.open();
 			});

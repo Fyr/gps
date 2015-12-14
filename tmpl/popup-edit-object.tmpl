@@ -11,6 +11,34 @@
 		<input type="text" name="imei" value="{%=(_item && _item.imei)%}" />
 	</div>
 	<div class="line">
+		<label>SimCard:</label>
+		<input type="text" name="simCard" value="{%=(_item && _item.imei)%}" />
+	</div>
+	<div class="line">
+		<label>Протокол:</label>
+		<select class="styler" name="protocol">
+{%
+	for(var id in o.settings.protocols) {
+%}
+		<option value="{%=id%}">{%=o.settings.protocols[id]%}</option>
+{%
+	}
+%}
+		</select>
+	</div>
+		<div class="line">
+    		<label>Модель:</label>
+    		<select class="styler" name="model">
+    {%
+    	for(var id in o.settings.models) {
+    %}
+    		<option value="{%=id%}">{%=o.settings.models[id]%}</option>
+    {%
+    	}
+    %}
+    		</select>
+    	</div>
+	<div class="line">
 		<label>Иконка:</label>
 		<select class="noStyler iconsSelect" name="icon">
 {%
@@ -41,6 +69,7 @@
 		</div>
 	</div>
 	<div class="popup-actions">
-		<button type="button" class="btn" onclick="objectsPanel.save()">Сохранить</button>
+		<button type="button" class="btn" onclick="objectsPanel.save('{%=o.id%}')">Сохранить</button>
 	</div>
+	<!-- input type="hidden" name="isFolder" value="0" /-->
 </form>
